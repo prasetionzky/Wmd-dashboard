@@ -1965,31 +1965,30 @@
         });
     }
 
-    // === FITUR SIMPAN OTOMATIS KE FIREBASE (AUTO-SYNC) ===
     let cloudSyncTimer = null;
-    function triggerAutoCloudSync() {
-        if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
-        // Delay diperpanjang menjadi 15 detik agar push tidak membombardir database dan membuat lemot
-        cloudSyncTimer = setTimeout(() => {
-            let payload = {
-                databaseUser,
-                verifiedTransactions,
-                verifiedComparatorTh2,
-                verifiedComparatorSr,
-                catatanTanggalAdmin,
-                globalDataTransaksi,
-                activityLogs,
-                aboutInfo,
-                lastSynced: new Date().toISOString()
-            };
-            cloudDb.push(payload).then(() => {
-                let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-                updateCloudStatusUI('connected', `Auto-Sync ${nowTime}`);
-            }).catch((err) => {
-                updateCloudStatusUI('offline', 'Auto-Sync Gagal');
-            });
-        }, 15000);
-    }
+let isCurrentlySyncing = false; // Flag tambahan
+
+function triggerAutoCloudSync() {
+    if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
+
+    cloudSyncTimer = setTimeout(() => {
+        if (isCurrentlySyncing) return; // Mencegah bentrok proses
+        isCurrentlySyncing = true;
+        updateCloudStatusUI('syncing', 'Auto-Sync Berjalan...');
+
+        let payload = {
+            databaseUser,
+            verifiedTransactions,
+            verifiedComparatorTh2,
+            verifiedComparatorSr,
+            catatanTanggalAdmin,
+            globalDataTransaksi,
+            activityLogs,
+            aboutInfo,
+            lastSynced: new Date().toISOString()
+        };Silakan kirimkan atau tempel (*paste*) terlebih dahulu kode yang Anda maksud. 
+
+
 
     function saveToIndexedDB() {
         if (!dbInstance) return;
@@ -2044,57 +2043,60 @@
     }
 
     function loadDataFromCloudServer() {
-        updateCloudStatusUI('syncing', 'Menghubungkan ke Cloud...');
-        
-        let timeoutTriggered = false;
-        let timer = setTimeout(() => {
-            timeoutTriggered = true;
-            updateCloudStatusUI('offline', 'Koneksi Cloud Terputus (Offline)');
-            showToast("Server online siap (Waktu tunggu tercapai).", "warning");
-        }, 5000);
+    updateCloudStatusUI('syncing', 'Menghubungkan ke Cloud...');
 
-        // Membaca hanya 1 data terakhir (yang paling baru di-push) agar query super cepat dan anti lemot
-        cloudDb.orderByKey().limitToLast(1).once('value').then((snapshot) => {
-            if (timeoutTriggered) return;
-            clearTimeout(timer);
-            
-            let data = null;
-            snapshot.forEach((childSnapshot) => {
-                data = childSnapshot.val();
-            });
+    // Pendekatan menggunakan 'once' yang lebih bersih tanpa timeout paksa
+    cloudDb.orderByKey().limitToLast(1).once('value')
+    .then((snapshot) => {
+        let data = null;
+        snapshot.forEach((childSnapshot) => {
+            data = childSnapshot.val();
+        });
 
-            let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
-            if (data) {
-                if (data.databaseUser) databaseUser = data.databaseUser;
-                if (data.verifiedTransactions) verifiedTransactions = data.verifiedTransactions;
-                if (data.verifiedComparatorTh2) verifiedComparatorTh2 = data.verifiedComparatorTh2;
-                if (data.verifiedComparatorSr) verifiedComparatorSr = data.verifiedComparatorSr;
-                if (data.catatanTanggalAdmin) catatanTanggalAdmin = data.catatanTanggalAdmin;
-                if (data.globalDataTransaksi) globalDataTransaksi = data.globalDataTransaksi;
-                if (data.activityLogs) activityLogs = data.activityLogs;
-                if (data.aboutInfo) { aboutInfo = data.aboutInfo; if(typeof renderAboutContent === 'function') renderAboutContent(); }
-                
+        if (data) {
+            // Pastikan fallback ke array/object kosong jika null
+            databaseUser = data.databaseUser || {};
+            verifiedTransactions = data.verifiedTransactions || [];
+            verifiedComparatorTh2 = data.verifiedComparatorTh2 || [];
+            verifiedComparatorSr = data.verifiedComparatorSr || [];
+            catatanTanggalAdmin = data.catatanTanggalAdmin || {};
+            globalDataTransaksi = data.globalDataTransaksi || [];
+            activityLogs = data.activityLogs || [];
+
+            if (data.aboutInfo) { 
+                aboutInfo = data.aboutInfo; 
+                if(typeof renderAboutContent === 'function') renderAboutContent(); 
+            }
+
+            // Eksekusi fungsi render dengan pengecekan aman
+            try {
                 if(typeof renderTabelUser === 'function') renderTabelUser();
                 if(typeof renderLogAktivitas === 'function') renderLogAktivitas();
                 if(typeof updateMemoryStatus === 'function') updateMemoryStatus();
                 if(typeof updateToolsUnverUserDropdown === 'function') updateToolsUnverUserDropdown();
-                if (globalDataTransaksi && globalDataTransaksi.length > 0) {
-                    if(typeof renderTombolKendaraan === 'function') renderTombolKendaraan();
+                if (globalDataTransaksi.length > 0 && typeof renderTombolKendaraan === 'function') {
+                    renderTombolKendaraan();
                 }
                 if(typeof hitungBebanStorageBrowser === 'function') hitungBebanStorageBrowser();
-                updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
-                if(typeof showToast === 'function') showToast("Data berhasil dimuat dari Server Online (Cloud Sync)!", "success");
-            } else {
-                updateCloudStatusUI('connected', `Cloud Aktif (${nowTime})`);
+            } catch (e) {
+                console.warn("Gagal merender beberapa elemen setelah load Firebase", e);
             }
-        }).catch((error) => {
-            if (timeoutTriggered) return;
-            clearTimeout(timer);
-            updateCloudStatusUI('offline', 'Koneksi Cloud Terputus');
-            if(typeof showToast === 'function') showToast("Gagal terhubung ke server cloud.", "danger");
-        });
-    }
+
+            updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
+            if(typeof showToast === 'function') showToast("Data cloud siap digunakan.", "success");
+        } else {
+            updateCloudStatusUI('connected', `Cloud Aktif (Data Kosong)`);
+        }
+    })
+    .catch((error) => {
+        console.error("Gagal menarik data Firebase:", error);
+        updateCloudStatusUI('offline', 'Gagal Terhubung');
+        if(typeof showToast === 'function') showToast("Firebase error: " + error.message, "danger");
+    });
+}
+
 
     function transferDataKeServerOnline() {
         showLoading("Sedang mentransfer data ke server online (Cloud Sync)...");
