@@ -1976,6 +1976,17 @@ function triggerAutoCloudSync() {
         isCurrentlySyncing = true;
         updateCloudStatusUI('syncing', 'Auto-Sync Berjalan...');
 
+        let cloudSyncTimer = null;
+let isCurrentlySyncing = false;
+
+function triggerAutoCloudSync() {
+    if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
+
+    cloudSyncTimer = setTimeout(() => {
+        if (isCurrentlySyncing) return;
+        isCurrentlySyncing = true;
+        updateCloudStatusUI('syncing', 'Auto-Sync Berjalan...');
+
         let payload = {
             databaseUser,
             verifiedTransactions,
@@ -1986,7 +1997,19 @@ function triggerAutoCloudSync() {
             activityLogs,
             aboutInfo,
             lastSynced: new Date().toISOString()
-        };Silakan kirimkan atau tempel (*paste*) terlebih dahulu kode yang Anda maksud. 
+        };
+
+        cloudDb.push(payload).then(() => {
+            let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            updateCloudStatusUI('connected', `Auto-Sync ${nowTime}`);
+        }).catch((err) => {
+            updateCloudStatusUI('offline', 'Auto-Sync Gagal');
+        }).finally(() => {
+            isCurrentlySyncing = false;
+        });
+    }, 15000);
+}
+
 
 
 
@@ -2204,28 +2227,19 @@ function triggerAutoCloudSync() {
     }
 
 // Panggil otomatis saat dokumen selesai dimuat
-document.addEventListener('DOMContentLoaded', () => {
-    if (typeof initIndexedDB === 'function') {
-        initIndexedDB().then(() => {
-            if (typeof loadFromIndexedDB === 'function') {
-                loadFromIndexedDB().then(() => {
-                    if (typeof CloudServer === 'function') {
-                        loadDataFromCloudServer();
-                    }
-                });
-            } else if (typeof loadDataFromCloudServer === 'function') {
-                loadDataFromCloudServer();
-            }
-        }).catch(err => {
-            console.error("Gagal inisialisasi IndexedDB:", err);
-            if (typeof loadDataFromCloudServer === 'function') {
-                loadDataFromCloudServer();
-            }
-        });
-    } else if (typeof loadDataFromCloudServer === 'function') {
-        loadDataFromCloudServer();
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        if (typeof initIndexedDB === 'function') await initIndexedDB();
+        if (typeof loadFromIndexedDB === 'function') await loadFromIndexedDB();
+    } catch (err) {
+        console.error("Gagal inisialisasi IndexedDB:", err);
+    } finally {
+        if (typeof loadDataFromCloudServer === 'function') {
+            loadDataFromCloudServer();
+        }
     }
 });
+
 
 
 </script>
