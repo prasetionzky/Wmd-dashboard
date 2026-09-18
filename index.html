@@ -2044,8 +2044,7 @@ function triggerAutoCloudSync() {
 
     function loadDataFromCloudServer() {
     updateCloudStatusUI('syncing', 'Menghubungkan ke Cloud...');
-
-    // Pendekatan menggunakan 'once' yang lebih bersih tanpa timeout paksa
+    
     cloudDb.orderByKey().limitToLast(1).once('value')
     .then((snapshot) => {
         let data = null;
@@ -2056,7 +2055,6 @@ function triggerAutoCloudSync() {
         let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
         if (data) {
-            // Pastikan fallback ke array/object kosong jika null
             databaseUser = data.databaseUser || {};
             verifiedTransactions = data.verifiedTransactions || [];
             verifiedComparatorTh2 = data.verifiedComparatorTh2 || [];
@@ -2064,36 +2062,23 @@ function triggerAutoCloudSync() {
             catatanTanggalAdmin = data.catatanTanggalAdmin || {};
             globalDataTransaksi = data.globalDataTransaksi || [];
             activityLogs = data.activityLogs || [];
+            if (data.aboutInfo) aboutInfo = data.aboutInfo;
 
-            if (data.aboutInfo) { 
-                aboutInfo = data.aboutInfo; 
-                if(typeof renderAboutContent === 'function') renderAboutContent(); 
-            }
-
-            // Eksekusi fungsi render dengan pengecekan aman
-            try {
-                if(typeof renderTabelUser === 'function') renderTabelUser();
-                if(typeof renderLogAktivitas === 'function') renderLogAktivitas();
-                if(typeof updateMemoryStatus === 'function') updateMemoryStatus();
-                if(typeof updateToolsUnverUserDropdown === 'function') updateToolsUnverUserDropdown();
-                if (globalDataTransaksi.length > 0 && typeof renderTombolKendaraan === 'function') {
-                    renderTombolKendaraan();
-                }
-                if(typeof hitungBebanStorageBrowser === 'function') hitungBebanStorageBrowser();
-            } catch (e) {
-                console.warn("Gagal merender beberapa elemen setelah load Firebase", e);
-            }
-
-            updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
-            if(typeof showToast === 'function') showToast("Data cloud siap digunakan.", "success");
-        } else {
-            updateCloudStatusUI('connected', `Cloud Aktif (Data Kosong)`);
+            // Isolasi setiap render UI agar kesalahan satu komponen tidak menghentikan pembaruan indikator
+            try { if (typeof renderTabelUser === 'function') renderTabelUser(); } catch(e) { console.warn(e); }
+            try { if (typeof renderLogAktivitas === 'function') renderLogAktivitas(); } catch(e) { console.warn(e); }
+            try { if (typeof updateMemoryStatus === 'function') updateMemoryStatus(); } catch(e) { console.warn(e); }
+            try { if (typeof updateToolsUnverUserDropdown === 'function') updateToolsUnverUserDropdown(); } catch(e) { console.warn(e); }
+            try { if (typeof renderTombolKendaraan === 'function') renderTombolKendaraan(); } catch(e) { console.warn(e); }
+            try { if (typeof hitungBebanStorageBrowser === 'function') hitungBebanStorageBrowser(); } catch(e) { console.warn(e); }
         }
+
+        // Indikator status selalu diperbarui menjadi terhubung
+        updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
     })
     .catch((error) => {
-        console.error("Gagal menarik data Firebase:", error);
-        updateCloudStatusUI('offline', 'Gagal Terhubung');
-        if(typeof showToast === 'function') showToast("Firebase error: " + error.message, "danger");
+        console.error("Gagal koneksi Firebase:", error);
+        updateCloudStatusUI('offline', 'Koneksi Cloud Gagal');
     });
 }
 
@@ -2217,6 +2202,32 @@ function triggerAutoCloudSync() {
         showToast("Form input upload berhasil di-reset bersih.", "success");
         if(typeof catatLogAktivitas === 'function') catatLogAktivitas("Quick Reset form input upload file di Menu 1");
     }
+
+// Panggil otomatis saat dokumen selesai dimuat
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof initIndexedDB === 'function') {
+        initIndexedDB().then(() => {
+            if (typeof loadFromIndexedDB === 'function') {
+                loadFromIndexedDB().then(() => {
+                    if (typeof CloudServer === 'function') {
+                        loadDataFromCloudServer();
+                    }
+                });
+            } else if (typeof loadDataFromCloudServer === 'function') {
+                loadDataFromCloudServer();
+            }
+        }).catch(err => {
+            console.error("Gagal inisialisasi IndexedDB:", err);
+            if (typeof loadDataFromCloudServer === 'function') {
+                loadDataFromCloudServer();
+            }
+        });
+    } else if (typeof loadDataFromCloudServer === 'function') {
+        loadDataFromCloudServer();
+    }
+});
+
+
 </script>
 </body>
 </html>
