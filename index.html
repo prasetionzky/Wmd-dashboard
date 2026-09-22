@@ -1881,7 +1881,7 @@
 
         <div class="card" style="border-left: 4px solid var(--warning);">
             <div class="card-header">
-                <h2 style="color: var(--warning);">Unverifikasi Spesifik (Tools)</h2>
+                <h2>Unverifikasi Spesifik (Tools)</h2>
                 <p class="card-desc">Pilih kelas, petugas, dan tanggal tertentu untuk mengembalikan data terverifikasi ke status belum verif secara presisi.</p>
             </div>
             <div style="display: flex; gap: 12px; flex-direction: column;">
@@ -4425,7 +4425,7 @@
         renderLaporanQuantity();
     }
 
-    // === LOGIKA MENU 5: Voucher Monthly Report (MOBILBKEL + MOBILVCMAN + MOBILVBENG) ===
+    // === LOGIKA MENU 5: Voucher Monthly Report (MOBILBKEL + MOBILVCMAN + MOBILVBENG) + DETAIL HARIAN ===
     function renderLaporanQuantity() {
         let mode = document.getElementById('qtyFilterMode').value;
         let startMonth = document.getElementById('qtyStartMonth').value;
@@ -4489,6 +4489,7 @@
             let vcman = monthlyMap[m].MOBILVCMAN;
             let vbeng = monthlyMap[m].MOBILVBENG;
             let rowTotal = bkel + vcman + vbeng;
+            let rowId = `m5-${idx}`;
 
             // Format label bulan dari YYYY-MM menjadi lebih readable misal: Maret 2026
             let [y, mm] = m.split('-');
@@ -4498,11 +4499,21 @@
             tbody.innerHTML += `
                 <tr>
                     <td style="text-align: center;">${idx + 1}</td>
-                    <td><b>${monthName} (${m})</b></td>
+                    <td>
+                        <strong>${monthName} (${m})</strong>
+                        <button class="btn-secondary" style="font-size: 11px; padding: 2px 8px; margin-left: 8px;" onclick="toggleDetailHariMenu5('${m}', '${rowId}')">
+                            🔍 Detail Harian
+                        </button>
+                    </td>
                     <td class="text-right">${bkel}</td>
                     <td class="text-right">${vcman}</td>
                     <td class="text-right">${vbeng}</td>
                     <td class="text-right"><b>${rowTotal}</b></td>
+                </tr>
+                <tr id="detail-row-${rowId}" style="display: none;">
+                    <td colspan="6" style="padding: 0 10px 10px 10px; background: var(--bg-main);">
+                        <div id="detail-container-${rowId}"></div>
+                    </td>
                 </tr>
             `;
         });
@@ -4513,6 +4524,125 @@
         }
 
         renderVoucherMonthlyChart(monthlyMap, sortedMonths);
+    }
+
+    // Fungsi render detail quantity per hari untuk baris expandable Menu 5
+    function renderDetailQuantityPerHari(targetMonth, containerId) {
+        let container = document.getElementById(containerId);
+        if (!container) return;
+
+        let relevantClasses = ["MOBILBKEL", "MOBILVCMAN", "MOBILVBENG"];
+        let dailyData = {};
+
+        verifiedTransactions.forEach(idTrans => {
+            let item = globalDataTransaksi.find(tr => tr.id === idTrans);
+            if (!item) return;
+
+            let itemClass = String(item.jenisKendaraan || "").toUpperCase();
+            if (!relevantClasses.includes(itemClass)) return;
+
+            let rawDate = item.rawDate || "";
+            if (!rawDate && item.tanggal) {
+                let p = item.tanggal.split('/');
+                if (p.length === 3) rawDate = `${p[2]}-${p[1]}-${p[0]}`;
+            }
+            if (!rawDate) return;
+
+            let yearMonth = rawDate.slice(0, 7); // Format: YYYY-MM
+            let dayDate = rawDate;              // Format: YYYY-MM-DD
+
+            if (yearMonth === targetMonth) {
+                if (!dailyData[dayDate]) {
+                    dailyData[dayDate] = { MOBILBKEL: 0, MOBILVCMAN: 0, MOBILVBENG: 0, total: 0 };
+                }
+                let qty = hitungJumlahDinamis(item.jenisKendaraan, item.lamaParkir);
+                dailyData[dayDate][itemClass] = (dailyData[dayDate][itemClass] || 0) + qty;
+                dailyData[dayDate].total += qty;
+            }
+        });
+
+        let sortedDays = Object.keys(dailyData).sort();
+
+        if (sortedDays.length === 0) {
+            container.innerHTML = `
+                <div style="padding: 12px; text-align: center; color: var(--text-muted); font-style: italic;">
+                    Tidak ada detail data harian terverifikasi untuk periode ${targetMonth}.
+                </div>`;
+            return;
+        }
+
+        let html = `
+            <div style="margin-top: 10px; padding: 12px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm);">
+                <h4 style="margin: 0 0 10px 0; font-size: 13px; color: var(--primary);">
+                    📅 Detail Kuantitas Harian Periode: <strong>${targetMonth}</strong>
+                </h4>
+                <div class="table-responsive" style="max-height: 280px; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr style="background: var(--bg-main);">
+                                <th style="width: 40px; text-align: center;">No</th>
+                                <th>Tanggal Harian</th>
+                                <th class="text-right">MOBILBKEL</th>
+                                <th class="text-right">MOBILVCMAN</th>
+                                <th class="text-right">MOBILVBENG</th>
+                                <th class="text-right">Total Harian</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+        let grandBkel = 0, grandVcman = 0, grandVbeng = 0, grandTotal = 0;
+
+        sortedDays.forEach((day, index) => {
+            let row = dailyData[day];
+            grandBkel += row.MOBILBKEL;
+            grandVcman += row.MOBILVCMAN;
+            grandVbeng += row.MOBILVBENG;
+            grandTotal += row.total;
+
+            let parts = day.split('-');
+            let formattedDayStr = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : day;
+
+            html += `
+                <tr>
+                    <td style="text-align: center;">${index + 1}</td>
+                    <td><strong>${formattedDayStr}</strong> (${day})</td>
+                    <td class="text-right">${row.MOBILBKEL || 0}</td>
+                    <td class="text-right">${row.MOBILVCMAN || 0}</td>
+                    <td class="text-right">${row.MOBILVBENG || 0}</td>
+                    <td class="text-right" style="font-weight: 600; color: var(--primary);">${row.total}</td>
+                </tr>`;
+        });
+
+        html += `
+                        </tbody>
+                        <tfoot>
+                            <tr style="font-weight: bold; background: var(--bg-main);">
+                                <td colspan="2" style="text-align: right; padding-right: 12px;">TOTAL BULANAN:</td>
+                                <td class="text-right">${grandBkel}</td>
+                                <td class="text-right">${grandVcman}</td>
+                                <td class="text-right">${grandVbeng}</td>
+                                <td class="text-right" style="color: var(--success);">${grandTotal}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>`;
+
+        container.innerHTML = html;
+    }
+
+    function toggleDetailHariMenu5(monthStr, rowId) {
+        let detailRow = document.getElementById(`detail-row-${rowId}`);
+        let container = document.getElementById(`detail-container-${rowId}`);
+
+        if (!detailRow || !container) return;
+
+        if (detailRow.style.display === "none" || detailRow.style.display === "") {
+            detailRow.style.display = "table-row";
+            renderDetailQuantityPerHari(monthStr, `detail-container-${rowId}`);
+        } else {
+            detailRow.style.display = "none";
+        }
     }
 
     function renderVoucherMonthlyChart(monthlyMap, sortedMonths) {
