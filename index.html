@@ -19,21 +19,21 @@
 
     <script>
         // Konfigurasi Firebase (Region Asia Southeast)
-        const firebaseConfig = {
-            apiKey: "AIzaSyCI2LpNAFQ4GFhv0S3BaZK5Thd3Lqpd-GY",
-            authDomain: "wmd-dashboard.firebaseapp.com",
-            databaseURL: "https://wmd-dashboard-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "wmd-dashboard",
-            storageBucket: "wmd-dashboard.firebasestorage.app",
-            messagingSenderId: "664925538643",
-            appId: "1:664925538643:web:747fc6abbce666131cf9a6",
-            measurementId: "G-29FKPTWFPP"
-        };
+const firebaseConfig = {
+    apiKey: "AIzaSyCK_zIdgwW69kV3J-qU1T9z4_2uz9N_CXY",
+    authDomain: "wmddashboard.firebaseapp.com",
+    databaseURL: "https://wmddashboard-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "wmddashboard",
+    storageBucket: "wmddashboard.firebasestorage.app",
+    messagingSenderId: "294767246403",
+    appId: "1:294767246403:web:47700487aab7fc227268f6"
+};
 
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
+
     </script>
     <style>
         :root {
