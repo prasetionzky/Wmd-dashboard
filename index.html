@@ -19,21 +19,20 @@
 
     <script>
         // Konfigurasi Firebase (Region Asia Southeast)
-const firebaseConfig = {
-    apiKey: "AIzaSyCK_zIdgwW69kV3J-qU1T9z4_2uz9N_CXY",
-    authDomain: "wmddashboard.firebaseapp.com",
-    databaseURL: "https://wmddashboard-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "wmddashboard",
-    storageBucket: "wmddashboard.firebasestorage.app",
-    messagingSenderId: "294767246403",
-    appId: "1:294767246403:web:47700487aab7fc227268f6"
-};
+        const firebaseConfig = {
+            apiKey: "AIzaSyCK_zIdgwW69kV3J-qU1T9z4_2uz9N_CXY",
+            authDomain: "wmddashboard.firebaseapp.com",
+            databaseURL: "https://wmddashboard-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "wmddashboard",
+            storageBucket: "wmddashboard.firebasestorage.app",
+            messagingSenderId: "294767246403",
+            appId: "1:294767246403:web:47700487aab7fc227268f6"
+        };
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
-const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
-
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
     </script>
     <style>
         :root {
@@ -589,27 +588,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
         .btn-danger:hover { background-color: #b91c1c; }
         .btn-disabled-gray { background-color: #94a3b8 !important; color: #fff !important; cursor: not-allowed; }
 
-        .btn-table-danger {
-            background-color: var(--danger);
-            color: white;
-            border: none;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-        }
-        .btn-table-danger:hover { background-color: #b91c1c; }
-        .btn-table-success {
-            background-color: var(--success);
-            color: white;
-            border: none;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-        }
-        .btn-table-success:hover { background-color: #15803d; }
-
         .form-group {
             display: flex;
             gap: 16px;
@@ -818,132 +796,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             color: var(--text-muted);
             font-weight: 500;
         }
-
-        @media print {
-            @page {
-                margin: 4mm;
-            }
-            html, body {
-                width: 100% !important;
-                height: auto !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                background: #fff !important;
-                font-size: 10px !important;
-            }
-            #toastContainer, .sidebar, .card-header, .filter-admin-box, .filter-qty-box, .filter-comp-report-box, button, .info-cetak-note, .search-container, .page-header-bar, #menu1Card, #menu5Card, #menuAboutCard, #menu2Card, #menuComparatorCard, .card > .flex-between > h2, #sectionGudangContainer, #sectionShowroomGudangContainer, #sectionPengosonganContainer, #sectionShowroomPengosonganContainer, #sectionShowroomPp101Container, #sectionGantiNamaContainer, .comparator-tab-container, .custom-modal-overlay, .loading-overlay, .btn-tambah-catatan-admin, .analytics-grid {
-                display: none !important;
-            }
-            .main-wrapper {
-                padding: 0 !important;
-                margin: 0 !important;
-                height: auto !important;
-                overflow: visible !important;
-                width: 100% !important;
-            }
-            .menu-content:not(.active) { display: none !important; }
-            .menu-content.active { display: block !important; }
-            .card {
-                border: none !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                width: 100% !important;
-                background: #fff !important;
-                color: #000 !important;
-            }
-            
-            .table-responsive {
-                border: none !important;
-                max-height: none !important;
-                overflow: visible !important;
-                width: 100% !important;
-                margin-bottom: 2px !important;
-            }
-            table {
-                border-collapse: collapse !important;
-                margin-top: 1px !important;
-                width: 100% !important;
-                background: #fff !important;
-                table-layout: auto !important;
-            }
-            tr {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            th, td {
-                border: 0.5px solid #000 !important;
-                color: #000 !important;
-                padding: 2px 4px !important;
-                font-size: 10px !important;  
-                white-space: nowrap !important;
-                line-height: 1.2 !important;
-                background: #fff !important;
-            }
-            th {
-                background-color: #e2e8f0 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                font-weight: 700 !important;
-                position: static !important;
-            }
-            tfoot tr td {
-                border: 0.5px solid #000 !important;
-                font-weight: bold !important;
-                background-color: #f1f5f9 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .report-header-info {
-                border: 0.5px solid #000 !important;
-                background: #fff !important;
-                padding: 3px 6px !important;
-                font-size: 10px !important;
-                margin-bottom: 3px !important;
-                color: #000 !important;
-            }
-            .catatan-box {
-                border: 0.5px solid #000 !important;
-                background: #fff !important;
-                color: #000 !important;
-                display: flex !important;
-            }
-
-            .col-aksi-print { display: none !important; }
-            td.col-keterangan-print input { display: none !important; }
-            td.col-keterangan-print { color: transparent !important; }
-
-            .print-only-title {
-                display: block !important;
-                font-size: 12px !important;
-                font-weight: 700 !important;
-                margin-bottom: 2px !important;
-                color: #0f172a !important;
-                text-transform: uppercase;
-            }
-
-            .print-logo-img {
-                width: 100px !important;
-                height: 100px !important;
-                object-fit: contain !important;
-                display: block !important;
-            }
-
-            .print-signature-section {
-                display: flex !important;
-                justify-content: space-between;
-                margin-top: 20px;
-                padding: 0 30px;
-                page-break-inside: avoid;
-            }
-            .sig-box {
-                text-align: center;
-                font-size: 10px;
-                font-weight: 600;
-                color: #000;
-            }
-            .sig-space { height: 40px; }
-        }
     </style>
 </head>
 <body id="mainBodyTag">
@@ -1107,7 +959,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             </div>
         </div>
     </div>
-
     <!-- MENU 2: Voucher and Other Reports -->
     <div id="menu2" class="menu-content">
         <div class="card" id="menu2Card">
@@ -1279,8 +1130,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
                         </table>
                     </div>
                 </div>
-
-                <div id="sectionGudangContainer" style="display:none; margin-top: 24px;"></div>
 
                 <div id="sectionGantiNamaContainer" style="display:none; margin-top: 24px;">
                     <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--primary);">Daftar "Ganti Nama Pengguna" (TH2)</h3>
@@ -1748,7 +1597,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
 
     <!-- MENU 7: Report Notes -->
     <div id="menuReportNotes" class="menu-content">
-        <!-- Card 1: Rekap Catatan Harian (Menu 4) -->
         <div class="card" style="border-left: 4px solid var(--warning);">
             <div class="card-header flex-between">
                 <div>
@@ -1775,7 +1623,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             </div>
         </div>
 
-        <!-- Card 2: Input Catatan Person Khusus -->
         <div class="card" style="border-left: 4px solid var(--primary);">
             <div class="card-header">
                 <h2>🚗 Input Catatan Person / Khusus Kendaraan</h2>
@@ -1813,7 +1660,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             </div>
         </div>
 
-        <!-- Card 3: Rekap Catatan Person Khusus -->
         <div class="card" style="border-left: 4px solid var(--success);">
             <div class="card-header flex-between">
                 <div>
@@ -1852,12 +1698,12 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
     <div id="menu5" class="menu-content">
         <div class="card" style="border-left: 4px solid var(--success);">
             <div class="card-header">
-                <h2>🚀 Transfer & Muat Data Server Online (Cloud Sync)</h2>
-                <p class="card-desc">Tarik data dari server cloud secara manual jika memuat otomatis lambat di HP, atau kirim pembaruan data lokal ke Firebase.</p>
+                <h2>🚀 Transfer & Muat Data Server Online (Incremental Cloud Sync)</h2>
+                <p class="card-desc">Tarik data dari server cloud secara pintar tanpa duplikat, atau kirim pembaruan transaksi baru (delta) ke Firebase untuk hemat kuota.</p>
             </div>
             <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <button class="btn-primary" style="padding: 12px 20px; font-size: 15px;" onclick="tarikDataCloudManual()">☁️ Tarik Data Cloud Ke HP / PC</button>
-                <button class="btn-success" style="padding: 12px 20px; font-size: 15px;" onclick="transferDataKeServerOnline()">🚀 Transfer Data Manual & Bersihkan Memori Lokal</button>
+                <button class="btn-primary" style="padding: 12px 20px; font-size: 15px;" onclick="tarikDataCloudManual()">☁️ Tarik Data Cloud (Smart Merge)</button>
+                <button class="btn-success" style="padding: 12px 20px; font-size: 15px;" onclick="transferDataKeServerOnline()">🚀 Kirim Data Baru Saja (Incremental Sync)</button>
             </div>
         </div>
 
@@ -2062,6 +1908,10 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
     let lastUploadSessionIds = [];
     let activityLogs = [];
 
+    // Delta Sync Tracking untuk Efisiensi Bandwidth Jangka Panjang
+    let syncedTransactionIds = [];
+    let syncedVerifiedIds = [];
+
     let rawEpsilonComparatorData = []; 
     let rawTh2ComparatorData = [];
     let rawEpsilonBursaData = []; 
@@ -2084,7 +1934,7 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
 
     let aboutInfo = {
         title: "Tentang Aplikasi WMD Dashboard v.04",
-        content: "WMD Dashboard v.04 dirancang khusus untuk mempermudah rekapitulasi laporan transaksi, verifikasi data parkir, serta melakukan perbandingan komparatif (Comparator) antara Epsilon, TH2, dan Showroom secara akurat dan efisien.\n\nSilakan perbarui teks informasi ini kapan saja melalui Menu 8. Tools."
+        content: "WMD Dashboard v.04 dirancang khusus untuk mempermudah rekapitulasi laporan transaksi, verifikasi data parkir, serta melakukan perbandingan komparatif (Comparator) antara Epsilon, TH2, dan Showroom secara akurat dan efisien.\n\nDilengkapi Smart Incremental Cloud Sync untuk penghematan kuota internet maksimal.\n\nSilakan perbarui teks informasi ini kapan saja melalui Menu 8. Tools."
     };
 
     let dbInstance = null;
@@ -2106,26 +1956,34 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
         });
     }
 
-    // === FITUR SIMPAN OTOMATIS KE FIREBASE (AUTO-SYNC) ===
+    // === FITUR INCREMENTAL CLOUD SYNC & SMART MERGE ===
     let cloudSyncTimer = null;
     function triggerAutoCloudSync() {
         if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
         cloudSyncTimer = setTimeout(() => {
+            let newTrans = globalDataTransaksi.filter(i => !syncedTransactionIds.includes(i.id));
+            let newVerif = verifiedTransactions.filter(id => !syncedVerifiedIds.includes(id));
+
             let payload = {
                 databaseUser,
-                verifiedTransactions,
+                newTransactions: newTrans,
+                newVerifiedTransactions: newVerif,
                 verifiedComparatorTh2,
                 verifiedComparatorSr,
                 catatanTanggalAdmin,
                 personalReportNotes,
-                globalDataTransaksi,
-                activityLogs,
+                activityLogs: activityLogs.slice(0, 30),
                 aboutInfo,
                 lastSynced: new Date().toISOString()
             };
+
             cloudDb.push(payload).then(() => {
+                newTrans.forEach(i => { if (!syncedTransactionIds.includes(i.id)) syncedTransactionIds.push(i.id); });
+                newVerif.forEach(id => { if (!syncedVerifiedIds.includes(id)) syncedVerifiedIds.push(id); });
+                saveToIndexedDB();
+
                 let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-                updateCloudStatusUI('connected', `Auto-Sync ${nowTime}`);
+                updateCloudStatusUI('connected', `Auto-Sync (Delta) ${nowTime}`);
             }).catch((err) => {
                 updateCloudStatusUI('offline', 'Auto-Sync Gagal');
             });
@@ -2146,7 +2004,9 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
                 personalReportNotes,
                 globalDataTransaksi,
                 activityLogs,
-                aboutInfo
+                aboutInfo,
+                syncedTransactionIds,
+                syncedVerifiedIds
             };
             store.put(payload, "main_data");
             triggerAutoCloudSync();
@@ -2162,7 +2022,14 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
                 const transaction = dbInstance.transaction(["app_store"], "readonly");
                 const store = transaction.objectStore("app_store");
                 const request = store.get("main_data");
-                request.onsuccess = function(event) { resolve(event.target.result); };
+                request.onsuccess = function(event) {
+                    let res = event.target.result;
+                    if (res) {
+                        if (res.syncedTransactionIds) syncedTransactionIds = res.syncedTransactionIds;
+                        if (res.syncedVerifiedIds) syncedVerifiedIds = res.syncedVerifiedIds;
+                    }
+                    resolve(res);
+                };
                 request.onerror = function() { resolve(null); };
             } catch (e) { resolve(null); }
         });
@@ -2185,7 +2052,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
         }
     }
 
-    // Deteksi koneksi Firebase secara Realtime (Online / Offline)
     firebase.database().ref('.info/connected').on('value', (snap) => {
         if (snap.val() === true) {
             let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -2194,6 +2060,80 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             updateCloudStatusUI('offline', 'Mode Offline (Lokal)');
         }
     });
+
+    // Smart Merge Cloud Data (Menggabungkan paket data delta secara pintar di memori tanpa duplikasi)
+    function smartMergeCloudData(rawData) {
+        if (!rawData) return;
+        
+        let allTransMap = new Map();
+        globalDataTransaksi.forEach(i => allTransMap.set(i.id, i));
+
+        let allVerifiedSet = new Set(verifiedTransactions);
+        let allTh2Map = new Map();
+        verifiedComparatorTh2.forEach(i => allTh2Map.set(i.id, i));
+        let allSrMap = new Map();
+        verifiedComparatorSr.forEach(i => allSrMap.set(i.id, i));
+
+        Object.keys(rawData).forEach(key => {
+            let packet = rawData[key];
+            if (!packet) return;
+
+            if (packet.databaseUser) {
+                databaseUser = { ...databaseUser, ...packet.databaseUser };
+            }
+
+            let transList = packet.newTransactions || packet.globalDataTransaksi || [];
+            transList.forEach(item => {
+                if (item && item.id) {
+                    allTransMap.set(item.id, item);
+                    if (!syncedTransactionIds.includes(item.id)) syncedTransactionIds.push(item.id);
+                }
+            });
+
+            let verifList = packet.newVerifiedTransactions || packet.verifiedTransactions || [];
+            verifList.forEach(id => {
+                allVerifiedSet.add(id);
+                if (!syncedVerifiedIds.includes(id)) syncedVerifiedIds.push(id);
+            });
+
+            let th2List = packet.verifiedComparatorTh2 || [];
+            th2List.forEach(item => {
+                if (item && item.id) allTh2Map.set(item.id, item);
+            });
+
+            let srList = packet.verifiedComparatorSr || [];
+            srList.forEach(item => {
+                if (item && item.id) allSrMap.set(item.id, item);
+            });
+
+            if (packet.catatanTanggalAdmin) {
+                catatanTanggalAdmin = { ...catatanTanggalAdmin, ...packet.catatanTanggalAdmin };
+            }
+
+            if (packet.personalReportNotes && Array.isArray(packet.personalReportNotes)) {
+                let noteMap = new Map();
+                personalReportNotes.forEach(n => noteMap.set(n.id, n));
+                packet.personalReportNotes.forEach(n => noteMap.set(n.id, n));
+                personalReportNotes = Array.from(noteMap.values());
+            }
+
+            if (packet.activityLogs && Array.isArray(packet.activityLogs)) {
+                let logMap = new Map();
+                activityLogs.forEach(l => logMap.set(l.id, l));
+                packet.activityLogs.forEach(l => logMap.set(l.id, l));
+                activityLogs = Array.from(logMap.values()).sort((a,b) => b.id.localeCompare(a.id));
+            }
+
+            if (packet.aboutInfo) {
+                aboutInfo = packet.aboutInfo;
+            }
+        });
+
+        globalDataTransaksi = Array.from(allTransMap.values());
+        verifiedTransactions = Array.from(allVerifiedSet);
+        verifiedComparatorTh2 = Array.from(allTh2Map.values());
+        verifiedComparatorSr = Array.from(allSrMap.values());
+    }
 
     function loadDataFromCloudServer() {
         updateCloudStatusUI('syncing', 'Menghubungkan ke Cloud...');
@@ -2205,7 +2145,7 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             showToast("Server online siap (Waktu tunggu tercapai).", "warning");
         }, 5000);
 
-        cloudDb.orderByKey().limitToLast(50).once('value').then((snapshot) => {
+        cloudDb.orderByKey().limitToLast(30).once('value').then((snapshot) => {
             if (timeoutTriggered) return;
             clearTimeout(timer);
 
@@ -2213,22 +2153,10 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
             if (rawData) {
-                const keys = Object.keys(rawData);
-                const data = rawData[keys[keys.length - 1]];
-
-                if (data) {
-                    if (data.databaseUser) databaseUser = data.databaseUser;
-                    if (data.verifiedTransactions) verifiedTransactions = data.verifiedTransactions;
-                    if (data.verifiedComparatorTh2) verifiedComparatorTh2 = data.verifiedComparatorTh2;
-                    if (data.verifiedComparatorSr) verifiedComparatorSr = data.verifiedComparatorSr;
-                    if (data.catatanTanggalAdmin) catatanTanggalAdmin = data.catatanTanggalAdmin;
-                    if (data.personalReportNotes) personalReportNotes = data.personalReportNotes;
-                    if (data.globalDataTransaksi) globalDataTransaksi = data.globalDataTransaksi;
-                    if (data.activityLogs) activityLogs = data.activityLogs;
-                    if (data.aboutInfo) aboutInfo = data.aboutInfo;
-                }
+                smartMergeCloudData(rawData);
             }
 
+            saveToIndexedDB();
             renderTabelUser();
             renderLogAktivitas();
             updateMemoryStatus();
@@ -2237,8 +2165,8 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
                 renderTombolKendaraan();
             }
             hitungBebanStorageBrowser();
-            updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
-            showToast("Data berhasil dimuat dari Server Online (Cloud Sync)!", "success");
+            updateCloudStatusUI('connected', `Disinkronkan (Smart) ${nowTime}`);
+            showToast("Data berhasil dimuat & digabungkan secara pintar dari Server Cloud!", "success");
         }).catch((error) => {
             if (timeoutTriggered) return;
             clearTimeout(timer);
@@ -2248,7 +2176,7 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
     }
 
     function tarikDataCloudManual() {
-        showLoading("Sedang mengunduh data dari Firebase Cloud... Mohon tunggu.");
+        showLoading("Sedang mengunduh paket data terbaru dari Firebase Cloud...");
         updateCloudStatusUI('syncing', 'Mengunduh Data Cloud...');
 
         let timeoutTriggered = false;
@@ -2267,42 +2195,22 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
             if (rawData) {
-                const keys = Object.keys(rawData).reverse();
-                let validData = null;
+                smartMergeCloudData(rawData);
 
-                for (let key of keys) {
-                    if (rawData[key] && rawData[key].globalDataTransaksi && rawData[key].globalDataTransaksi.length > 0) {
-                        validData = rawData[key];
-                        break;
-                    }
+                saveToIndexedDB();
+                renderTabelUser();
+                renderLogAktivitas();
+                updateMemoryStatus();
+                updateToolsUnverUserDropdown();
+                if (globalDataTransaksi.length > 0) {
+                    renderTombolKendaraan();
                 }
-
-                if (validData) {
-                    if (validData.databaseUser) databaseUser = validData.databaseUser;
-                    if (validData.verifiedTransactions) verifiedTransactions = validData.verifiedTransactions;
-                    if (validData.verifiedComparatorTh2) verifiedComparatorTh2 = validData.verifiedComparatorTh2;
-                    if (validData.verifiedComparatorSr) verifiedComparatorSr = validData.verifiedComparatorSr;
-                    if (validData.catatanTanggalAdmin) catatanTanggalAdmin = validData.catatanTanggalAdmin;
-                    if (validData.personalReportNotes) personalReportNotes = validData.personalReportNotes;
-                    if (validData.globalDataTransaksi) globalDataTransaksi = validData.globalDataTransaksi;
-                    if (validData.activityLogs) activityLogs = validData.activityLogs;
-                    if (validData.aboutInfo) aboutInfo = validData.aboutInfo;
-
-                    saveToIndexedDB();
-                    renderTabelUser();
-                    renderLogAktivitas();
-                    updateMemoryStatus();
-                    updateToolsUnverUserDropdown();
-                    if (globalDataTransaksi.length > 0) {
-                        renderTombolKendaraan();
-                    }
-                    hitungBebanStorageBrowser();
-                    updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
-                    hideLoading();
-                    showToast(`Berhasil menarik ${globalDataTransaksi.length} data transaksi dari Cloud!`, "success");
-                    catatLogAktivitas("Penarikan manual data cloud dari Firebase berhasil");
-                    return;
-                }
+                hitungBebanStorageBrowser();
+                updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
+                hideLoading();
+                showToast(`Berhasil menarik & menggabungkan data secara pintar dari Cloud! Total: ${globalDataTransaksi.length} transaksi.`, "success");
+                catatLogAktivitas("Penarikan incremental data cloud dari Firebase berhasil");
+                return;
             }
 
             hideLoading();
@@ -2317,28 +2225,35 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
     }
 
     function transferDataKeServerOnline() {
-        showLoading("Sedang mentransfer data ke server online (Cloud Sync)...");
+        showLoading("Mentransfer data baru (Incremental Sync) ke server online...");
         updateCloudStatusUI('syncing', 'Sedang Mengirim...');
         
+        let newTrans = globalDataTransaksi.filter(i => !syncedTransactionIds.includes(i.id));
+        let newVerif = verifiedTransactions.filter(id => !syncedVerifiedIds.includes(id));
+
         let payload = {
             databaseUser,
-            verifiedTransactions,
+            newTransactions: newTrans,
+            newVerifiedTransactions: newVerif,
             verifiedComparatorTh2,
             verifiedComparatorSr,
             catatanTanggalAdmin,
             personalReportNotes,
-            globalDataTransaksi,
-            activityLogs,
+            activityLogs: activityLogs.slice(0, 50),
             aboutInfo,
             lastSynced: new Date().toISOString()
         };
 
         cloudDb.push(payload).then(() => {
+            newTrans.forEach(i => { if (!syncedTransactionIds.includes(i.id)) syncedTransactionIds.push(i.id); });
+            newVerif.forEach(id => { if (!syncedVerifiedIds.includes(id)) syncedVerifiedIds.push(id); });
+            saveToIndexedDB();
+
             hideLoading();
             let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
             updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
-            showToast("Berhasil transfer data ke server online!", "success");
-            catatLogAktivitas("Transfer manual data ke Server Cloud Firebase");
+            showToast(`Berhasil transfer ${newTrans.length} data baru ke server secara efisien (hemat kuota)!`, "success");
+            catatLogAktivitas(`Transfer incremental data cloud: ${newTrans.length} transaksi baru`);
         }).catch((error) => {
             hideLoading();
             updateCloudStatusUI('offline', 'Gagal Kirim ke Cloud');
@@ -2397,7 +2312,8 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
     function hitungBebanStorageBrowser() {
         let payloadObj = {
             databaseUser, verifiedTransactions, verifiedComparatorTh2, verifiedComparatorSr,
-            catatanTanggalAdmin, personalReportNotes, globalDataTransaksi, activityLogs, aboutInfo
+            catatanTanggalAdmin, personalReportNotes, globalDataTransaksi, activityLogs, aboutInfo,
+            syncedTransactionIds, syncedVerifiedIds
         };
         let jsonString = JSON.stringify(payloadObj);
         let totalBytes = new Blob([jsonString]).size;
@@ -2474,6 +2390,8 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
                 globalDataTransaksi = [];
                 lastUploadSessionIds = [];
                 activityLogs = [];
+                syncedTransactionIds = [];
+                syncedVerifiedIds = [];
                 
                 if (dbInstance) {
                     const tx = dbInstance.transaction(["app_store"], "readwrite");
@@ -2718,7 +2636,7 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
         });
     }
 
-    window.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('DOMContentLoaded', async () => {
         try {
             await initIndexedDB();
             const savedData = await loadFromIndexedDB();
@@ -3983,6 +3901,16 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
         renderCompReport();
     }
 
+    const batasDataPerLoad = 50;
+    let limitDataMenu4 = batasDataPerLoad;
+    let limitDataMenu5 = batasDataPerLoad;
+    let limitDataMenu6 = batasDataPerLoad;
+
+    function loadMoreMenu4() { limitDataMenu4 += batasDataPerLoad; renderLaporanAdmin(); }
+    function loadMoreMenu5() { limitDataMenu5 += batasDataPerLoad; renderLaporanQuantity(); }
+    function loadMoreMenu6() { limitDataMenu6 += batasDataPerLoad; if (typeof renderCompReport === 'function') renderCompReport(); }
+    function resetLimitPagination() { limitDataMenu4 = batasDataPerLoad; limitDataMenu5 = batasDataPerLoad; limitDataMenu6 = batasDataPerLoad; }
+
     function renderCompReport() {
         document.getElementById('compReportResultCard').style.display = 'block';
         const cat = document.getElementById('compReportSelectCat').value;
@@ -4132,33 +4060,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             uBtn.onclick = () => pilihUser(c, uBtn);
             uCont.appendChild(uBtn);
         });
-    }
-
-    // Konfigurasi Pagination (Load More)
-    const batasDataPerLoad = 50;
-    let limitDataMenu4 = batasDataPerLoad;
-    let limitDataMenu5 = batasDataPerLoad;
-    let limitDataMenu6 = batasDataPerLoad;
-
-    function loadMoreMenu4() {
-        limitDataMenu4 += batasDataPerLoad;
-        renderLaporanAdmin();
-    }
-
-    function loadMoreMenu5() {
-        limitDataMenu5 += batasDataPerLoad;
-        renderLaporanQuantity();
-    }
-
-    function loadMoreMenu6() {
-        limitDataMenu6 += batasDataPerLoad;
-        if (typeof renderCompReport === 'function') renderCompReport();
-    }
-
-    function resetLimitPagination() {
-        limitDataMenu4 = batasDataPerLoad;
-        limitDataMenu5 = batasDataPerLoad;
-        limitDataMenu6 = batasDataPerLoad;
     }
 
     function pilihUser(code, btnEl) {
@@ -4425,13 +4326,11 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
         renderLaporanQuantity();
     }
 
-    // === LOGIKA MENU 5: Voucher Monthly Report (MOBILBKEL + MOBILVCMAN + MOBILVBENG) + DETAIL HARIAN ===
     function renderLaporanQuantity() {
         let mode = document.getElementById('qtyFilterMode').value;
         let startMonth = document.getElementById('qtyStartMonth').value;
         let endMonth = document.getElementById('qtyEndMonth').value;
 
-        // Ambil data terverifikasi khusus MOBILBKEL, MOBILVCMAN, MOBILVBENG
         let targetClasses = ["MOBILBKEL", "MOBILVCMAN", "MOBILVBENG"];
         let data = globalDataTransaksi.filter(i => targetClasses.includes(i.jenisKendaraan) && verifiedTransactions.includes(i.id));
 
@@ -4443,11 +4342,10 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             });
         }
 
-        // Kelompokkan per Bulan (format YYYY-MM)
         let monthlyMap = {};
         data.forEach(i => {
             if (!i.rawDate) return;
-            let mKey = i.rawDate.slice(0, 7); // YYYY-MM
+            let mKey = i.rawDate.slice(0, 7);
             if (!monthlyMap[mKey]) {
                 monthlyMap[mKey] = { MOBILBKEL: 0, MOBILVCMAN: 0, MOBILVBENG: 0 };
             }
@@ -4457,7 +4355,7 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             }
         });
 
-        let sortedMonths = Object.keys(monthlyMap).sort((a, b) => b.localeCompare(a)); // Urutkan bulan terbaru ke terlama
+        let sortedMonths = Object.keys(monthlyMap).sort((a, b) => b.localeCompare(a));
 
         let totalBkelAll = 0;
         let totalVcmanAll = 0;
@@ -4491,7 +4389,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             let rowTotal = bkel + vcman + vbeng;
             let rowId = `m5-${idx}`;
 
-            // Format label bulan dari YYYY-MM menjadi lebih readable misal: Maret 2026
             let [y, mm] = m.split('-');
             let dateObj = new Date(y, mm - 1, 1);
             let monthName = dateObj.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
@@ -4526,7 +4423,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
         renderVoucherMonthlyChart(monthlyMap, sortedMonths);
     }
 
-    // Fungsi render detail quantity per hari untuk baris expandable Menu 5
     function renderDetailQuantityPerHari(targetMonth, containerId) {
         let container = document.getElementById(containerId);
         if (!container) return;
@@ -4548,8 +4444,8 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
             }
             if (!rawDate) return;
 
-            let yearMonth = rawDate.slice(0, 7); // Format: YYYY-MM
-            let dayDate = rawDate;              // Format: YYYY-MM-DD
+            let yearMonth = rawDate.slice(0, 7);
+            let dayDate = rawDate;
 
             if (yearMonth === targetMonth) {
                 if (!dailyData[dayDate]) {
@@ -4626,7 +4522,7 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
                         </tfoot>
                     </table>
                 </div>
-            </div>`;
+            `;
 
         container.innerHTML = html;
     }
@@ -4649,7 +4545,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
         const ctx = document.getElementById('voucherTrendChart');
         if (!ctx) return;
 
-        // Urutkan secara kronologis (ascending) untuk grafik dari kiri ke kanan
         let chartMonths = [...sortedMonths].reverse();
 
         let dataBkel = chartMonths.map(m => monthlyMap[m].MOBILBKEL);
@@ -4730,7 +4625,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
         showToast("Export Excel Voucher Monthly Report berhasil.", "success");
     }
 
-    // === LOGIKA MENU 7: Report Notes ===
     function renderReportNotesMenu() {
         renderCatatanHarianTable();
         renderCatatanPerson();
@@ -4749,7 +4643,7 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
 
         dates.forEach((d, idx) => {
             let noteObj = catatanTanggalAdmin[d];
-            tbody.innerHTML = `
+            tbody.innerHTML += `
                 <tr>
                     <td style="text-align: center;">${idx + 1}</td>
                     <td><b>${d}</b></td>
@@ -4880,11 +4774,6 @@ const cloudDb = firebase.database().ref("wmd_dashboard_cloud_data");
         XLSX.writeFile(wb, `Rekap_Catatan_Person_${new Date().toISOString().slice(0,10)}.xlsx`);
         showToast("Export Excel catatan person berhasil.", "success");
     }
-
-    // Inisialisasi awal saat dokumen dimuat
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log("WMD Dashboard v.04 berhasil dimuat.");
-    });
 </script>
 </body>
 </html>
