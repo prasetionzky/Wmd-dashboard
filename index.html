@@ -809,6 +809,9 @@
             .global-search-box, 
             .header-tools-group, 
             .page-header-bar, 
+            #menu2Card,
+            #menu1Card,
+            #menuComparatorCard,
             .filter-admin-box,
             .filter-qty-box,
             .filter-comp-report-box,
@@ -1032,7 +1035,7 @@
 
 <main class="main-wrapper">
     
-    <div class="page-header-bar">
+    <div class="page-header-bar no-print">
         <div class="page-title-group">
             <h1 id="headerPageTitle">1. Upload Data</h1>
             <p id="headerPageDesc">Kelola dan impor file master transaksi dengan mudah.</p>
@@ -1052,7 +1055,7 @@
 
     <!-- MENU 1: 1. Upload Data -->
     <div id="menu1" class="menu-content active">
-        <div class="card" id="menu1Card">
+        <div class="card no-print" id="menu1Card">
             <div class="card-header flex-between">
                 <div>
                     <h2>Menu Upload Terpisah</h2>
@@ -1675,7 +1678,7 @@
 
     <!-- MENU 7: Report Notes -->
     <div id="menuReportNotes" class="menu-content">
-        <div class="card" style="border-left: 4px solid var(--warning);">
+        <div class="card no-print" style="border-left: 4px solid var(--warning);">
             <div class="card-header flex-between">
                 <div>
                     <h2>📝 Rekap Catatan Harian (Menu 4)</h2>
@@ -1701,7 +1704,7 @@
             </div>
         </div>
 
-        <div class="card" style="border-left: 4px solid var(--primary);">
+        <div class="card no-print" style="border-left: 4px solid var(--primary);">
             <div class="card-header">
                 <h2>🚗 Input Catatan Person / Khusus Kendaraan</h2>
                 <p class="card-desc">Tambahkan catatan khusus per kendaraan dengan informasi Tanggal, No Polisi, Jenis Kendaraan, dan Keterangan.</p>
@@ -1738,7 +1741,7 @@
             </div>
         </div>
 
-        <div class="card" style="border-left: 4px solid var(--success);">
+        <div class="card no-print" style="border-left: 4px solid var(--success);">
             <div class="card-header flex-between">
                 <div>
                     <h2>📋 Rekap Catatan Person Khusus</h2>
@@ -1774,7 +1777,7 @@
 
     <!-- MENU 8: Tools & Audit Log -->
     <div id="menu5" class="menu-content">
-        <div class="card" style="border-left: 4px solid var(--success);">
+        <div class="card no-print" style="border-left: 4px solid var(--success);">
             <div class="card-header">
                 <h2>🚀 Transfer & Muat Data Server Online (Incremental Cloud Sync)</h2>
                 <p class="card-desc">Tarik data dari server cloud secara pintar tanpa duplikat, atau kirim pembaruan transaksi baru (delta) ke Firebase untuk hemat kuota.</p>
@@ -1785,7 +1788,7 @@
             </div>
         </div>
 
-        <div class="card" style="border-left: 4px solid #8b5cf6;">
+        <div class="card no-print" style="border-left: 4px solid #8b5cf6;">
             <div class="card-header flex-between">
                 <div>
                     <h2 style="color: #8b5cf6;">🗜️ Mode Kompresi & Optimasi Data</h2>
@@ -1795,7 +1798,7 @@
             </div>
         </div>
 
-        <div class="card" style="border-left: 4px solid var(--danger); background-color: var(--card-bg);">
+        <div class="card no-print" style="border-left: 4px solid var(--danger); background-color: var(--card-bg);">
             <div class="card-header">
                 <h2 style="color: var(--danger);">⚠️ Factory Reset (Hapus Seluruh Data Runtime)</h2>
                 <p class="card-desc">Mengosongkan bersih seluruh data di memori runtime browser dan IndexedDB.</p>
@@ -1803,7 +1806,7 @@
             <button class="btn-danger" onclick="jalankanFactoryReset()">🚨 Jalankan Factory Reset (Kosongkan Memori)</button>
         </div>
 
-        <div class="card" style="border-left: 4px solid var(--warning);">
+        <div class="card no-print" style="border-left: 4px solid var(--warning);">
             <div class="card-header">
                 <h2>Unverifikasi Spesifik (Tools)</h2>
                 <p class="card-desc">Pilih kelas, petugas, dan tanggal tertentu untuk mengembalikan data terverifikasi ke status belum verif secara presisi.</p>
@@ -1836,7 +1839,7 @@
             </div>
         </div>
 
-        <div class="card" style="border-left: 4px solid var(--primary);">
+        <div class="card no-print" style="border-left: 4px solid var(--primary);">
             <div class="card-header">
                 <h2>Pengaturan Konten Menu 9 (About)</h2>
                 <p class="card-desc">Ketik dan perbarui informasi mengenai aplikasi yang akan tampil di Menu 9. About secara otomatis.</p>
@@ -1854,7 +1857,7 @@
             </div>
         </div>
 
-        <div class="card" id="menu5Card" style="border-left: 4px solid #0ea5e9;">
+        <div class="card no-print" id="menu5Card" style="border-left: 4px solid #0ea5e9;">
             <div class="card-header">
                 <h2>Manajemen Nama Petugas</h2>
                 <p class="card-desc">Kelola relasi antara kode kasir dengan nama lengkap.</p>
@@ -1887,7 +1890,7 @@
             </div>
         </div>
 
-        <div class="card" style="border-left: 4px solid #64748b;">
+        <div class="card no-print" style="border-left: 4px solid #64748b;">
             <div class="card-header flex-between">
                 <div>
                     <h2>📜 Audit Log Riwayat Sistem (Audit Trail)</h2>
@@ -1917,7 +1920,7 @@
             </div>
         </div>
 
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;" class="no-print">
             <div class="card" style="flex: 1; min-width: 300px; border-left: 4px solid var(--danger); background-color: var(--bg-main);">
                 <div class="card-header">
                     <h2 style="color: var(--danger);">Hapus Data Per Tanggal (Menu 2, 4, 5)</h2>
@@ -1954,7 +1957,7 @@
 
     <!-- MENU 9: About -->
     <div id="menuAbout" class="menu-content">
-        <div class="card" id="menuAboutCard">
+        <div class="card no-print" id="menuAboutCard">
             <div class="card-header">
                 <h2 id="aboutDisplayTitle">Tentang Aplikasi WMD Dashboard v.04</h2>
                 <p class="card-desc">Informasi detail mengenai sistem dan panduan penggunaan.</p>
