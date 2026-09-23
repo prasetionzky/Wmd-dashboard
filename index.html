@@ -797,169 +797,130 @@
             font-weight: 500;
         }
 
-        /* ==========================================================================
-           PENGATURAN CETAK (PRINT) MULTI-HALAMAN NATURAL & TTD MENGIKUTI AKHIR DATA
-           ========================================================================== */
         @media print {
-            /* 1. Sembunyikan elemen non-cetak secara total */
-            aside, nav, .sidebar, button, .btn, .global-search-box, 
-            .header-tools-group, .page-header-bar, #menu2Card, #menu1Card, 
-            #menuComparatorCard, .filter-admin-box, .filter-qty-box, 
-            .filter-comp-report-box, .comparator-tab-container, .info-cetak-note, 
-            #toastContainer, .loading-overlay, .custom-modal-overlay, 
-            .search-container, .no-print {
-                display: none !important;
-            }
-
-            /* 2. Set margin kertas standar */
             @page {
-                margin: 8mm !important;
+                margin: 4mm;
             }
-
-            /* 3. Izinkan halaman mengalir secara normal (Multi-halaman aktif) */
             html, body {
                 width: 100% !important;
                 height: auto !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: #ffffff !important;
-                color: #000000 !important;
-                overflow: visible !important;
+                background: #fff !important;
+                font-size: 10px !important;
             }
-
+            #toastContainer, .sidebar, .card-header, .filter-admin-box, .filter-qty-box, .filter-comp-report-box, button, .info-cetak-note, .search-container, .page-header-bar, #menu1Card, #menu5Card, #menuAboutCard, #menu2Card, #menuComparatorCard, .card > .flex-between > h2, #sectionGudangContainer, #sectionShowroomGudangContainer, #sectionPengosonganContainer, #sectionShowroomPengosonganContainer, #sectionShowroomPp101Container, #sectionGantiNamaContainer, .comparator-tab-container, .custom-modal-overlay, .loading-overlay, .btn-tambah-catatan-admin, .analytics-grid {
+                display: none !important;
+            }
             .main-wrapper {
                 padding: 0 !important;
                 margin: 0 !important;
-                width: 100% !important;
                 height: auto !important;
                 overflow: visible !important;
-            }
-
-            .menu-content {
-                display: none !important;
-            }
-
-            .menu-content.active {
-                display: block !important;
                 width: 100% !important;
             }
-
-            .menu-content.active .card {
-                display: block !important;
+            .menu-content:not(.active) { display: none !important; }
+            .menu-content.active { display: block !important; }
+            .card {
                 border: none !important;
                 box-shadow: none !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                background: #ffffff !important;
-            }
-
-            /* 4. Hapus skala paksa (scale) */
-            #printArea, #printComparatorTh2Area, #printComparatorSrArea, #printAdminArea, #printQtyArea, #printCompReportArea {
-                transform: none !important;
                 width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            /* 5. Pengaturan Judul & Header */
-            .print-only-title {
-                display: block !important;
-                font-size: 12pt !important;
-                font-weight: bold !important;
+                background: #fff !important;
                 color: #000 !important;
             }
-
-            .print-logo-img {
-                width: 45px !important;
-                height: 45px !important;
-            }
-
-            .report-header-info {
-                padding: 6px 10mm !important;
-                font-size: 9pt !important;
-                margin-bottom: 8px !important;
-                background: none !important;
-                border: 1px solid #666 !important;
-            }
-
-            /* 6. Pengaturan Tabel & Baris agar tidak terlipat vertical */
+            
             .table-responsive {
+                border: none !important;
                 max-height: none !important;
                 overflow: visible !important;
-                border: none !important;
-                margin-bottom: 10px !important;
                 width: 100% !important;
+                margin-bottom: 2px !important;
             }
-
             table {
-                width: 100% !important;
-                font-size: 9.5pt !important;
                 border-collapse: collapse !important;
+                margin-top: 1px !important;
+                width: 100% !important;
+                background: #fff !important;
                 table-layout: auto !important;
             }
-
             tr {
-                page-break-inside: avoid !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
             }
-
+            th, td {
+                border: 0.5px solid #000 !important;
+                color: #000 !important;
+                padding: 2px 4px !important;
+                font-size: 10px !important;  
+                white-space: nowrap !important;
+                line-height: 1.2 !important;
+                background: #fff !important;
+            }
             th {
-                display: table-header-group !important;
-                background-color: #e5e5e5 !important;
+                background-color: #e2e8f0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-weight: 700 !important;
+                position: static !important;
+            }
+            tfoot tr td {
+                border: 0.5px solid #000 !important;
+                font-weight: bold !important;
+                background-color: #f1f5f9 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-
-            th, td {
-                color: #000000 !important;
-                padding: 5px 8px !important;
-                border: 1px solid #333 !important;
-                line-height: 1.2 !important;
-                white-space: nowrap !important; /* Memaksa teks memanjang ke samping */
+            .report-header-info {
+                border: 0.5px solid #000 !important;
+                background: #fff !important;
+                padding: 3px 6px !important;
+                font-size: 10px !important;
+                margin-bottom: 3px !important;
+                color: #000 !important;
+            }
+            .catatan-box {
+                border: 0.5px solid #000 !important;
+                background: #fff !important;
+                color: #000 !important;
+                display: flex !important;
             }
 
-            /* 7. AREA TANDA TANGAN MENGIKUTI AKHIR DATA SECARA NATURAL */
+            .col-aksi-print { display: none !important; }
+            td.col-keterangan-print input { display: none !important; }
+            td.col-keterangan-print { color: transparent !important; }
+
+            .print-only-title {
+                display: block !important;
+                font-size: 12px !important;
+                font-weight: 700 !important;
+                margin-bottom: 2px !important;
+                color: #0f172a !important;
+                text-transform: uppercase;
+            }
+
+            .print-logo-img {
+                width: 100px !important;
+                height: 100px !important;
+                object-fit: contain !important;
+                display: block !important;
+            }
+
             .print-signature-section {
                 display: flex !important;
-                justify-content: space-between !important;
-                margin-top: 20px !important;
-                font-size: 9pt !important;
-                position: relative !important;
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
+                justify-content: space-between;
+                margin-top: 20px;
+                padding: 0 30px;
+                page-break-inside: avoid;
             }
-
-            .sig-space {
-                height: 35px !important;
+            .sig-box {
+                text-align: center;
+                font-size: 10px;
+                font-weight: 600;
+                color: #000;
             }
-
-            .col-aksi-print {
-                display: none !important;
-            }
-        }
-
-        /* Orientasi Kertas Per Menu */
-        @media print {
-            body.print-landscape {
-                size: letter landscape;
-            }
-            @page landscape-page {
-                size: letter landscape;
-                margin: 8mm;
-            }
-            body.print-landscape {
-                page: landscape-page;
-            }
-
-            body.print-portrait {
-                size: letter portrait;
-            }
-            @page portrait-page {
-                size: letter portrait;
-                margin: 8mm;
-            }
-            body.print-portrait {
-                page: portrait-page;
-            }
+            .sig-space { height: 40px; }
         }
     </style>
 </head>
@@ -3362,7 +3323,7 @@
                     document.getElementById('epsTh2EpsDisplay').innerText = "Selesai";
                     document.getElementById('epsTh2Th2Display').innerText = "Selesai";
                     hideLoading();
-                    showToast("Comparator Epsilon vs TH2 berhasil diproses.", "success");
+                    showToast("Comparator Epsilon vs TH2 berhasil dipproses.", "success");
                     catatLogAktivitas("Memproses Comparator Epsilon vs TH2 (File Baru)");
                     gantiMenu('menuComparator', document.querySelectorAll('.nav-item')[2]);
                     switchComparatorTab('th2');
@@ -3375,7 +3336,7 @@
                     document.getElementById('epsSrEpsDisplay').innerText = "Selesai";
                     document.getElementById('epsSrSrDisplay').innerText = "Selesai";
                     hideLoading();
-                    showToast("Comparator Showroom berhasil diproses.", "success");
+                    showToast("Comparator Showroom berhasil dipproses.", "success");
                     catatLogAktivitas("Memproses Comparator Showroom (File Baru)");
                     gantiMenu('menuComparator', document.querySelectorAll('.nav-item')[2]);
                     switchComparatorTab('sr');
@@ -4369,56 +4330,57 @@
         let totalBkelAll = 0;
         let totalVcmanAll = 0;
         let totalVbengAll = 0;
+        let grandTotalAll = 0;
 
-        let chartLabels = [];
-        let chartDataBkel = [];
-        let chartDataVcman = [];
-        let chartDataVbeng = [];
-
-        sortedMonths.forEach(mKey => {
-            let item = monthlyMap[mKey];
-            totalBkelAll += item.MOBILBKEL;
-            totalVcmanAll += item.MOBILVCMAN;
-            totalVbengAll += item.MOBILVBENG;
-
-            let p = mKey.split('-');
-            chartLabels.unshift(`${p[1]}/${p[0]}`);
-            chartDataBkel.unshift(item.MOBILBKEL);
-            chartDataVcman.unshift(item.MOBILVCMAN);
-            chartDataVbeng.unshift(item.MOBILVBENG);
+        sortedMonths.forEach(m => {
+            totalBkelAll += monthlyMap[m].MOBILBKEL;
+            totalVcmanAll += monthlyMap[m].MOBILVCMAN;
+            totalVbengAll += monthlyMap[m].MOBILVBENG;
+            grandTotalAll += (monthlyMap[m].MOBILBKEL + monthlyMap[m].MOBILVCMAN + monthlyMap[m].MOBILVBENG);
         });
 
         document.getElementById('totalBkelVal').innerText = totalBkelAll;
         document.getElementById('totalVcmanVal').innerText = totalVcmanAll;
         document.getElementById('totalVbengVal').innerText = totalVbengAll;
-        document.getElementById('grandTotalQuantityVal').innerText = (totalBkelAll + totalVcmanAll + totalVbengAll);
+        document.getElementById('grandTotalQuantityVal').innerText = grandTotalAll;
 
         let monthsTampil = sortedMonths.slice(0, limitDataMenu5);
-
-        const tbody = document.getElementById('rekapQuantityTableBody');
+        let tbody = document.getElementById('rekapQuantityTableBody');
         tbody.innerHTML = '';
 
         if (monthsTampil.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); font-style: italic;">Tidak ada data kuantitas bulanan terverifikasi.</td></tr>`;
-            let btnLoadMoreMenu5 = document.getElementById('btn-load-more-menu5');
-            if (btnLoadMoreMenu5) btnLoadMoreMenu5.style.display = 'none';
-            return;
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); font-style: italic;">Tidak ada data bulanan ditemukan.</td></tr>`;
         }
 
-        monthsTampil.forEach((mKey, idx) => {
-            let item = monthlyMap[mKey];
-            let grandTotalMonth = item.MOBILBKEL + item.MOBILVCMAN + item.MOBILVBENG;
-            let parts = mKey.split('-');
-            let monthName = `${parts[1]}/${parts[0]}`;
+        monthsTampil.forEach((m, idx) => {
+            let bkel = monthlyMap[m].MOBILBKEL;
+            let vcman = monthlyMap[m].MOBILVCMAN;
+            let vbeng = monthlyMap[m].MOBILVBENG;
+            let rowTotal = bkel + vcman + vbeng;
+            let rowId = `m5-${idx}`;
+
+            let [y, mm] = m.split('-');
+            let dateObj = new Date(y, mm - 1, 1);
+            let monthName = dateObj.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
 
             tbody.innerHTML += `
                 <tr>
                     <td style="text-align: center;">${idx + 1}</td>
-                    <td><b>${monthName}</b></td>
-                    <td class="text-right">${item.MOBILBKEL}</td>
-                    <td class="text-right">${item.MOBILVCMAN}</td>
-                    <td class="text-right">${item.MOBILVBENG}</td>
-                    <td class="text-right"><b>${grandTotalMonth}</b></td>
+                    <td>
+                        <strong>${monthName} (${m})</strong>
+                        <button class="btn-secondary no-print" style="font-size: 11px; padding: 2px 8px; margin-left: 8px;" onclick="toggleDetailHariMenu5('${m}', '${rowId}')">
+                            🔍 Detail Harian
+                        </button>
+                    </td>
+                    <td class="text-right">${bkel}</td>
+                    <td class="text-right">${vcman}</td>
+                    <td class="text-right">${vbeng}</td>
+                    <td class="text-right"><b>${rowTotal}</b></td>
+                </tr>
+                <tr id="detail-row-${rowId}" style="display: none;">
+                    <td colspan="6" style="padding: 0 10px 10px 10px; background: var(--bg-main);">
+                        <div id="detail-container-${rowId}"></div>
+                    </td>
                 </tr>
             `;
         });
@@ -4428,55 +4390,157 @@
             btnLoadMoreMenu5.style.display = (limitDataMenu5 >= sortedMonths.length) ? 'none' : 'inline-block';
         }
 
-        renderVoucherTrendChart(chartLabels, chartDataBkel, chartDataVcman, chartDataVbeng);
+        renderVoucherMonthlyChart(monthlyMap, sortedMonths);
     }
 
-    function renderVoucherTrendChart(labels, dataBkel, dataVcman, dataVbeng) {
-        const canvas = document.getElementById('voucherTrendChart');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
+    function renderDetailQuantityPerHari(targetMonth, containerId) {
+        let container = document.getElementById(containerId);
+        if (!container) return;
 
-        if (voucherChartInstance) {
-            voucherChartInstance.destroy();
+        let relevantClasses = ["MOBILBKEL", "MOBILVCMAN", "MOBILVBENG"];
+        let dailyData = {};
+
+        verifiedTransactions.forEach(idTrans => {
+            let item = globalDataTransaksi.find(tr => tr.id === idTrans);
+            if (!item) return;
+
+            let itemClass = String(item.jenisKendaraan || "").toUpperCase();
+            if (!relevantClasses.includes(itemClass)) return;
+
+            let rawDate = item.rawDate || "";
+            if (!rawDate && item.tanggal) {
+                let p = item.tanggal.split('/');
+                if (p.length === 3) rawDate = `${p[2]}-${p[1]}-${p[0]}`;
+            }
+            if (!rawDate) return;
+
+            let yearMonth = rawDate.slice(0, 7);
+            let dayDate = rawDate;
+
+            if (yearMonth === targetMonth) {
+                if (!dailyData[dayDate]) {
+                    dailyData[dayDate] = { MOBILBKEL: 0, MOBILVCMAN: 0, MOBILVBENG: 0, total: 0 };
+                }
+                let qty = hitungJumlahDinamis(item.jenisKendaraan, item.lamaParkir);
+                dailyData[dayDate][itemClass] = (dailyData[dayDate][itemClass] || 0) + qty;
+                dailyData[dayDate].total += qty;
+            }
+        });
+
+        let sortedDays = Object.keys(dailyData).sort();
+
+        if (sortedDays.length === 0) {
+            container.innerHTML = `
+                <div style="padding: 12px; text-align: center; color: var(--text-muted); font-style: italic;">
+                    Tidak ada detail data harian terverifikasi untuk periode ${targetMonth}.
+                </div>`;
+            return;
         }
 
+        let html = `
+            <div style="margin-top: 10px; padding: 12px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm);">
+                <h4 style="margin: 0 0 10px 0; font-size: 13px; color: var(--primary);">
+                    📅 Detail Kuantitas Harian Periode: <strong>${targetMonth}</strong>
+                </h4>
+                <div class="table-responsive" style="max-height: 280px; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr style="background: var(--bg-main);">
+                                <th style="width: 40px; text-align: center;">No</th>
+                                <th>Tanggal Harian</th>
+                                <th class="text-right">MOBILBKEL</th>
+                                <th class="text-right">MOBILVCMAN</th>
+                                <th class="text-right">MOBILVBENG</th>
+                                <th class="text-right">Total Harian</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+        let grandBkel = 0, grandVcman = 0, grandVbeng = 0, grandTotal = 0;
+
+        sortedDays.forEach((day, index) => {
+            let row = dailyData[day];
+            grandBkel += row.MOBILBKEL;
+            grandVcman += row.MOBILVCMAN;
+            grandVbeng += row.MOBILVBENG;
+            grandTotal += row.total;
+
+            let parts = day.split('-');
+            let formattedDayStr = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : day;
+
+            html += `
+                <tr>
+                    <td style="text-align: center;">${index + 1}</td>
+                    <td><strong>${formattedDayStr}</strong> (${day})</td>
+                    <td class="text-right">${row.MOBILBKEL || 0}</td>
+                    <td class="text-right">${row.MOBILVCMAN || 0}</td>
+                    <td class="text-right">${row.MOBILVBENG || 0}</td>
+                    <td class="text-right" style="font-weight: 600; color: var(--primary);">${row.total}</td>
+                </tr>`;
+        });
+
+        html += `
+                        </tbody>
+                        <tfoot>
+                            <tr style="font-weight: bold; background: var(--bg-main);">
+                                <td colspan="2" style="text-align: right; padding-right: 12px;">TOTAL BULANAN:</td>
+                                <td class="text-right">${grandBkel}</td>
+                                <td class="text-right">${grandVcman}</td>
+                                <td class="text-right">${grandVbeng}</td>
+                                <td class="text-right" style="color: var(--success);">${grandTotal}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            `;
+
+        container.innerHTML = html;
+    }
+
+    function toggleDetailHariMenu5(monthStr, rowId) {
+        let detailRow = document.getElementById(`detail-row-${rowId}`);
+        let container = document.getElementById(`detail-container-${rowId}`);
+
+        if (!detailRow || !container) return;
+
+        if (detailRow.style.display === "none" || detailRow.style.display === "") {
+            detailRow.style.display = "table-row";
+            renderDetailQuantityPerHari(monthStr, `detail-container-${rowId}`);
+        } else {
+            detailRow.style.display = "none";
+        }
+    }
+
+    function renderVoucherMonthlyChart(monthlyMap, sortedMonths) {
+        const ctx = document.getElementById('voucherTrendChart');
+        if (!ctx) return;
+
+        let chartMonths = [...sortedMonths].reverse();
+
+        let dataBkel = chartMonths.map(m => monthlyMap[m].MOBILBKEL);
+        let dataVcman = chartMonths.map(m => monthlyMap[m].MOBILVCMAN);
+        let dataVbeng = chartMonths.map(m => monthlyMap[m].MOBILVBENG);
+        let dataGrandTotal = chartMonths.map(m => monthlyMap[m].MOBILBKEL + monthlyMap[m].MOBILVCMAN + monthlyMap[m].MOBILVBENG);
+
+        let labels = chartMonths.map(m => {
+            let [y, mm] = m.split('-');
+            let dateObj = new Date(y, mm - 1, 1);
+            return dateObj.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' });
+        });
+
+        if (voucherChartInstance) voucherChartInstance.destroy();
         voucherChartInstance = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [
-                    {
-                        label: 'MOBILBKEL',
-                        data: dataBkel,
-                        backgroundColor: '#3b82f6',
-                        borderRadius: 4
-                    },
-                    {
-                        label: 'MOBILVCMAN',
-                        data: dataVcman,
-                        backgroundColor: '#0284c7',
-                        borderRadius: 4
-                    },
-                    {
-                        label: 'MOBILVBENG',
-                        data: dataVbeng,
-                        backgroundColor: '#16a34a',
-                        borderRadius: 4
-                    }
+                    { label: 'MOBILBKEL', data: dataBkel, backgroundColor: '#2563eb', borderRadius: 4 },
+                    { label: 'MOBILVCMAN', data: dataVcman, backgroundColor: '#0ea5e9', borderRadius: 4 },
+                    { label: 'MOBILVBENG', data: dataVbeng, backgroundColor: '#16a34a', borderRadius: 4 },
+                    { label: 'Grand Total', data: dataGrandTotal, backgroundColor: '#8b5cf6', borderRadius: 4 }
                 ]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: { stacked: true },
-                    y: { stacked: true, beginAtZero: true }
-                },
-                plugins: {
-                    legend: { position: 'top' },
-                    tooltip: { mode: 'index', intersect: false }
-                }
-            }
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
         });
     }
 
@@ -4490,47 +4554,73 @@
             if (!i.rawDate) return;
             let mKey = i.rawDate.slice(0, 7);
             if (!monthlyMap[mKey]) monthlyMap[mKey] = { MOBILBKEL: 0, MOBILVCMAN: 0, MOBILVBENG: 0 };
-            monthlyMap[mKey][i.jenisKendaraan] += hitungJumlahDinamis(i.jenisKendaraan, i.lamaParkir);
+            let qty = hitungJumlahDinamis(i.jenisKendaraan, i.lamaParkir);
+            monthlyMap[mKey][i.jenisKendaraan] += qty;
         });
 
-        let rows = Object.keys(monthlyMap).sort().map((mKey, idx) => ({
-            "No": idx + 1, "Bulan": mKey, "MOBILBKEL": monthlyMap[mKey].MOBILBKEL,
-            "MOBILVCMAN": monthlyMap[mKey].MOBILVCMAN, "MOBILVBENG": monthlyMap[mKey].MOBILVBENG,
-            "Grand Total": monthlyMap[mKey].MOBILBKEL + monthlyMap[mKey].MOBILVCMAN + monthlyMap[mKey].MOBILVBENG
-        }));
+        let sortedMonths = Object.keys(monthlyMap).sort((a, b) => b.localeCompare(a));
+        let rows = [];
+        let totBkel = 0, totVcman = 0, totVbeng = 0, totAll = 0;
+
+        sortedMonths.forEach((m, idx) => {
+            let bkel = monthlyMap[m].MOBILBKEL;
+            let vcman = monthlyMap[m].MOBILVCMAN;
+            let vbeng = monthlyMap[m].MOBILVBENG;
+            let total = bkel + vcman + vbeng;
+
+            totBkel += bkel; totVcman += vcman; totVbeng += vbeng; totAll += total;
+
+            rows.push({
+                "No": idx + 1,
+                "Periode Bulan": m,
+                "MOBILBKEL": bkel,
+                "MOBILVCMAN": vcman,
+                "MOBILVBENG": vbeng,
+                "Grand Total": total
+            });
+        });
+
+        rows.push({
+            "No": "",
+            "Periode Bulan": "TOTAL KESELURUHAN",
+            "MOBILBKEL": totBkel,
+            "MOBILVCMAN": totVcman,
+            "MOBILVBENG": totVbeng,
+            "Grand Total": totAll
+        });
 
         let ws = XLSX.utils.json_to_sheet(rows), wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Voucher_Monthly_Report");
         XLSX.writeFile(wb, `Voucher_Monthly_Report_${new Date().toISOString().slice(0,10)}.xlsx`);
-        showToast("Export Excel berhasil.", "success");
+        showToast("Export Excel Voucher Monthly Report berhasil.", "success");
     }
 
     function renderReportNotesMenu() {
-        renderTabelCatatanHarian();
+        renderCatatanHarianTable();
         renderCatatanPerson();
     }
 
-    function renderTabelCatatanHarian() {
+    function renderCatatanHarianTable() {
         const tbody = document.getElementById('tabelCatatanHarianBody');
-        if(!tbody) return;
+        if (!tbody) return;
         tbody.innerHTML = '';
 
-        const keys = Object.keys(catatanTanggalAdmin);
-        if (keys.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); font-style: italic;">Belum ada catatan harian tersimpan dari Menu 4.</td></tr>`;
+        let dates = Object.keys(catatanTanggalAdmin).sort((a,b) => b.localeCompare(a));
+        if (dates.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); font-style: italic;">Belum ada catatan harian dari Menu 4.</td></tr>`;
             return;
         }
 
-        keys.sort((a,b) => b.localeCompare(a)).forEach((dateKey, index) => {
-            let item = catatanTanggalAdmin[dateKey];
+        dates.forEach((d, idx) => {
+            let noteObj = catatanTanggalAdmin[d];
             tbody.innerHTML += `
                 <tr>
-                    <td style="text-align: center;">${index + 1}</td>
-                    <td><b>${dateKey}</b></td>
-                    <td>${item.text}</td>
-                    <td style="font-size: 11px; color: var(--text-muted);">${item.timestamp}</td>
+                    <td style="text-align: center;">${idx + 1}</td>
+                    <td><b>${d}</b></td>
+                    <td>${noteObj.text || '-'}</td>
+                    <td style="font-size: 11px; color: var(--text-muted);">${noteObj.timestamp || '-'}</td>
                     <td style="text-align: center;">
-                        <button class="btn-table-danger" onclick="hapusCatatanHarian('${dateKey}')">Hapus</button>
+                        <button class="btn-table-danger" onclick="hapusCatatanHarian('${d}')">Hapus</button>
                     </td>
                 </tr>
             `;
@@ -4538,86 +4628,85 @@
     }
 
     function hapusCatatanHarian(dateKey) {
-        bukaModalCustom("Hapus Catatan Harian", `Yakin ingin menghapus catatan harian untuk tanggal ${dateKey}?`, () => {
+        bukaModalCustom("Hapus Catatan Harian", `Yakin ingin menghapus catatan harian tanggal ${dateKey}?`, () => {
             delete catatanTanggalAdmin[dateKey];
-            renderTabelCatatanHarian();
+            renderCatatanHarianTable();
             hitungBebanStorageBrowser();
-            showToast("Catatan harian dihapus.", "warning");
-            catatLogAktivitas(`Hapus catatan harian tanggal ${dateKey}`);
+            showToast("Catatan harian berhasil dihapus.", "success");
+            catatLogAktivitas(`Menghapus catatan harian tanggal ${dateKey}`);
         });
     }
 
     function exportCatatanHarianToExcel() {
-        let keys = Object.keys(catatanTanggalAdmin);
-        if (keys.length === 0) { showToast("Tidak ada catatan harian untuk diexport.", "warning"); return; }
-        let rows = keys.map((key, idx) => ({
-            "No": idx + 1, "Tanggal": key, "Isi Catatan": catatanTanggalAdmin[key].text, "Waktu Input": catatanTanggalAdmin[key].timestamp
+        let dates = Object.keys(catatanTanggalAdmin).sort();
+        if (dates.length === 0) { showToast("Tidak ada catatan harian untuk diexport.", "warning"); return; }
+        let rows = dates.map((d, idx) => ({
+            "No": idx + 1,
+            "Tanggal Target": d,
+            "Isi Catatan Harian": catatanTanggalAdmin[d].text,
+            "Waktu Dicatat": catatanTanggalAdmin[d].timestamp
         }));
         let ws = XLSX.utils.json_to_sheet(rows), wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Catatan_Harian");
-        XLSX.writeFile(wb, `Catatan_Harian_Menu4_${new Date().toISOString().slice(0,10)}.xlsx`);
+        XLSX.writeFile(wb, `Rekap_Catatan_Harian_${new Date().toISOString().slice(0,10)}.xlsx`);
         showToast("Export Excel catatan harian berhasil.", "success");
     }
 
     function tambahCatatanPerson() {
-        const tInput = document.getElementById('inputNoteTanggal');
-        const pInput = document.getElementById('inputNoteNopol');
-        const jInput = document.getElementById('inputNoteJenis');
-        const kInput = document.getElementById('inputNoteKet');
+        const tgl = document.getElementById('inputNoteTanggal').value;
+        const nopol = document.getElementById('inputNoteNopol').value.trim().toUpperCase();
+        const jenis = document.getElementById('inputNoteJenis').value;
+        const ket = document.getElementById('inputNoteKet').value.trim();
 
-        if (!tInput || !pInput || !kInput) return;
-
-        let tanggal = tInput.value;
-        let nopol = pInput.value.trim().toUpperCase();
-        let jenisKendaraan = jInput.value;
-        let keterangan = kInput.value.trim();
-
-        if (!tanggal || !nopol || !keterangan) {
+        if (!tgl || !nopol || !ket) {
             showToast("Tanggal, No Polisi, dan Keterangan wajib diisi!", "warning");
             return;
         }
 
         let now = new Date();
-        let waktuStr = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+        let waktuInput = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
 
-        let newNoteObj = {
+        let newNote = {
             id: `note_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
-            tanggal, nopol, jenisKendaraan, keterangan, waktuInput: waktuStr
+            tanggal: tgl,
+            nopol: nopol,
+            jenisKendaraan: jenis,
+            keterangan: ket,
+            waktuInput: waktuInput
         };
 
-        personalReportNotes.unshift(newNoteObj);
+        personalReportNotes.unshift(newNote);
 
-        pInput.value = '';
-        kInput.value = '';
+        document.getElementById('inputNoteNopol').value = '';
+        document.getElementById('inputNoteKet').value = '';
+
         renderCatatanPerson();
         hitungBebanStorageBrowser();
-        showToast(`Catatan khusus untuk ${nopol} berhasil disimpan.`, "success");
-        catatLogAktivitas(`Menambahkan catatan person: ${nopol} (${jenisKendaraan})`);
+        showToast("Catatan person khusus berhasil disimpan!", "success");
+        catatLogAktivitas(`Menambahkan catatan person untuk nopol ${nopol}`);
     }
 
     function renderCatatanPerson() {
         const tbody = document.getElementById('tabelCatatanPersonBody');
-        const searchInput = document.getElementById('searchNoteInput');
+        const query = document.getElementById('searchNoteInput')?.value.trim().toLowerCase() || "";
         if (!tbody) return;
         tbody.innerHTML = '';
 
-        let query = searchInput ? searchInput.value.trim().toLowerCase() : "";
-        let notesFiltered = personalReportNotes.filter(item => 
-            !query || item.nopol.toLowerCase().includes(query) || 
-            item.keterangan.toLowerCase().includes(query) || 
-            item.tanggal.toLowerCase().includes(query)
-        );
+        let filtered = personalReportNotes.filter(item => {
+            if (!query) return true;
+            return item.nopol.toLowerCase().includes(query) || item.keterangan.toLowerCase().includes(query) || item.tanggal.includes(query);
+        });
 
-        if (notesFiltered.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); font-style: italic;">Tidak ada catatan person yang tersimpan atau cocok.</td></tr>`;
+        if (filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); font-style: italic;">Tidak ada catatan person yang cocok.</td></tr>`;
             return;
         }
 
-        notesFiltered.forEach((item, index) => {
+        filtered.forEach((item, idx) => {
             tbody.innerHTML += `
                 <tr>
-                    <td style="text-align: center;">${index + 1}</td>
-                    <td>${item.tanggal}</td>
+                    <td style="text-align: center;">${idx + 1}</td>
+                    <td><b>${item.tanggal}</b></td>
                     <td><b>${item.nopol}</b></td>
                     <td>${getBadgeKelasHTML(item.jenisKendaraan)}</td>
                     <td>${item.keterangan}</td>
@@ -4631,12 +4720,12 @@
     }
 
     function hapusCatatanPerson(id) {
-        bukaModalCustom("Hapus Catatan Person", "Yakin ingin menghapus catatan khusus ini?", () => {
-            personalReportNotes = personalReportNotes.filter(item => item.id !== id);
+        bukaModalCustom("Hapus Catatan Person", "Yakin ingin menghapus catatan person ini?", () => {
+            personalReportNotes = personalReportNotes.filter(i => i.id !== id);
             renderCatatanPerson();
             hitungBebanStorageBrowser();
-            showToast("Catatan person dihapus.", "warning");
-            catatLogAktivitas("Menghapus catatan person");
+            showToast("Catatan person berhasil dihapus.", "warning");
+            catatLogAktivitas("Menghapus catatan person khusus");
         });
     }
 
