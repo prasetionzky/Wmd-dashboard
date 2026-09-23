@@ -798,7 +798,7 @@
         }
 
         /* ==========================================================================
-           PENGATURAN CETAK (PRINT) RINGKAS, KECIL & CEGAH TANDA TANGAN LOMPAT
+           PENGATURAN CETAK (PRINT) SUPAYA 1 HALAMAN (TIDAK LOMPAT KE HALAMAN 2)
            ========================================================================== */
         @media print {
             aside, 
@@ -833,8 +833,8 @@
                 display: block !important;
                 height: auto !important;
                 overflow: visible !important;
-                font-size: 8pt !important;
-                zoom: 82%; /* Mengecilkan skala cetak agar seluruh data muat dalam 1 halaman */
+                font-size: 7.5pt !important;
+                zoom: 72% !important; /* Dikecilkan ke 72% agar seluruh data & tanda tangan pasti muat di 1 lembar */
             }
 
             .main-wrapper {
@@ -864,20 +864,20 @@
 
             .print-only-title {
                 display: block !important;
-                font-size: 10.5pt !important;
+                font-size: 9.5pt !important;
                 font-weight: bold;
                 color: #000;
             }
 
             .print-logo-img {
-                width: 60px !important;
-                height: 60px !important;
+                width: 45px !important;
+                height: 45px !important;
             }
 
             .report-header-info {
-                padding: 2px 5px !important;
-                font-size: 8pt !important;
-                margin-bottom: 4px !important;
+                padding: 2px 4px !important;
+                font-size: 7.5pt !important;
+                margin-bottom: 2px !important;
                 background: none !important;
                 border: 1px solid #ccc !important;
             }
@@ -886,26 +886,26 @@
                 max-height: none !important;
                 overflow: visible !important;
                 border: none !important;
-                margin-bottom: 4px !important;
+                margin-bottom: 2px !important;
             }
 
             table {
                 width: 100% !important;
-                font-size: 8pt !important;
+                font-size: 7.5pt !important;
                 border-collapse: collapse !important;
-                page-break-inside: auto;
+                page-break-inside: avoid !important;
             }
 
             tr {
-                page-break-inside: avoid;
-                page-break-after: auto;
+                page-break-inside: avoid !important;
             }
 
             th, td {
                 color: #000000 !important;
-                padding: 1px 4px !important; /* Diperketat dari 3px ke 1px agar tabel tidak memakan tinggi vertikal berlebih */
+                padding: 0px 3px !important; /* Padding 0px agar tinggi baris sangat rapat dan hemat tempat */
                 border: 1px solid #777 !important;
                 word-break: break-word;
+                line-height: 1.1 !important;
             }
 
             th {
@@ -914,17 +914,17 @@
                 print-color-adjust: exact;
             }
 
-            /* Perbaikan utama: Mengizinkan area tanda tangan langsung berada di bawah tabel tanpa melompat halaman */
+            /* Blok Tanda Tangan */
             .print-signature-section {
                 display: flex !important;
-                justify-content: space-between;
-                margin-top: 8px !important;
-                page-break-inside: auto !important;
-                font-size: 8pt !important;
+                justify-content: space-between !important;
+                margin-top: 4px !important; /* Dibuat sangat dekat dengan footer tabel */
+                page-break-inside: avoid !important;
+                font-size: 7.5pt !important;
             }
 
             .sig-space {
-                height: 18px !important; /* Memperpendek jarak tanda tangan agar tidak terdorong ke halaman 2 */
+                height: 12px !important; /* Memperpendek jarak tanda tangan */
             }
 
             .col-aksi-print {
