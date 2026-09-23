@@ -797,7 +797,7 @@
             font-weight: 500;
         }
 
-        /* === PENGATURAN CETAK CSS YANG DISEMPURNAKAN === */
+        /* === PENGATURAN CETAK (PRINT) OPTIMASI: TABEL MUNCUL, HURUF KECIL, & OTOMATIS PORTRAIT/LANDSCAPE === */
         @media print {
             aside, 
             nav, 
@@ -807,7 +807,6 @@
             .global-search-box, 
             .header-tools-group, 
             .page-header-bar, 
-            .card:not(:has(#printArea)):not(:has(#printAdminArea)):not(:has(#printQtyArea)):not(:has(#printComparatorTh2Area)):not(:has(#printComparatorSrArea)):not(:has(#printCompReportArea)),
             .filter-admin-box,
             .filter-qty-box,
             .filter-comp-report-box,
@@ -828,6 +827,7 @@
                 display: block !important;
                 height: auto !important;
                 overflow: visible !important;
+                font-size: 9.5px !important; /* Huruf diperkecil agar hemat kertas */
             }
 
             .main-wrapper {
@@ -846,7 +846,8 @@
                 display: block !important;
             }
 
-            .card {
+            .menu-content.active .card {
+                display: block !important;
                 border: none !important;
                 box-shadow: none !important;
                 padding: 0 !important;
@@ -854,27 +855,29 @@
                 background: #ffffff !important;
             }
 
+            /* Memastikan Card penampung area cetak aktif otomatis dirender tabelnya */
+            .menu-content.active .card:has(#printArea),
+            .menu-content.active .card:has(#printAdminArea),
+            .menu-content.active .card:has(#printQtyArea),
+            .menu-content.active .card:has(#printComparatorTh2Area),
+            .menu-content.active .card:has(#printComparatorSrArea),
+            .menu-content.active .card:has(#printCompReportArea) {
+                display: block !important;
+            }
+
             .print-only-title {
                 display: block !important;
-                font-size: 15px;
+                font-size: 12px !important;
                 font-weight: bold;
                 color: #000;
             }
 
-            .print-signature-section {
-                display: flex !important;
-                justify-content: space-between;
-                margin-top: 40px;
-                page-break-inside: avoid;
-            }
-
-            .sig-box {
-                text-align: center;
-                font-size: 13px;
-            }
-
-            .sig-space {
-                height: 55px;
+            .report-header-info {
+                padding: 4px 6px !important;
+                font-size: 9.5px !important;
+                margin-bottom: 4px !important;
+                background: none !important;
+                border: 1px solid #ccc !important;
             }
 
             .table-responsive {
@@ -885,11 +888,31 @@
 
             table {
                 width: 100% !important;
+                font-size: 9px !important; /* Tabel diperkecil agar pas & hemat kertas */
             }
 
             th, td {
                 color: #000000 !important;
-                border-bottom: 1px solid #999 !important;
+                padding: 2px 4px !important; /* Jarak baris rapat */
+                border-bottom: 1px solid #777 !important;
+            }
+
+            th {
+                background-color: #eee !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .print-signature-section {
+                display: flex !important;
+                justify-content: space-between;
+                margin-top: 20px !important;
+                page-break-inside: avoid;
+                font-size: 10px !important;
+            }
+
+            .sig-space {
+                height: 35px !important;
             }
 
             .col-aksi-print {
@@ -897,25 +920,31 @@
             }
         }
 
-        /* Ukuran Kertas Landscape Letter untuk Menu 2, 4, 5 */
-        @media print {
-            body.print-landscape {
-                size: letter landscape;
-            }
-            body.print-landscape @page {
-                size: letter landscape;
-                margin: 10mm;
-            }
-        }
-
-        /* Ukuran Kertas Portrait Letter untuk Menu 3 dan 6 */
+        /* Otomatis Portrait untuk Menu 2 */
         @media print {
             body.print-portrait {
                 size: letter portrait;
             }
-            body.print-portrait @page {
+            @page portrait-page {
                 size: letter portrait;
-                margin: 10mm;
+                margin: 8mm;
+            }
+            body.print-portrait {
+                page: portrait-page;
+            }
+        }
+
+        /* Otomatis Landscape untuk Menu 3 (Compare TH2 & SR) */
+        @media print {
+            body.print-landscape {
+                size: letter landscape;
+            }
+            @page landscape-page {
+                size: letter landscape;
+                margin: 8mm;
+            }
+            body.print-landscape {
+                page: landscape-page;
             }
         }
     </style>
@@ -1128,7 +1157,7 @@
 
             <div id="printArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png'; if(this.src.includes('print.png') && this.naturalWidth==0) this.style.display='none';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png'; if(this.src.includes('print.png') && this.naturalWidth==0) this.style.display='none';">
                     <div class="print-only-title" id="printTitlePetugas" style="margin:0;">Laporan Transaksi</div>
                 </div>
 
@@ -1144,7 +1173,7 @@
                     <table id="tableReportPetugas">
                         <thead>
                             <tr>
-                                <th style="width: 40px; text-align: center;" onclick="sortTable('tableReportPetugas', 0)">No</th>
+                                <th style="width: 35px; text-align: center;" onclick="sortTable('tableReportPetugas', 0)">No</th>
                                 <th onclick="sortTable('tableReportPetugas', 1)">No Polisi ↕</th>
                                 <th onclick="sortTable('tableReportPetugas', 2)">User Masuk ↕</th>
                                 <th onclick="sortTable('tableReportPetugas', 3)">Waktu Masuk ↕</th>
@@ -1205,11 +1234,11 @@
                 </div>
             </div>
 
-            <div class="info-cetak-note">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak untuk ditulis manual pakai pulpen. Status "periksa" otomatis diurutkan ke bagian paling bawah.</div>
+            <div class="info-cetak-note">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak. Status "periksa" otomatis diurutkan ke bagian paling bawah.</div>
 
             <div id="printComparatorTh2Area">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
                     <div class="print-only-title" style="margin:0;">Laporan Comparator Epsilon vs TH2</div>
                 </div>
 
@@ -1235,39 +1264,20 @@
                     </table>
                 </div>
 
-                <div id="sectionPengosonganContainer" style="display:none; margin-top: 24px;">
-                    <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--warning);">Daftar Pengosongan (TH2 Keterangan "KOSONG")</h3>
+                <div id="sectionPengosonganContainer" style="display:none; margin-top: 20px;">
+                    <h3 style="font-size: 14px; margin-bottom: 6px; color: var(--warning);">Daftar Pengosongan (TH2 Keterangan "KOSONG")</h3>
                     <div class="table-responsive">
                         <table>
                             <thead>
                                 <tr style="background-color: var(--bg-main);">
-                                    <th style="width: 40px; text-align: center;">No</th>
+                                    <th style="width: 35px; text-align: center;">No</th>
                                     <th>No Plat Lama</th>
                                     <th>Keterangan</th>
                                     <th>No Plat Baru</th>
-                                    <th style="text-align: center; width: 180px;" class="col-aksi-print">Aksi</th>
+                                    <th style="text-align: center; width: 160px;" class="col-aksi-print">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="pengosonganTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="sectionGantiNamaContainer" style="display:none; margin-top: 24px;">
-                    <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--primary);">Daftar "Ganti Nama Pengguna" (TH2)</h3>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr style="background-color: var(--bg-main);">
-                                    <th style="width: 45px; text-align: center;">No</th>
-                                    <th>Tanggal</th>
-                                    <th>No Plat Lama</th>
-                                    <th>No Plat Baru</th>
-                                    <th>Keterangan</th>
-                                    <th>Petugas / Pengguna</th>
-                                </tr>
-                            </thead>
-                            <tbody id="gantiNamaTableBody"></tbody>
                         </table>
                     </div>
                 </div>
@@ -1296,11 +1306,11 @@
                 </div>
             </div>
 
-            <div class="info-cetak-note">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak untuk ditulis manual pakai pulpen. Status "periksa" otomatis diurutkan ke bagian paling bawah.</div>
+            <div class="info-cetak-note">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak. Status "periksa" otomatis diurutkan ke bagian paling bawah.</div>
 
             <div id="printComparatorSrArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
                     <div class="print-only-title" style="margin:0;">Laporan Comparator Showroom (SR)</div>
                 </div>
 
@@ -1326,62 +1336,6 @@
                         </thead>
                         <tbody id="showroomTableBody"></tbody>
                     </table>
-                </div>
-
-                <div id="sectionShowroomPengosonganContainer" style="display:none; margin-top: 24px;">
-                    <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--warning);">Daftar Pengosongan Showroom</h3>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr style="background-color: var(--bg-main);">
-                                    <th style="width: 40px; text-align: center;">No</th>
-                                    <th>No Plat Lama</th>
-                                    <th>No Plat Baru</th>
-                                    <th>Lantai / Lokasi</th>
-                                    <th style="text-align: center; width: 180px;" class="col-aksi-print">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="showroomPengosonganTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="sectionShowroomPp101Container" style="display:none; margin-top: 24px;">
-                    <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--primary);">👤 Daftar Transaksi User Keluar PP101 (Showroom)</h3>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr style="background-color: var(--bg-main);">
-                                    <th style="width: 40px; text-align: center;">No</th>
-                                    <th>No Polisi (Epsilon)</th>
-                                    <th>No Plat SR (Pembanding)</th>
-                                    <th>Showroom (Lantai)</th>
-                                    <th>Waktu Keluar</th>
-                                    <th style="width: 180px; text-align: center;" class="col-aksi-print">Keterangan / Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="showroomPp101TableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="sectionShowroomGudangContainer" style="display:none; margin-top: 24px;">
-                    <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--text-muted);">📦 Daftar Gudang Mobil Showroom (Epsilon Mobilbursa)</h3>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr style="background-color: var(--bg-main);">
-                                    <th style="width: 40px; text-align: center;">No</th>
-                                    <th>No Polisi (Epsilon Bursa)</th>
-                                    <th>No Plat SR / Gudang</th>
-                                    <th>Lantai / Lokasi</th>
-                                    <th>Pelanggan / Keterangan</th>
-                                    <th style="text-align: center; width: 120px;">Status / Ceklist</th>
-                                </tr>
-                            </thead>
-                            <tbody id="showroomGudangTableBody"></tbody>
-                        </table>
-                    </div>
                 </div>
 
                 <div class="print-signature-section">
@@ -1467,7 +1421,7 @@
 
             <div id="printAdminArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
                     <div class="print-only-title" id="printTitleAdmin" style="margin:0;">Laporan Transaksi</div>
                 </div>
 
@@ -1477,7 +1431,7 @@
                     <table id="tableAdminReport">
                         <thead>
                             <tr>
-                                <th style="width: 55px; text-align: center;" onclick="sortTable('tableAdminReport', 0)">No</th>
+                                <th style="width: 45px; text-align: center;" onclick="sortTable('tableAdminReport', 0)">No</th>
                                 <th onclick="sortTable('tableAdminReport', 1)">No Polisi ↕</th>
                                 <th onclick="sortTable('tableAdminReport', 2)">User Masuk ↕</th>
                                 <th onclick="sortTable('tableAdminReport', 3)">Waktu Masuk ↕</th>
@@ -1579,7 +1533,7 @@
 
             <div id="printQtyArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
                     <div class="print-only-title" id="printTitleQty" style="margin:0;">Laporan Voucher Monthly Report</div>
                 </div>
 
@@ -1694,7 +1648,7 @@
 
             <div id="printCompReportArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
                     <div class="print-only-title" id="printTitleCompReport" style="margin:0;">Laporan Admin Comparator</div>
                 </div>
 
@@ -2030,7 +1984,6 @@
     let lastUploadSessionIds = [];
     let activityLogs = [];
 
-    // Delta Sync Tracking untuk Efisiensi Bandwidth Jangka Panjang
     let syncedTransactionIds = [];
     let syncedVerifiedIds = [];
 
@@ -2078,7 +2031,6 @@
         });
     }
 
-    // === FITUR INCREMENTAL CLOUD SYNC & SMART MERGE ===
     let cloudSyncTimer = null;
     function triggerAutoCloudSync() {
         if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
@@ -2183,7 +2135,6 @@
         }
     });
 
-    // Smart Merge Cloud Data (Menggabungkan paket data delta secara pintar di memori tanpa duplikasi)
     function smartMergeCloudData(rawData) {
         if (!rawData) return;
         
@@ -2816,8 +2767,8 @@
 
     const menuMetaInfo = {
         'menu1': { title: '1. Upload Data', desc: 'Kelola dan impor file master transaksi dengan mudah.' },
-        'menu2': { title: '2. Voucher and Other Reports', desc: 'Rekapitulasi transaksi petugas harian siap verifikasi dan cetak.' },
-        'menuComparator': { title: '3. Compare TH2 & SR', desc: 'Perbandingan komparatif Epsilon vs TH2 dan Showroom.' },
+        'menu2': { title: '2. Voucher and Other Reports', desc: 'Rekapitulasi transaksi petugas harian siap verifikasi dan cetak (Otomatis Portrait).' },
+        'menuComparator': { title: '3. Compare TH2 & SR', desc: 'Perbandingan komparatif Epsilon vs TH2 dan Showroom (Otomatis Landscape).' },
         'menuAdmin': { title: '4. Reports Category Voucher and other', desc: 'Laporan data kelas kendaraan yang sudah diverifikasi.' },
         'menuQty': { title: '5. Voucher Monthly Report', desc: 'Rekapitulasi bulanan kuantitas MOBILBKEL, MOBILVCMAN, MOBILVBENG dan Grand Total.' },
         'menuCompReport': { title: '6. Reports Compare & Analytics', desc: 'Riwayat terverifikasi & Dashboard Analitik hasil comparator.' },
@@ -2855,17 +2806,19 @@
         if (menuId === 'menu5') { renderTabelUser(); renderLogAktivitas(); renderAboutContent(); updateToolsUnverUserDropdown(); hitungBebanStorageBrowser(); }
     }
 
+    // === OTOMATIS PORTRAIT / LANDSCAPE BERDASARKAN MENU ===
     function triggerCetakMenu(menuTarget) {
         const bodyTag = document.getElementById('mainBodyTag');
         bodyTag.className = ''; 
 
-        // Menu 2, 4, 5 menggunakan Landscape Letter
-        // Menu 3 (th2/sr) dan 6 menggunakan Portrait Letter
-        let isLandscape = false;
-        if (menuTarget === 'menu2' || menuTarget === 'menu4' || menuTarget === 'menu5') {
-            isLandscape = true;
+        // Permintaan: Menu 2 (Voucher and Other Reports) Cetak otomatis Portrait
+        // Menu 3 (Compare TH2 & SR) Cetak otomatis Landscape
+        if (menuTarget === 'menu2') {
+            bodyTag.classList.add('print-portrait');
+        } else if (menuTarget.startsWith('menu3') || menuTarget === 'menuComparator') {
             bodyTag.classList.add('print-landscape');
         } else {
+            // Default untuk menu lainnya
             bodyTag.classList.add('print-portrait');
         }
 
@@ -3592,7 +3545,6 @@
             });
         });
 
-        // Diurutkan berdasarkan status 'periksa' ke bawah, lalu waktu keluar terbaru
         resultRows.sort((a, b) => {
             let aPeriksa = (a.status || "").toLowerCase().includes("periksa") ? 1 : 0;
             let bPeriksa = (b.status || "").toLowerCase().includes("periksa") ? 1 : 0;
@@ -3614,81 +3566,6 @@
         document.getElementById('printTitleCompReport').innerText = `Laporan Comparator Showroom (SR) - Petugas: ${namaUserSrStr} - Tgl: ${extractedDate}`;
 
         renderTabelShowroomMain();
-
-        const secPengosongan = document.getElementById('sectionShowroomPengosonganContainer');
-        const tbodyKosong = document.getElementById('showroomPengosonganTableBody');
-        if (pengosonganList.length > 0) {
-            secPengosongan.style.display = 'block';
-            tbodyKosong.innerHTML = '';
-            pengosonganList.forEach((item, idx) => {
-                let isAdded = rawShowroomEpsData.some(e => e.noPolisi === item.platBaru || e.noPolisi === item.platLama);
-                tbodyKosong.innerHTML += `
-                    <tr>
-                        <td style="text-align: center;">${idx + 1}</td>
-                        <td><b>${item.platLama}</b></td>
-                        <td><b>${item.platBaru}</b></td>
-                        <td>${item.lantai}</td>
-                        <td style="text-align: center; display: flex; gap: 4px; justify-content: center;" class="col-aksi-print">
-                            ${isAdded ? '<span style="font-size: 11px; color: var(--success); font-weight: 600;">✓ Di Pembanding</span>' : 
-                            `<button class="btn-table-success" onclick="tambahShowroomKePembandingManual('${item.platLama}', '${item.platBaru}')">+ Tambah</button>
-                             <button class="btn-table-success" style="background-color: #8b5cf6; color: white;" onclick="tambahShowroomAbriManual('${item.platLama}', '${item.platBaru}')">Abri</button>`}
-                        </td>
-                    </tr>
-                `;
-            });
-        } else { secPengosongan.style.display = 'none'; }
-
-        const secPp101 = document.getElementById('sectionShowroomPp101Container');
-        const tbodyPp101 = document.getElementById('showroomPp101TableBody');
-        if (pp101List.length > 0) {
-            secPp101.style.display = 'block';
-            tbodyPp101.innerHTML = '';
-            pp101List.forEach((item, idx) => {
-                let matchSr = showroomMapByPlatBaru[item.noPolisi] || rawShowroomSrcData.find(s => s.platBaru === item.noPolisi || s.platLama === item.noPolisi);
-                let srPlat = matchSr ? `<b>${matchSr.platBaru}</b>` : '<span style="color:var(--danger); font-weight:600;">x periksa lagi</span>';
-                let srLantai = matchSr ? matchSr.lantai : '-';
-
-                tbodyPp101.innerHTML += `
-                    <tr>
-                        <td style="text-align: center;">${idx + 1}</td>
-                        <td><b>${item.noPolisi}</b></td>
-                        <td>${srPlat}</td>
-                        <td>${srLantai}</td>
-                        <td>${item.waktuKeluar}</td>
-                        <td style="text-align: center;" class="col-aksi-print">
-                            <select class="pp101-action-select" data-nopol="${item.noPolisi}" style="padding: 4px 8px; font-size: 11px; border-radius: 4px; border: 1px solid var(--border);">
-                                <option value="">-- Blank (Kosong) --</option>
-                                <option value="Gudang">Gudang</option>
-                            </select>
-                        </td>
-                    </tr>
-                `;
-            });
-        } else { secPp101.style.display = 'none'; }
-
-        const secGudangSr = document.getElementById('sectionShowroomGudangContainer');
-        const tbodyGudangSr = document.getElementById('showroomGudangTableBody');
-        if (showroomGudangList.length > 0) {
-            secGudangSr.style.display = 'block';
-            tbodyGudangSr.innerHTML = '';
-            let bursaSet = new Set(rawShowroomBursaData.map(i => i.noPolisi));
-
-            showroomGudangList.forEach((item, idx) => {
-                let foundInBursa = bursaSet.has(item.platBaru) || bursaSet.has(item.platLama);
-                let badgeStatus = foundInBursa ? '<span style="color: var(--success); font-weight: bold; font-size: 14px;">✓ Sesuai (Bursa)</span>' : '<span style="color: var(--danger); font-weight: 600;">x Tidak Ada di Bursa</span>';
-
-                tbodyGudangSr.innerHTML += `
-                    <tr>
-                        <td style="text-align: center;">${idx + 1}</td>
-                        <td><b>${item.platBaru}</b></td>
-                        <td><b>${item.platLama}</b></td>
-                        <td>${item.lantai}</td>
-                        <td>${item.pelanggan || '-'}</td>
-                        <td style="text-align: center;">${badgeStatus}</td>
-                    </tr>
-                `;
-            });
-        } else { secGudangSr.style.display = 'none'; }
     }
 
     function renderTabelShowroomMain() {
@@ -3811,7 +3688,6 @@
             });
         });
 
-        // Diurutkan berdasarkan status 'periksa' ke bawah, lalu waktu keluar terbaru
         resultRows.sort((a, b) => {
             let aPeriksa = (a.status || "").toLowerCase().includes("periksa") ? 1 : 0;
             let bPeriksa = (b.status || "").toLowerCase().includes("periksa") ? 1 : 0;
@@ -3943,28 +3819,6 @@
         document.getElementById('comparatorTh2ResultCard').style.display = 'block';
         showToast(`Plat ${platBaru} (ABRI) berhasil ditambahkan ke tabel comparator TH2.`, "success");
         catatLogAktivitas(`Manual Add TH2 Pengosongan ABRI: ${platBaru}`);
-    }
-
-    function tambahShowroomKePembandingManual(platLama, platBaru) {
-        if (!activeSrComparatorResult) {
-            activeSrComparatorResult = { id: `sr_manual_${Date.now()}`, date: new Date().toLocaleDateString('id-ID'), rawDate: new Date().toISOString().slice(0,10), rows: [] };
-        }
-        activeSrComparatorResult.rows.push({ nopolEpsilon: platBaru, platBaru: platBaru, lantai: "Showroom", user: "-", keteranganAlasan: "Manual", status: "sesuai", keterangan: "sesuai" });
-        renderTabelShowroomMain();
-        document.getElementById('comparatorSrResultCard').style.display = 'block';
-        showToast(`Plat ${platBaru} berhasil ditambahkan ke tabel comparator Showroom.`, "success");
-        catatLogAktivitas(`Manual Add Showroom Pengosongan: ${platBaru}`);
-    }
-
-    function tambahShowroomAbriManual(platLama, platBaru) {
-        if (!activeSrComparatorResult) {
-            activeSrComparatorResult = { id: `sr_manual_${Date.now()}`, date: new Date().toLocaleDateString('id-ID'), rawDate: new Date().toISOString().slice(0,10), rows: [] };
-        }
-        activeSrComparatorResult.rows.push({ nopolEpsilon: platBaru, platBaru: platBaru, lantai: "Showroom", user: "-", keteranganAlasan: "ABRI", status: "sesuai", keterangan: "sesuai" });
-        renderTabelShowroomMain();
-        document.getElementById('comparatorSrResultCard').style.display = 'block';
-        showToast(`Plat ${platBaru} (ABRI) berhasil ditambahkan ke tabel comparator Showroom.`, "success");
-        catatLogAktivitas(`Manual Add Showroom Pengosongan ABRI: ${platBaru}`);
     }
 
     function verifikasiLaporanAktif() {
@@ -4346,7 +4200,6 @@
         else if (mode === 'month' && monthVal) data = data.filter(i => i.rawDate.startsWith(monthVal));
         if (query) data = data.filter(i => i.noPolisi.toLowerCase().includes(query));
 
-        // Diurutkan secara otomatis berdasarkan waktu keluar dari yang terbaru (paling akhir) ke yang terlama
         data.sort((a, b) => parseDateTimeForSorting(b.waktuKeluar) - parseDateTimeForSorting(a.waktuKeluar));
 
         let isKhusus = (kelas === "MOBILMORIS" || kelas === "MOBILEVENT");
