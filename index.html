@@ -796,6 +796,128 @@
             color: var(--text-muted);
             font-weight: 500;
         }
+
+        /* === PENGATURAN CETAK CSS YANG DISEMPURNAKAN === */
+        @media print {
+            aside, 
+            nav, 
+            .sidebar, 
+            button, 
+            .btn, 
+            .global-search-box, 
+            .header-tools-group, 
+            .page-header-bar, 
+            .card:not(:has(#printArea)):not(:has(#printAdminArea)):not(:has(#printQtyArea)):not(:has(#printComparatorTh2Area)):not(:has(#printComparatorSrArea)):not(:has(#printCompReportArea)),
+            .filter-admin-box,
+            .filter-qty-box,
+            .filter-comp-report-box,
+            .comparator-tab-container,
+            .info-cetak-note,
+            #toastContainer,
+            .loading-overlay,
+            .custom-modal-overlay,
+            .search-container {
+                display: none !important;
+            }
+
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                display: block !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+
+            .main-wrapper {
+                padding: 0 !important;
+                margin: 0 !important;
+                height: auto !important;
+                overflow: visible !important;
+                width: 100% !important;
+            }
+
+            .menu-content {
+                display: none !important;
+            }
+
+            .menu-content.active {
+                display: block !important;
+            }
+
+            .card {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+            }
+
+            .print-only-title {
+                display: block !important;
+                font-size: 15px;
+                font-weight: bold;
+                color: #000;
+            }
+
+            .print-signature-section {
+                display: flex !important;
+                justify-content: space-between;
+                margin-top: 40px;
+                page-break-inside: avoid;
+            }
+
+            .sig-box {
+                text-align: center;
+                font-size: 13px;
+            }
+
+            .sig-space {
+                height: 55px;
+            }
+
+            .table-responsive {
+                max-height: none !important;
+                overflow: visible !important;
+                border: none !important;
+            }
+
+            table {
+                width: 100% !important;
+            }
+
+            th, td {
+                color: #000000 !important;
+                border-bottom: 1px solid #999 !important;
+            }
+
+            .col-aksi-print {
+                display: none !important;
+            }
+        }
+
+        /* Ukuran Kertas Landscape Letter untuk Menu 2, 4, 5 */
+        @media print {
+            body.print-landscape {
+                size: letter landscape;
+            }
+            body.print-landscape @page {
+                size: letter landscape;
+                margin: 10mm;
+            }
+        }
+
+        /* Ukuran Kertas Portrait Letter untuk Menu 3 dan 6 */
+        @media print {
+            body.print-portrait {
+                size: letter portrait;
+            }
+            body.print-portrait @page {
+                size: letter portrait;
+                margin: 10mm;
+            }
+        }
     </style>
 </head>
 <body id="mainBodyTag">
@@ -1002,7 +1124,7 @@
                 </div>
             </div>
             
-            <div class="info-cetak-note">⚠️ Pastikan Anda mencetak laporan ini terlebih dahulu sebelum menekan tombol Verifikasi. (Terurut Waktu Keluar: Terkecil ke Lama)</div>
+            <div class="info-cetak-note">⚠️ Pastikan Anda mencetak laporan ini terlebih dahulu sebelum menekan tombol Verifikasi.</div>
 
             <div id="printArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
@@ -1012,7 +1134,7 @@
 
                 <div class="report-header-info" id="reportHeaderInfo">
                     <div id="infoPetugasText"></div>
-                    <div style="display: flex; align-items: center; gap: 6px;">
+                    <div style="display: flex; align-items: center; gap: 6px;" class="no-print">
                         <span>📅 <strong>Tanggal Transaksi:</strong></span>
                         <input type="date" id="inputUbahTanggal" onchange="updateTanggalLaporan(this.value)">
                     </div>
@@ -1083,7 +1205,7 @@
                 </div>
             </div>
 
-            <div class="info-cetak-note">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak untuk ditulis manual pakai pulpen.</div>
+            <div class="info-cetak-note">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak untuk ditulis manual pakai pulpen. Status "periksa" otomatis diurutkan ke bagian paling bawah.</div>
 
             <div id="printComparatorTh2Area">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
@@ -1123,7 +1245,7 @@
                                     <th>No Plat Lama</th>
                                     <th>Keterangan</th>
                                     <th>No Plat Baru</th>
-                                    <th style="text-align: center; width: 180px;">Aksi</th>
+                                    <th style="text-align: center; width: 180px;" class="col-aksi-print">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="pengosonganTableBody"></tbody>
@@ -1174,7 +1296,7 @@
                 </div>
             </div>
 
-            <div class="info-cetak-note">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak untuk ditulis manual pakai pulpen.</div>
+            <div class="info-cetak-note">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak untuk ditulis manual pakai pulpen. Status "periksa" otomatis diurutkan ke bagian paling bawah.</div>
 
             <div id="printComparatorSrArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
@@ -1216,7 +1338,7 @@
                                     <th>No Plat Lama</th>
                                     <th>No Plat Baru</th>
                                     <th>Lantai / Lokasi</th>
-                                    <th style="text-align: center; width: 180px;">Aksi</th>
+                                    <th style="text-align: center; width: 180px;" class="col-aksi-print">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="showroomPengosonganTableBody"></tbody>
@@ -1235,7 +1357,7 @@
                                     <th>No Plat SR (Pembanding)</th>
                                     <th>Showroom (Lantai)</th>
                                     <th>Waktu Keluar</th>
-                                    <th style="width: 180px; text-align: center;">Keterangan / Aksi</th>
+                                    <th style="width: 180px; text-align: center;" class="col-aksi-print">Keterangan / Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="showroomPp101TableBody"></tbody>
@@ -1283,7 +1405,7 @@
         <div class="card filter-admin-box">
             <div class="card-header">
                 <h2>Reports Category Voucher and other</h2>
-                <p class="card-desc">Laporan data yang sudah <strong>diverifikasi</strong>.</p>
+                <p class="card-desc">Laporan data yang sudah <strong>diverifikasi</strong> (Terurut Waktu Keluar Terbaru ke Terlama).</p>
             </div>
             
             <div class="form-group">
@@ -1451,7 +1573,7 @@
                 <h2 id="qtyReportTitle" style="margin:0;">Tabel Rekapitulasi Voucher Monthly Report</h2>
                 <div style="display: flex; gap: 8px;">
                     <button class="btn-success" id="btnExportQty" onclick="exportAdminQuantityToExcel()">📊 Export Excel</button>
-                    <button class="btn-secondary" onclick="triggerCetakMenu('menu4')">🖨️ Cetak Laporan</button>
+                    <button class="btn-secondary" onclick="triggerCetakMenu('menu5')">🖨️ Cetak Laporan</button>
                 </div>
             </div>
 
@@ -2737,22 +2859,21 @@
         const bodyTag = document.getElementById('mainBodyTag');
         bodyTag.className = ''; 
 
-        let printStyle = document.getElementById('dynamicPrintStyle');
-        if (!printStyle) {
-            printStyle = document.createElement('style');
-            printStyle.id = 'dynamicPrintStyle';
-            document.head.appendChild(printStyle);
-        }
-
-        if (menuTarget === 'menu2' || menuTarget === 'menu4') {
-            bodyTag.classList.add('print-menu-2-4');
-            printStyle.innerHTML = '@media print { @page { size: letter landscape; margin: 4mm; } }';
-        } else if (menuTarget.startsWith('menu3') || menuTarget === 'menu6') {
-            bodyTag.classList.add('print-menu-3-6');
-            printStyle.innerHTML = '@media print { @page { size: letter portrait; margin: 4mm; } }';
+        // Menu 2, 4, 5 menggunakan Landscape Letter
+        // Menu 3 (th2/sr) dan 6 menggunakan Portrait Letter
+        let isLandscape = false;
+        if (menuTarget === 'menu2' || menuTarget === 'menu4' || menuTarget === 'menu5') {
+            isLandscape = true;
+            bodyTag.classList.add('print-landscape');
+        } else {
+            bodyTag.classList.add('print-portrait');
         }
 
         window.print();
+
+        setTimeout(() => {
+            bodyTag.classList.remove('print-landscape', 'print-portrait');
+        }, 500);
     }
 
     function switchComparatorTab(tabKey) {
@@ -3411,14 +3532,16 @@
         document.getElementById('comparatorSrResultCard').style.display = 'block';
         document.getElementById('comparatorTh2ResultCard').style.display = 'none';
 
-        let epsMap = {};
+        let epsUserMap = {};
+        let epsItemMap = {};
         let pp101List = [];
         let uniqueUserCodesSet = new Set();
 
         rawShowroomEpsData.forEach(item => {
             if (item.userKeluar === "PP101") pp101List.push(item);
             else {
-                epsMap[item.noPolisi] = item.userKeluar;
+                epsUserMap[item.noPolisi] = item.userKeluar;
+                epsItemMap[item.noPolisi] = item;
                 if (item.userKeluar && item.userKeluar !== "-") uniqueUserCodesSet.add(item.userKeluar);
             }
         });
@@ -3442,7 +3565,7 @@
         });
 
         let pp101NopolsSet = new Set(pp101List.map(i => i.noPolisi));
-        let masterNopolsSet = new Set(Object.keys(epsMap));
+        let masterNopolsSet = new Set(Object.keys(epsUserMap));
         rawShowroomSrcData.forEach(item => {
             let plat = item.platBaru.trim();
             let pStr = (item.pelanggan || "").toLowerCase(), lStr = (item.lantai || "").toLowerCase();
@@ -3454,15 +3577,27 @@
         let resultRows = [];
         masterNopols.forEach(nopolKey => {
             let match = showroomMapByPlatBaru[nopolKey];
-            let inEps = epsMap.hasOwnProperty(nopolKey), inSr = !!match;
+            let inEps = epsUserMap.hasOwnProperty(nopolKey), inSr = !!match;
+            let epsItem = epsItemMap[nopolKey];
+            let waktuKeluar = epsItem ? epsItem.waktuKeluar : "-";
+            
             resultRows.push({
                 nopolEpsilon: inEps ? nopolKey : "",
                 platBaru: inSr ? match.platBaru : "",
                 lantai: inSr ? match.lantai : "-",
-                user: getNamaPetugas(epsMap[nopolKey] || "-"),
+                user: getNamaPetugas(epsUserMap[nopolKey] || "-"),
                 keteranganAlasan: "",
-                status: (inEps && inSr && nopolKey === match.platBaru) ? "sesuai" : "periksa kembali"
+                status: (inEps && inSr && nopolKey === match.platBaru) ? "sesuai" : "periksa kembali",
+                waktuKeluar: waktuKeluar
             });
+        });
+
+        // Diurutkan berdasarkan status 'periksa' ke bawah, lalu waktu keluar terbaru
+        resultRows.sort((a, b) => {
+            let aPeriksa = (a.status || "").toLowerCase().includes("periksa") ? 1 : 0;
+            let bPeriksa = (b.status || "").toLowerCase().includes("periksa") ? 1 : 0;
+            if (aPeriksa !== bPeriksa) return aPeriksa - bPeriksa;
+            return parseDateTimeForSorting(b.waktuKeluar) - parseDateTimeForSorting(a.waktuKeluar);
         });
 
         activeSrComparatorResult = {
@@ -3493,7 +3628,7 @@
                         <td><b>${item.platLama}</b></td>
                         <td><b>${item.platBaru}</b></td>
                         <td>${item.lantai}</td>
-                        <td style="text-align: center; display: flex; gap: 4px; justify-content: center;">
+                        <td style="text-align: center; display: flex; gap: 4px; justify-content: center;" class="col-aksi-print">
                             ${isAdded ? '<span style="font-size: 11px; color: var(--success); font-weight: 600;">✓ Di Pembanding</span>' : 
                             `<button class="btn-table-success" onclick="tambahShowroomKePembandingManual('${item.platLama}', '${item.platBaru}')">+ Tambah</button>
                              <button class="btn-table-success" style="background-color: #8b5cf6; color: white;" onclick="tambahShowroomAbriManual('${item.platLama}', '${item.platBaru}')">Abri</button>`}
@@ -3520,7 +3655,7 @@
                         <td>${srPlat}</td>
                         <td>${srLantai}</td>
                         <td>${item.waktuKeluar}</td>
-                        <td style="text-align: center;">
+                        <td style="text-align: center;" class="col-aksi-print">
                             <select class="pp101-action-select" data-nopol="${item.noPolisi}" style="padding: 4px 8px; font-size: 11px; border-radius: 4px; border: 1px solid var(--border);">
                                 <option value="">-- Blank (Kosong) --</option>
                                 <option value="Gudang">Gudang</option>
@@ -3580,7 +3715,7 @@
                     <td>${row.lantai || '-'}</td>
                     <td><b>${row.user || '-'}</b></td>
                     <td id="sr_status_${idx}">${statusBadge}</td>
-                    <td class="col-keterangan-print">
+                    <td>
                         <input type="text" value="${ketVal}" data-index="${idx}" oninput="handleSrRowChange(${idx}, 'ket', this.value)" placeholder="Keterangan..." style="padding: 3px 6px; font-size: 11px; width: 130px; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); color: var(--text-main);">
                     </td>
                     <td style="text-align: center;" class="col-aksi-print">
@@ -3624,19 +3759,6 @@
         showToast("Baris dihapus.", "warning");
     }
 
-    function parseTh2User(textUser) {
-        if (!textUser) return "-";
-        let str = String(textUser).trim(), upper = str.toUpperCase();
-        for (let k of Object.keys(databaseUser)) {
-            if (upper.includes(k.toUpperCase())) return `${k} - ${databaseUser[k]}`;
-        }
-        if (upper.includes("TH2 /")) {
-            let parts = str.split('/');
-            if (parts.length >= 3) return parts.slice(2).join('/').trim();
-        }
-        return str;
-    }
-
     function jalankanComparatorTh2() {
         document.getElementById('comparatorTh2ResultCard').style.display = 'block';
         document.getElementById('comparatorSrResultCard').style.display = 'none';
@@ -3677,13 +3799,24 @@
         masterNopols.forEach(nopolKey => {
             let inEps = epsNopolMap.hasOwnProperty(nopolKey), match = th2MapByPlatBaru[nopolKey];
             let platTh2Val = match ? match.platBaru : "";
+            let waktuKeluar = inEps ? epsNopolMap[nopolKey].waktuKeluar : "-";
+            
             resultRows.push({
                 nopolEpsilon: inEps ? nopolKey : "",
                 platTh2: platTh2Val,
                 keteranganAlasan: "",
                 status: (inEps && platTh2Val && nopolKey === platTh2Val) ? "sesuai" : "periksa kembali",
-                keterangan: (inEps && platTh2Val && nopolKey === platTh2Val) ? "sesuai" : ""
+                keterangan: (inEps && platTh2Val && nopolKey === platTh2Val) ? "sesuai" : "",
+                waktuKeluar: waktuKeluar
             });
+        });
+
+        // Diurutkan berdasarkan status 'periksa' ke bawah, lalu waktu keluar terbaru
+        resultRows.sort((a, b) => {
+            let aPeriksa = (a.status || "").toLowerCase().includes("periksa") ? 1 : 0;
+            let bPeriksa = (b.status || "").toLowerCase().includes("periksa") ? 1 : 0;
+            if (aPeriksa !== bPeriksa) return aPeriksa - bPeriksa;
+            return parseDateTimeForSorting(b.waktuKeluar) - parseDateTimeForSorting(a.waktuKeluar);
         });
 
         activeTh2ComparatorResult = {
@@ -3713,7 +3846,7 @@
                         <td><b>${item.platLama}</b></td>
                         <td><span style="color:var(--warning); font-weight:600;">${item.keterangan || 'KOSONG'}</span></td>
                         <td><b>${item.platBaru}</b></td>
-                        <td style="text-align: center; display: flex; gap: 4px; justify-content: center;">
+                        <td style="text-align: center; display: flex; gap: 4px; justify-content: center;" class="col-aksi-print">
                             ${isAdded ? '<span style="font-size: 11px; color: var(--success); font-weight: 600;">✓ Di Pembanding</span>' : 
                             `<button class="btn-table-success" onclick="tambahTh2KePembandingManual('${item.platLama}', '${item.platBaru}')">+ Tambah</button>
                              <button class="btn-table-success" style="background-color: #8b5cf6; color: white;" onclick="tambahTh2AbriManual('${item.platLama}', '${item.platBaru}')">Abri</button>`}
@@ -3746,7 +3879,7 @@
                         <input type="text" value="${th2Val}" data-index="${idx}" oninput="handleTh2RowChange(${idx}, 'th2', this.value)" style="padding: 3px 6px; font-size: 11px; width: 130px; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); color: var(--text-main);">
                     </td>
                     <td id="th2_status_${idx}">${statusBadge}</td>
-                    <td class="col-keterangan-print">
+                    <td>
                         <input type="text" value="${ketVal}" data-index="${idx}" oninput="handleTh2RowChange(${idx}, 'ket', this.value)" placeholder="Keterangan..." style="padding: 3px 6px; font-size: 11px; width: 160px; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); color: var(--text-main);">
                     </td>
                     <td style="text-align: center;" class="col-aksi-print">
@@ -4213,7 +4346,8 @@
         else if (mode === 'month' && monthVal) data = data.filter(i => i.rawDate.startsWith(monthVal));
         if (query) data = data.filter(i => i.noPolisi.toLowerCase().includes(query));
 
-        data.sort((a,b) => parseDateTimeForSorting(b.waktuKeluar) - parseDateTimeForSorting(a.waktuKeluar));
+        // Diurutkan secara otomatis berdasarkan waktu keluar dari yang terbaru (paling akhir) ke yang terlama
+        data.sort((a, b) => parseDateTimeForSorting(b.waktuKeluar) - parseDateTimeForSorting(a.waktuKeluar));
 
         let isKhusus = (kelas === "MOBILMORIS" || kelas === "MOBILEVENT");
         let grandTotalJumlah = 0;
@@ -4398,7 +4532,7 @@
                     <td style="text-align: center;">${idx + 1}</td>
                     <td>
                         <strong>${monthName} (${m})</strong>
-                        <button class="btn-secondary" style="font-size: 11px; padding: 2px 8px; margin-left: 8px;" onclick="toggleDetailHariMenu5('${m}', '${rowId}')">
+                        <button class="btn-secondary no-print" style="font-size: 11px; padding: 2px 8px; margin-left: 8px;" onclick="toggleDetailHariMenu5('${m}', '${rowId}')">
                             🔍 Detail Harian
                         </button>
                     </td>
