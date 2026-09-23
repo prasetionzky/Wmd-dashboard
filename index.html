@@ -798,51 +798,43 @@
         }
 
         /* ==========================================================================
-           PENGATURAN CETAK (PRINT) SUPAYA 1 HALAMAN (TIDAK LOMPAT KE HALAMAN 2)
+           PENGATURAN CETAK (PRINT) ABSOLUT 1 HALAMAN (FONT LEBIH BESAR & TEGAS)
            ========================================================================== */
         @media print {
-            aside, 
-            nav, 
-            .sidebar, 
-            button, 
-            .btn, 
-            .global-search-box, 
-            .header-tools-group, 
-            .page-header-bar, 
-            #menu2Card,
-            #menu1Card,
-            #menuComparatorCard,
-            .filter-admin-box,
-            .filter-qty-box,
-            .filter-comp-report-box,
-            .comparator-tab-container,
-            .info-cetak-note,
-            #toastContainer,
-            .loading-overlay,
-            .custom-modal-overlay,
-            .search-container,
-            .no-print {
+            /* 1. Sembunyikan elemen non-cetak secara total */
+            aside, nav, .sidebar, button, .btn, .global-search-box, 
+            .header-tools-group, .page-header-bar, #menu2Card, #menu1Card, 
+            #menuComparatorCard, .filter-admin-box, .filter-qty-box, 
+            .filter-comp-report-box, .comparator-tab-container, .info-cetak-note, 
+            #toastContainer, .loading-overlay, .custom-modal-overlay, 
+            .search-container, .no-print {
                 display: none !important;
             }
 
-            body {
-                background: #ffffff !important;
-                color: #000000 !important;
+            /* 2. Set margin kertas minimal agar area cetak maksimal */
+            @page {
+                margin: 4mm !important;
+            }
+
+            /* 3. Lock ukuran viewport agar browser tidak membuat halaman 2 */
+            html, body {
+                width: 100% !important;
+                height: 100% !important;
+                max-height: 100vh !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                display: block !important;
-                height: auto !important;
-                overflow: visible !important;
-                font-size: 7.5pt !important;
-                zoom: 72% !important; /* Dikecilkan ke 72% agar seluruh data & tanda tangan pasti muat di 1 lembar */
+                background: #ffffff !important;
+                color: #000000 !important;
+                overflow: hidden !important;
+                box-sizing: border-box !important;
             }
 
             .main-wrapper {
                 padding: 0 !important;
                 margin: 0 !important;
-                height: auto !important;
-                overflow: visible !important;
                 width: 100% !important;
+                height: 100% !important;
+                overflow: hidden !important;
             }
 
             .menu-content {
@@ -851,6 +843,7 @@
 
             .menu-content.active {
                 display: block !important;
+                width: 100% !important;
             }
 
             .menu-content.active .card {
@@ -862,69 +855,75 @@
                 background: #ffffff !important;
             }
 
+            /* 4. Skala Cetak Proporsional (Optimal untuk Font Besar) */
+            #printArea, #printComparatorTh2Area, #printComparatorSrArea, #printAdminArea, #printQtyArea, #printCompReportArea {
+                transform: scale(0.82) !important;
+                transform-origin: top left !important;
+                width: 121% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* 5. Pengaturan Judul & Header (Font Diperbesar) */
             .print-only-title {
                 display: block !important;
-                font-size: 9.5pt !important;
-                font-weight: bold;
-                color: #000;
+                font-size: 11pt !important;
+                font-weight: bold !important;
+                color: #000 !important;
             }
 
             .print-logo-img {
-                width: 45px !important;
-                height: 45px !important;
+                width: 38px !important;
+                height: 38px !important;
             }
 
             .report-header-info {
-                padding: 2px 4px !important;
-                font-size: 7.5pt !important;
-                margin-bottom: 2px !important;
+                padding: 3px 6px !important;
+                font-size: 8.5pt !important;
+                margin-bottom: 4px !important;
                 background: none !important;
-                border: 1px solid #ccc !important;
+                border: 1px solid #666 !important;
             }
 
+            /* 6. Pengaturan Tabel (Font Diperbesar & Padding Padat) */
             .table-responsive {
                 max-height: none !important;
                 overflow: visible !important;
                 border: none !important;
-                margin-bottom: 2px !important;
+                margin-bottom: 4px !important;
             }
 
             table {
                 width: 100% !important;
-                font-size: 7.5pt !important;
+                font-size: 9.5pt !important;
                 border-collapse: collapse !important;
-                page-break-inside: avoid !important;
-            }
-
-            tr {
-                page-break-inside: avoid !important;
             }
 
             th, td {
                 color: #000000 !important;
-                padding: 0px 3px !important; /* Padding 0px agar tinggi baris sangat rapat dan hemat tempat */
-                border: 1px solid #777 !important;
-                word-break: break-word;
-                line-height: 1.1 !important;
+                padding: 2px 4px !important;
+                border: 1px solid #333 !important;
+                line-height: 1.05 !important;
             }
 
             th {
-                background-color: #f2f2f2 !important;
+                font-size: 9.5pt !important;
+                font-weight: bold !important;
+                background-color: #e5e5e5 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
 
-            /* Blok Tanda Tangan */
+            /* 7. Area Tanda Tangan Ringkas & Font Tegas */
             .print-signature-section {
                 display: flex !important;
                 justify-content: space-between !important;
-                margin-top: 4px !important; /* Dibuat sangat dekat dengan footer tabel */
-                page-break-inside: avoid !important;
-                font-size: 7.5pt !important;
+                margin-top: 8px !important;
+                font-size: 8.5pt !important;
             }
 
             .sig-space {
-                height: 12px !important; /* Memperpendek jarak tanda tangan */
+                height: 22px !important;
             }
 
             .col-aksi-print {
@@ -932,28 +931,25 @@
             }
         }
 
-        /* Menu 2, Menu 4, dan Menu 5 -> Letter Landscape (Mendatar) */
+        /* Orientasi Kertas Per Menu */
         @media print {
             body.print-landscape {
                 size: letter landscape;
             }
             @page landscape-page {
                 size: letter landscape;
-                margin: 5mm;
+                margin: 4mm;
             }
             body.print-landscape {
                 page: landscape-page;
             }
-        }
 
-        /* Menu 3 dan Menu 6 -> Letter Portrait (Tegak) */
-        @media print {
             body.print-portrait {
                 size: letter portrait;
             }
             @page portrait-page {
                 size: letter portrait;
-                margin: 5mm;
+                margin: 4mm;
             }
             body.print-portrait {
                 page: portrait-page;
