@@ -797,7 +797,9 @@
             font-weight: 500;
         }
 
-        /* === PENGATURAN CETAK (PRINT) OPTIMASI: TABEL MUNCUL, HURUF KECIL, & OTOMATIS PORTRAIT/LANDSCAPE === */
+        /* ==========================================================================
+           PENGATURAN CETAK (PRINT) OPTIMASI UTUH, RAPI, & SIKLUS UKURAN KERTAS
+           ========================================================================== */
         @media print {
             aside, 
             nav, 
@@ -815,7 +817,8 @@
             #toastContainer,
             .loading-overlay,
             .custom-modal-overlay,
-            .search-container {
+            .search-container,
+            .no-print {
                 display: none !important;
             }
 
@@ -827,7 +830,7 @@
                 display: block !important;
                 height: auto !important;
                 overflow: visible !important;
-                font-size: 9.5px !important; /* Huruf diperkecil agar hemat kertas */
+                font-size: 9pt !important;
             }
 
             .main-wrapper {
@@ -855,27 +858,17 @@
                 background: #ffffff !important;
             }
 
-            /* Memastikan Card penampung area cetak aktif otomatis dirender tabelnya */
-            .menu-content.active .card:has(#printArea),
-            .menu-content.active .card:has(#printAdminArea),
-            .menu-content.active .card:has(#printQtyArea),
-            .menu-content.active .card:has(#printComparatorTh2Area),
-            .menu-content.active .card:has(#printComparatorSrArea),
-            .menu-content.active .card:has(#printCompReportArea) {
-                display: block !important;
-            }
-
             .print-only-title {
                 display: block !important;
-                font-size: 12px !important;
+                font-size: 11pt !important;
                 font-weight: bold;
                 color: #000;
             }
 
             .report-header-info {
                 padding: 4px 6px !important;
-                font-size: 9.5px !important;
-                margin-bottom: 4px !important;
+                font-size: 9pt !important;
+                margin-bottom: 6px !important;
                 background: none !important;
                 border: 1px solid #ccc !important;
             }
@@ -888,17 +881,25 @@
 
             table {
                 width: 100% !important;
-                font-size: 9px !important; /* Tabel diperkecil agar pas & hemat kertas */
+                font-size: 8.5pt !important;
+                border-collapse: collapse !important;
+                page-break-inside: auto;
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
             }
 
             th, td {
                 color: #000000 !important;
-                padding: 2px 4px !important; /* Jarak baris rapat */
-                border-bottom: 1px solid #777 !important;
+                padding: 3px 5px !important;
+                border: 1px solid #777 !important;
+                word-break: break-word;
             }
 
             th {
-                background-color: #eee !important;
+                background-color: #f2f2f2 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -906,9 +907,9 @@
             .print-signature-section {
                 display: flex !important;
                 justify-content: space-between;
-                margin-top: 20px !important;
-                page-break-inside: avoid;
-                font-size: 10px !important;
+                margin-top: 15px !important;
+                page-break-inside: avoid !important;
+                font-size: 9pt !important;
             }
 
             .sig-space {
@@ -920,21 +921,7 @@
             }
         }
 
-        /* Otomatis Portrait untuk Menu 2 */
-        @media print {
-            body.print-portrait {
-                size: letter portrait;
-            }
-            @page portrait-page {
-                size: letter portrait;
-                margin: 8mm;
-            }
-            body.print-portrait {
-                page: portrait-page;
-            }
-        }
-
-        /* Otomatis Landscape untuk Menu 3 (Compare TH2 & SR) */
+        /* Menu 2, Menu 4, dan Menu 5 -> Letter Landscape (Mendatar) */
         @media print {
             body.print-landscape {
                 size: letter landscape;
@@ -945,6 +932,20 @@
             }
             body.print-landscape {
                 page: landscape-page;
+            }
+        }
+
+        /* Menu 3 dan Menu 6 -> Letter Portrait (Tegak) */
+        @media print {
+            body.print-portrait {
+                size: letter portrait;
+            }
+            @page portrait-page {
+                size: letter portrait;
+                margin: 8mm;
+            }
+            body.print-portrait {
+                page: portrait-page;
             }
         }
     </style>
@@ -1110,6 +1111,7 @@
             </div>
         </div>
     </div>
+
     <!-- MENU 2: Voucher and Other Reports -->
     <div id="menu2" class="menu-content">
         <div class="card" id="menu2Card">
@@ -2767,11 +2769,11 @@
 
     const menuMetaInfo = {
         'menu1': { title: '1. Upload Data', desc: 'Kelola dan impor file master transaksi dengan mudah.' },
-        'menu2': { title: '2. Voucher and Other Reports', desc: 'Rekapitulasi transaksi petugas harian siap verifikasi dan cetak (Otomatis Portrait).' },
-        'menuComparator': { title: '3. Compare TH2 & SR', desc: 'Perbandingan komparatif Epsilon vs TH2 dan Showroom (Otomatis Landscape).' },
-        'menuAdmin': { title: '4. Reports Category Voucher and other', desc: 'Laporan data kelas kendaraan yang sudah diverifikasi.' },
-        'menuQty': { title: '5. Voucher Monthly Report', desc: 'Rekapitulasi bulanan kuantitas MOBILBKEL, MOBILVCMAN, MOBILVBENG dan Grand Total.' },
-        'menuCompReport': { title: '6. Reports Compare & Analytics', desc: 'Riwayat terverifikasi & Dashboard Analitik hasil comparator.' },
+        'menu2': { title: '2. Voucher and Other Reports', desc: 'Rekapitulasi transaksi petugas harian siap verifikasi dan cetak (Otomatis Landscape).' },
+        'menuComparator': { title: '3. Compare TH2 & SR', desc: 'Perbandingan komparatif Epsilon vs TH2 dan Showroom (Otomatis Portrait).' },
+        'menuAdmin': { title: '4. Reports Category Voucher and other', desc: 'Laporan data kelas kendaraan yang sudah diverifikasi (Otomatis Landscape).' },
+        'menuQty': { title: '5. Voucher Monthly Report', desc: 'Rekapitulasi bulanan kuantitas MOBILBKEL, MOBILVCMAN, MOBILVBENG dan Grand Total (Otomatis Landscape).' },
+        'menuCompReport': { title: '6. Reports Compare & Analytics', desc: 'Riwayat terverifikasi & Dashboard Analitik hasil comparator (Otomatis Portrait).' },
         'menuReportNotes': { title: '7. Report Notes', desc: 'Rekap catatan harian Menu 4 dan catatan khusus per kendaraan/nopol.' },
         'menu5': { title: '8. Tools & Audit Log', desc: 'Pengaturan audit log, kompresi data, manajemen petugas, dan backup.' },
         'menuAbout': { title: '9. About', desc: 'Informasi sistem dan panduan aplikasi.' }
@@ -2806,27 +2808,24 @@
         if (menuId === 'menu5') { renderTabelUser(); renderLogAktivitas(); renderAboutContent(); updateToolsUnverUserDropdown(); hitungBebanStorageBrowser(); }
     }
 
-    // === OTOMATIS PORTRAIT / LANDSCAPE BERDASARKAN MENU ===
+    // === EKSEKUSI CETAK DENGAN ORIENTASI OTOMATIS BERDASARKAN SPESIFIKASI MENU ===
     function triggerCetakMenu(menuTarget) {
         const bodyTag = document.getElementById('mainBodyTag');
-        bodyTag.className = ''; 
+        bodyTag.classList.remove('print-landscape', 'print-portrait'); 
 
-        // Permintaan: Menu 2 (Voucher and Other Reports) Cetak otomatis Portrait
-        // Menu 3 (Compare TH2 & SR) Cetak otomatis Landscape
-        if (menuTarget === 'menu2') {
-            bodyTag.classList.add('print-portrait');
-        } else if (menuTarget.startsWith('menu3') || menuTarget === 'menuComparator') {
+        // Menu 2, Menu 4, dan Menu 5 -> Letter Landscape (Mendatar)
+        // Menu 3 dan Menu 6 -> Letter Portrait (Tegak)
+        if (menuTarget === 'menu2' || menuTarget === 'menu4' || menuTarget === 'menu5') {
             bodyTag.classList.add('print-landscape');
+        } else if (menuTarget.startsWith('menu3') || menuTarget === 'menuComparator' || menuTarget === 'menu6') {
+            bodyTag.classList.add('print-portrait');
         } else {
-            // Default untuk menu lainnya
             bodyTag.classList.add('print-portrait');
         }
 
-        window.print();
-
         setTimeout(() => {
-            bodyTag.classList.remove('print-landscape', 'print-portrait');
-        }, 500);
+            window.print();
+        }, 150);
     }
 
     function switchComparatorTab(tabKey) {
@@ -3378,6 +3377,17 @@
             }
         };
         reader.readAsArrayBuffer(file);
+    }
+
+    function parseTh2User(rawVal) {
+        if (!rawVal || rawVal === "-") return "-";
+        let str = String(rawVal).trim();
+        let match = str.match(/(PP\d+)/i);
+        if (match) {
+            let code = match[1].toUpperCase();
+            return getNamaPetugas(code);
+        }
+        return str;
     }
 
     function prosesDataComparatorTh2(epsRows, th2Rows) {
