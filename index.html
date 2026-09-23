@@ -16,6 +16,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d6efd">
+
 
     <script>
         // Konfigurasi Firebase (Region Asia Southeast)
@@ -4744,6 +4747,13 @@
         XLSX.writeFile(wb, `Rekap_Catatan_Person_${new Date().toISOString().slice(0,10)}.xlsx`);
         showToast("Export Excel catatan person berhasil.", "success");
     }
+       if ('serviceWorker' in navigator) {
+       window.addEventListener('load', () => {
+       navigator.serviceWorker.register('./sw.js')
+        .then((reg) => console.log('PWA Ready:', reg.scope))
+        .catch((err) => console.error('PWA Error:', err));
+    });
+  }
 </script>
 </body>
 </html>
