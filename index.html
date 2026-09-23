@@ -20,13 +20,14 @@
     <script>
         // Konfigurasi Firebase (Region Asia Southeast)
         const firebaseConfig = {
-            apiKey: "AIzaSyCK_zIdgwW69kV3J-qU1T9z4_2uz9N_CXY",
-            authDomain: "wmddashboard.firebaseapp.com",
-            databaseURL: "https://wmddashboard-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "wmddashboard",
-            storageBucket: "wmddashboard.firebasestorage.app",
-            messagingSenderId: "294767246403",
-            appId: "1:294767246403:web:47700487aab7fc227268f6"
+            apiKey: "AIzaSyCI2LpNAFQ4GFhv0S3BaZK5Thd3Lqpd-GY",
+            authDomain: "wmd-dashboard.firebaseapp.com",
+            databaseURL: "https://wmd-dashboard-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "wmd-dashboard",
+            storageBucket: "wmd-dashboard.firebasestorage.app",
+            messagingSenderId: "664925538643",
+            appId: "1:664925538643:web:747fc6abbce666131cf9a6",
+            measurementId: "G-29FKPTWFPP"
         };
 
         if (!firebase.apps.length) {
@@ -588,6 +589,27 @@
         .btn-danger:hover { background-color: #b91c1c; }
         .btn-disabled-gray { background-color: #94a3b8 !important; color: #fff !important; cursor: not-allowed; }
 
+        .btn-table-danger {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .btn-table-danger:hover { background-color: #b91c1c; }
+        .btn-table-success {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .btn-table-success:hover { background-color: #15803d; }
+
         .form-group {
             display: flex;
             gap: 16px;
@@ -797,166 +819,130 @@
             font-weight: 500;
         }
 
-        /* ==========================================================================
-           PENGATURAN CETAK (PRINT) MULTI-HALAMAN NATURAL & TTD MENGIKUTI AKHIR DATA
-           ========================================================================== */
         @media print {
-            /* 1. Sembunyikan elemen non-cetak secara total */
-            aside, nav, .sidebar, button, .btn, .global-search-box, 
-            .header-tools-group, .page-header-bar, #menu2Card, #menu1Card, 
-            #menuComparatorCard, .filter-admin-box, .filter-qty-box, 
-            .filter-comp-report-box, .comparator-tab-container, .info-cetak-note, 
-            #toastContainer, .loading-overlay, .custom-modal-overlay, 
-            .search-container, .no-print {
-                display: none !important;
-            }
-
-            /* 2. Set margin kertas standar */
             @page {
-                margin: 10mm !important;
+                margin: 4mm;
             }
-
-            /* 3. Izinkan halaman mengalir secara normal (Multi-halaman aktif) */
             html, body {
                 width: 100% !important;
                 height: auto !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: #ffffff !important;
-                color: #000000 !important;
-                overflow: visible !important;
+                background: #fff !important;
+                font-size: 10px !important;
             }
-
+            #toastContainer, .sidebar, .card-header, .filter-admin-box, .filter-qty-box, .filter-comp-report-box, button, .info-cetak-note, .search-container, .page-header-bar, #menu1Card, #menu5Card, #menuAboutCard, #menu2Card, #menuComparatorCard, .card > .flex-between > h2, #sectionGudangContainer, #sectionShowroomGudangContainer, #sectionPengosonganContainer, #sectionShowroomPengosonganContainer, #sectionShowroomPp101Container, #sectionGantiNamaContainer, .comparator-tab-container, .custom-modal-overlay, .loading-overlay, .btn-tambah-catatan-admin, .analytics-grid {
+                display: none !important;
+            }
             .main-wrapper {
                 padding: 0 !important;
                 margin: 0 !important;
-                width: 100% !important;
                 height: auto !important;
                 overflow: visible !important;
-            }
-
-            .menu-content {
-                display: none !important;
-            }
-
-            .menu-content.active {
-                display: block !important;
                 width: 100% !important;
             }
-
-            .menu-content.active .card {
-                display: block !important;
+            .menu-content:not(.active) { display: none !important; }
+            .menu-content.active { display: block !important; }
+            .card {
                 border: none !important;
                 box-shadow: none !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                background: #ffffff !important;
-            }
-
-            /* 4. Hapus skala paksa (scale) */
-            #printArea, #printComparatorTh2Area, #printComparatorSrArea, #printAdminArea, #printQtyArea, #printCompReportArea {
-                transform: none !important;
                 width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            /* 5. Pengaturan Judul & Header */
-            .print-only-title {
-                display: block !important;
-                font-size: 12pt !important;
-                font-weight: bold !important;
+                background: #fff !important;
                 color: #000 !important;
             }
-
-            .print-logo-img {
-                width: 45px !important;
-                height: 45px !important;
-            }
-
-            .report-header-info {
-                padding: 6px 10mm !important;
-                font-size: 9pt !important;
-                margin-bottom: 8px !important;
-                background: none !important;
-                border: 1px solid #666 !important;
-            }
-
-            /* 6. Pengaturan Tabel & Baris */
+            
             .table-responsive {
+                border: none !important;
                 max-height: none !important;
                 overflow: visible !important;
-                border: none !important;
-                margin-bottom: 10px !important;
-            }
-
-            table {
                 width: 100% !important;
-                font-size: 9.5pt !important;
+                margin-bottom: 2px !important;
+            }
+            table {
                 border-collapse: collapse !important;
+                margin-top: 1px !important;
+                width: 100% !important;
+                background: #fff !important;
+                table-layout: auto !important;
             }
-
             tr {
-                page-break-inside: avoid !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
             }
-
+            th, td {
+                border: 0.5px solid #000 !important;
+                color: #000 !important;
+                padding: 2px 4px !important;
+                font-size: 10px !important;  
+                white-space: nowrap !important;
+                line-height: 1.2 !important;
+                background: #fff !important;
+            }
             th {
-                display: table-header-group !important;
-                background-color: #e5e5e5 !important;
+                background-color: #e2e8f0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-weight: 700 !important;
+                position: static !important;
+            }
+            tfoot tr td {
+                border: 0.5px solid #000 !important;
+                font-weight: bold !important;
+                background-color: #f1f5f9 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-
-            th, td {
-                color: #000000 !important;
-                padding: 4px 6px !important;
-                border: 1px solid #333 !important;
-                line-height: 1.2 !important;
+            .report-header-info {
+                border: 0.5px solid #000 !important;
+                background: #fff !important;
+                padding: 3px 6px !important;
+                font-size: 10px !important;
+                margin-bottom: 3px !important;
+                color: #000 !important;
+            }
+            .catatan-box {
+                border: 0.5px solid #000 !important;
+                background: #fff !important;
+                color: #000 !important;
+                display: flex !important;
             }
 
-            /* 7. AREA TANDA TANGAN MENGIKUTI AKHIR DATA SECARA NATURAL */
+            .col-aksi-print { display: none !important; }
+            td.col-keterangan-print input { display: none !important; }
+            td.col-keterangan-print { color: transparent !important; }
+
+            .print-only-title {
+                display: block !important;
+                font-size: 12px !important;
+                font-weight: 700 !important;
+                margin-bottom: 2px !important;
+                color: #0f172a !important;
+                text-transform: uppercase;
+            }
+
+            .print-logo-img {
+                width: 100px !important;
+                height: 100px !important;
+                object-fit: contain !important;
+                display: block !important;
+            }
+
             .print-signature-section {
                 display: flex !important;
-                justify-content: space-between !important;
-                margin-top: 20px !important;
-                font-size: 9pt !important;
-                position: relative !important;
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
+                justify-content: space-between;
+                margin-top: 20px;
+                padding: 0 30px;
+                page-break-inside: avoid;
             }
-
-            .sig-space {
-                height: 35px !important;
+            .sig-box {
+                text-align: center;
+                font-size: 10px;
+                font-weight: 600;
+                color: #000;
             }
-
-            .col-aksi-print {
-                display: none !important;
-            }
-        }
-
-        /* Orientasi Kertas Per Menu */
-        @media print {
-            body.print-landscape {
-                size: letter landscape;
-            }
-            @page landscape-page {
-                size: letter landscape;
-                margin: 10mm;
-            }
-            body.print-landscape {
-                page: landscape-page;
-            }
-
-            body.print-portrait {
-                size: letter portrait;
-            }
-            @page portrait-page {
-                size: letter portrait;
-                margin: 10mm;
-            }
-            body.print-portrait {
-                page: portrait-page;
-            }
+            .sig-space { height: 40px; }
         }
     </style>
 </head>
@@ -1042,7 +1028,7 @@
 
 <main class="main-wrapper">
     
-    <div class="page-header-bar no-print">
+    <div class="page-header-bar">
         <div class="page-title-group">
             <h1 id="headerPageTitle">1. Upload Data</h1>
             <p id="headerPageDesc">Kelola dan impor file master transaksi dengan mudah.</p>
@@ -1062,7 +1048,7 @@
 
     <!-- MENU 1: 1. Upload Data -->
     <div id="menu1" class="menu-content active">
-        <div class="card no-print" id="menu1Card">
+        <div class="card" id="menu1Card">
             <div class="card-header flex-between">
                 <div>
                     <h2>Menu Upload Terpisah</h2>
@@ -1124,7 +1110,7 @@
 
     <!-- MENU 2: Voucher and Other Reports -->
     <div id="menu2" class="menu-content">
-        <div class="card no-print" id="menu2Card">
+        <div class="card" id="menu2Card">
             <div class="card-header">
                 <h2>Filter Kendaraan, Petugas & Tanggal Keluar</h2>
                 <p class="card-desc">Pilih jenis kendaraan, petugas keluar, lalu spesifikasikan tanggal keluar untuk menampilkan rekap laporan.</p>
@@ -1153,7 +1139,7 @@
         </div>
 
         <div class="card" id="reportCard" style="display:none;">
-            <div class="flex-between no-print" style="margin-bottom: 16px;">
+            <div class="flex-between" style="margin-bottom: 16px;">
                 <h2 style="margin:0;">Tabel Laporan Petugas (Aman & Anti-Duplikat)</h2>
                 <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
                     <div class="search-container">
@@ -1165,17 +1151,17 @@
                 </div>
             </div>
             
-            <div class="info-cetak-note no-print">⚠️ Pastikan Anda mencetak laporan ini terlebih dahulu sebelum menekan tombol Verifikasi.</div>
+            <div class="info-cetak-note">⚠️ Pastikan Anda mencetak laporan ini terlebih dahulu sebelum menekan tombol Verifikasi. (Terurut Waktu Keluar: Terkecil ke Lama)</div>
 
             <div id="printArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png'; if(this.src.includes('print.png') && this.naturalWidth==0) this.style.display='none';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png'; if(this.src.includes('print.png') && this.naturalWidth==0) this.style.display='none';">
                     <div class="print-only-title" id="printTitlePetugas" style="margin:0;">Laporan Transaksi</div>
                 </div>
 
                 <div class="report-header-info" id="reportHeaderInfo">
                     <div id="infoPetugasText"></div>
-                    <div style="display: flex; align-items: center; gap: 6px;" class="no-print">
+                    <div style="display: flex; align-items: center; gap: 6px;">
                         <span>📅 <strong>Tanggal Transaksi:</strong></span>
                         <input type="date" id="inputUbahTanggal" onchange="updateTanggalLaporan(this.value)">
                     </div>
@@ -1185,7 +1171,7 @@
                     <table id="tableReportPetugas">
                         <thead>
                             <tr>
-                                <th style="width: 35px; text-align: center;" onclick="sortTable('tableReportPetugas', 0)">No</th>
+                                <th style="width: 40px; text-align: center;" onclick="sortTable('tableReportPetugas', 0)">No</th>
                                 <th onclick="sortTable('tableReportPetugas', 1)">No Polisi ↕</th>
                                 <th onclick="sortTable('tableReportPetugas', 2)">User Masuk ↕</th>
                                 <th onclick="sortTable('tableReportPetugas', 3)">Waktu Masuk ↕</th>
@@ -1225,7 +1211,7 @@
 
     <!-- MENU 3: Compare TH2 & SR -->
     <div id="menuComparator" class="menu-content">
-        <div class="card no-print" id="menuComparatorCard">
+        <div class="card" id="menuComparatorCard">
             <div class="card-header">
                 <h2>Compare TH2 & SR</h2>
                 <p class="card-desc">Pilih tab laporan comparator di bawah untuk melihat, memverifikasi, dan mencetak hasil perbandingan.</p>
@@ -1238,7 +1224,7 @@
         </div>
 
         <div class="card" id="comparatorTh2ResultCard" style="display:none;">
-            <div class="flex-between no-print" style="margin-bottom: 16px;">
+            <div class="flex-between" style="margin-bottom: 16px;">
                 <h2 style="margin:0;">Hasil Perbandingan Epsilon vs TH2</h2>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                     <button id="btnVerifTh2" class="btn-warning" onclick="verifikasiComparatorResult('th2')">✔️ Verifikasi Comparator TH2</button>
@@ -1246,11 +1232,11 @@
                 </div>
             </div>
 
-            <div class="info-cetak-note no-print">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak. Status "periksa" otomatis diurutkan ke bagian paling bawah.</div>
+            <div class="info-cetak-note">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak untuk ditulis manual pakai pulpen.</div>
 
             <div id="printComparatorTh2Area">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
                     <div class="print-only-title" style="margin:0;">Laporan Comparator Epsilon vs TH2</div>
                 </div>
 
@@ -1258,7 +1244,7 @@
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                     <h3 style="font-size: 13px; margin: 0; color: var(--text-main);">Tabel Compare TH2</h3>
-                    <button class="btn-success no-print" style="padding: 4px 10px; font-size: 11px;" onclick="tambahBarisManualTh2()">+ Tambah Baris Manual</button>
+                    <button class="btn-success" style="padding: 4px 10px; font-size: 11px;" onclick="tambahBarisManualTh2()">+ Tambah Baris Manual</button>
                 </div>
                 <div class="table-responsive">
                     <table id="tableCompTh2Main">
@@ -1276,20 +1262,41 @@
                     </table>
                 </div>
 
-                <div id="sectionPengosonganContainer" style="display:none; margin-top: 20px;">
-                    <h3 style="font-size: 14px; margin-bottom: 6px; color: var(--warning);">Daftar Pengosongan (TH2 Keterangan "KOSONG")</h3>
+                <div id="sectionPengosonganContainer" style="display:none; margin-top: 24px;">
+                    <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--warning);">Daftar Pengosongan (TH2 Keterangan "KOSONG")</h3>
                     <div class="table-responsive">
                         <table>
                             <thead>
                                 <tr style="background-color: var(--bg-main);">
-                                    <th style="width: 35px; text-align: center;">No</th>
+                                    <th style="width: 40px; text-align: center;">No</th>
                                     <th>No Plat Lama</th>
                                     <th>Keterangan</th>
                                     <th>No Plat Baru</th>
-                                    <th style="text-align: center; width: 160px;" class="col-aksi-print">Aksi</th>
+                                    <th style="text-align: center; width: 180px;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="pengosonganTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="sectionGudangContainer" style="display:none; margin-top: 24px;"></div>
+
+                <div id="sectionGantiNamaContainer" style="display:none; margin-top: 24px;">
+                    <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--primary);">Daftar "Ganti Nama Pengguna" (TH2)</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr style="background-color: var(--bg-main);">
+                                    <th style="width: 45px; text-align: center;">No</th>
+                                    <th>Tanggal</th>
+                                    <th>No Plat Lama</th>
+                                    <th>No Plat Baru</th>
+                                    <th>Keterangan</th>
+                                    <th>Petugas / Pengguna</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gantiNamaTableBody"></tbody>
                         </table>
                     </div>
                 </div>
@@ -1310,7 +1317,7 @@
         </div>
 
         <div class="card" id="comparatorSrResultCard" style="display:none;">
-            <div class="flex-between no-print" style="margin-bottom: 16px;">
+            <div class="flex-between" style="margin-bottom: 16px;">
                 <h2 style="margin:0;">Hasil Perbandingan Showroom (SR)</h2>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                     <button id="btnVerifSr" class="btn-warning" onclick="verifikasiComparatorResult('sr')">✔️ Verifikasi Comparator Showroom</button>
@@ -1318,11 +1325,11 @@
                 </div>
             </div>
 
-            <div class="info-cetak-note no-print">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak. Status "periksa" otomatis diurutkan ke bagian paling bawah.</div>
+            <div class="info-cetak-note">⚠️ Harap cetak dulu sebelum verifikasi. Baris keterangan otomatis dikosongkan dan kolom aksi disembunyikan saat dicetak untuk ditulis manual pakai pulpen.</div>
 
             <div id="printComparatorSrArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
                     <div class="print-only-title" style="margin:0;">Laporan Comparator Showroom (SR)</div>
                 </div>
 
@@ -1330,7 +1337,7 @@
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                     <h3 style="font-size: 13px; margin: 0; color: var(--text-main);">Tabel Compare Showroom</h3>
-                    <button class="btn-success no-print" style="padding: 4px 10px; font-size: 11px;" onclick="tambahBarisManualSr()">+ Tambah Baris Manual</button>
+                    <button class="btn-success" style="padding: 4px 10px; font-size: 11px;" onclick="tambahBarisManualSr()">+ Tambah Baris Manual</button>
                 </div>
                 <div class="table-responsive">
                     <table id="tableCompSrMain">
@@ -1348,6 +1355,62 @@
                         </thead>
                         <tbody id="showroomTableBody"></tbody>
                     </table>
+                </div>
+
+                <div id="sectionShowroomPengosonganContainer" style="display:none; margin-top: 24px;">
+                    <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--warning);">Daftar Pengosongan Showroom</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr style="background-color: var(--bg-main);">
+                                    <th style="width: 40px; text-align: center;">No</th>
+                                    <th>No Plat Lama</th>
+                                    <th>No Plat Baru</th>
+                                    <th>Lantai / Lokasi</th>
+                                    <th style="text-align: center; width: 180px;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="showroomPengosonganTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="sectionShowroomPp101Container" style="display:none; margin-top: 24px;">
+                    <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--primary);">👤 Daftar Transaksi User Keluar PP101 (Showroom)</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr style="background-color: var(--bg-main);">
+                                    <th style="width: 40px; text-align: center;">No</th>
+                                    <th>No Polisi (Epsilon)</th>
+                                    <th>No Plat SR (Pembanding)</th>
+                                    <th>Showroom (Lantai)</th>
+                                    <th>Waktu Keluar</th>
+                                    <th style="width: 180px; text-align: center;">Keterangan / Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="showroomPp101TableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="sectionShowroomGudangContainer" style="display:none; margin-top: 24px;">
+                    <h3 style="font-size: 15px; margin-bottom: 8px; color: var(--text-muted);">📦 Daftar Gudang Mobil Showroom (Epsilon Mobilbursa)</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr style="background-color: var(--bg-main);">
+                                    <th style="width: 40px; text-align: center;">No</th>
+                                    <th>No Polisi (Epsilon Bursa)</th>
+                                    <th>No Plat SR / Gudang</th>
+                                    <th>Lantai / Lokasi</th>
+                                    <th>Pelanggan / Keterangan</th>
+                                    <th style="text-align: center; width: 120px;">Status / Ceklist</th>
+                                </tr>
+                            </thead>
+                            <tbody id="showroomGudangTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="print-signature-section">
@@ -1368,10 +1431,10 @@
 
     <!-- MENU 4: Reports Category Voucher and other -->
     <div id="menuAdmin" class="menu-content">
-        <div class="card filter-admin-box no-print">
+        <div class="card filter-admin-box">
             <div class="card-header">
                 <h2>Reports Category Voucher and other</h2>
-                <p class="card-desc">Laporan data yang sudah <strong>diverifikasi</strong> (Terurut Waktu Keluar Terbaru ke Terlama).</p>
+                <p class="card-desc">Laporan data yang sudah <strong>diverifikasi</strong>.</p>
             </div>
             
             <div class="form-group">
@@ -1420,7 +1483,7 @@
         </div>
 
         <div class="card" id="adminReportCard" style="display:none;">
-            <div class="flex-between no-print" style="margin-bottom: 16px;">
+            <div class="flex-between" style="margin-bottom: 16px;">
                 <h2 id="adminReportTitle" style="margin:0;">Rekapitulasi Kelas</h2>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
                     <div class="search-container">
@@ -1433,7 +1496,7 @@
 
             <div id="printAdminArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
                     <div class="print-only-title" id="printTitleAdmin" style="margin:0;">Laporan Transaksi</div>
                 </div>
 
@@ -1443,7 +1506,7 @@
                     <table id="tableAdminReport">
                         <thead>
                             <tr>
-                                <th style="width: 45px; text-align: center;" onclick="sortTable('tableAdminReport', 0)">No</th>
+                                <th style="width: 55px; text-align: center;" onclick="sortTable('tableAdminReport', 0)">No</th>
                                 <th onclick="sortTable('tableAdminReport', 1)">No Polisi ↕</th>
                                 <th onclick="sortTable('tableAdminReport', 2)">User Masuk ↕</th>
                                 <th onclick="sortTable('tableAdminReport', 3)">Waktu Masuk ↕</th>
@@ -1465,7 +1528,7 @@
                 </div>
 
                 <!-- Pagination Menu 4 -->
-                <div id="pagination-menu4" class="no-print" style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
+                <div id="pagination-menu4" style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
                     <button id="btn-load-more-menu4" class="btn-primary" style="padding: 8px 16px; border-radius: 6px; cursor: pointer; border: none; font-weight: bold;" onclick="loadMoreMenu4()">Load More</button>
                 </div>
 
@@ -1474,9 +1537,9 @@
                         <span>📝 <strong>Catatan Tanggal Ini:</strong></span>
                         <span id="adminCatatanText" style="font-weight: normal; font-size: 13px;"></span>
                     </div>
-                    <button class="btn-tambah-catatan-admin btn-warning no-print" style="font-size: 11px; padding: 3px 8px;" onclick="bukaModalCatatanAdmin()">✏️ Edit Catatan</button>
+                    <button class="btn-tambah-catatan-admin btn-warning" style="font-size: 11px; padding: 3px 8px;" onclick="bukaModalCatatanAdmin()">✏️ Edit Catatan</button>
                 </div>
-                <div id="adminCatatanEmptyBox" class="no-print" style="margin-top: 10px; display: none;">
+                <div id="adminCatatanEmptyBox" style="margin-top: 10px; display: none;">
                     <button class="btn-tambah-catatan-admin btn-secondary" style="font-size: 11px; padding: 4px 10px;" onclick="bukaModalCatatanAdmin()">+ Tambah Catatan untuk Tanggal Ini</button>
                 </div>
 
@@ -1498,7 +1561,7 @@
 
     <!-- MENU 5: Voucher Monthly Report -->
     <div id="menuQty" class="menu-content">
-        <div class="card filter-qty-box no-print">
+        <div class="card filter-qty-box">
             <div class="card-header">
                 <h2>Voucher Monthly Report</h2>
                 <p class="card-desc">Rekapitulasi dan tren quantity bulanan khusus kelas <strong>MOBILBKEL</strong>, <strong>MOBILVCMAN</strong>, dan <strong>MOBILVBENG</strong>.</p>
@@ -1524,7 +1587,7 @@
             </div>
         </div>
 
-        <div class="card no-print">
+        <div class="card">
             <div class="card-header">
                 <h2>Grafik Tren Voucher Monthly Report</h2>
                 <p class="card-desc">Perbandingan volume bulanan untuk kelas MOBILBKEL, MOBILVCMAN, MOBILVBENG, dan Grand Total.</p>
@@ -1535,17 +1598,17 @@
         </div>
 
         <div class="card" id="qtyReportCard">
-            <div class="flex-between no-print" style="margin-bottom: 16px;">
+            <div class="flex-between" style="margin-bottom: 16px;">
                 <h2 id="qtyReportTitle" style="margin:0;">Tabel Rekapitulasi Voucher Monthly Report</h2>
                 <div style="display: flex; gap: 8px;">
                     <button class="btn-success" id="btnExportQty" onclick="exportAdminQuantityToExcel()">📊 Export Excel</button>
-                    <button class="btn-secondary" onclick="triggerCetakMenu('menu5')">🖨️ Cetak Laporan</button>
+                    <button class="btn-secondary" onclick="triggerCetakMenu('menu4')">🖨️ Cetak Laporan</button>
                 </div>
             </div>
 
             <div id="printQtyArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
                     <div class="print-only-title" id="printTitleQty" style="margin:0;">Laporan Voucher Monthly Report</div>
                 </div>
 
@@ -1577,7 +1640,7 @@
                 </div>
 
                 <!-- Pagination Menu 5 -->
-                <div id="pagination-menu5" class="no-print" style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
+                <div id="pagination-menu5" style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
                     <button id="btn-load-more-menu5" class="btn-primary" style="padding: 8px 16px; border-radius: 6px; cursor: pointer; border: none; font-weight: bold;" onclick="loadMoreMenu5()">Load More</button>
                 </div>
             </div>
@@ -1586,7 +1649,7 @@
 
     <!-- MENU 6: Reports Compare & Analytics -->
     <div id="menuCompReport" class="menu-content">
-        <div class="analytics-grid no-print">
+        <div class="analytics-grid">
             <div class="stat-card" style="border-left: 4px solid var(--primary);">
                 <div class="lbl">Total Terverifikasi Comparator</div>
                 <div class="val" id="statTotalComp">0</div>
@@ -1605,7 +1668,7 @@
             </div>
         </div>
 
-        <div class="card filter-comp-report-box no-print">
+        <div class="card filter-comp-report-box">
             <div class="card-header">
                 <h2>Reports Compare & Analytics</h2>
                 <p class="card-desc">Laporan hasil comparator yang sudah <strong>diverifikasi</strong> beserta visualisasi analitiknya.</p>
@@ -1646,7 +1709,7 @@
         </div>
 
         <div class="card" id="compReportResultCard" style="display:none;">
-            <div class="flex-between no-print" style="margin-bottom: 16px;">
+            <div class="flex-between" style="margin-bottom: 16px;">
                 <h2 id="compReportTitle" style="margin:0;">Rekapitulasi Comparator Terverifikasi</h2>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
                     <div class="search-container">
@@ -1660,7 +1723,7 @@
 
             <div id="printCompReportArea">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 80px; height: 80px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
+                    <img src="/vc.png" alt="Logo" class="print-logo-img" style="width: 100px; height: 100px; object-fit: contain; display: block;" onerror="this.src='/print.png';">
                     <div class="print-only-title" id="printTitleCompReport" style="margin:0;">Laporan Admin Comparator</div>
                 </div>
 
@@ -1676,7 +1739,7 @@
                 </div>
 
                 <!-- Pagination Menu 6 -->
-                <div id="pagination-menu6" class="no-print" style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
+                <div id="pagination-menu6" style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
                     <button id="btn-load-more-menu6" class="btn-primary" style="padding: 8px 16px; border-radius: 6px; cursor: pointer; border: none; font-weight: bold;" onclick="loadMoreMenu6()">Load More</button>
                 </div>
             </div>
@@ -1685,7 +1748,8 @@
 
     <!-- MENU 7: Report Notes -->
     <div id="menuReportNotes" class="menu-content">
-        <div class="card no-print" style="border-left: 4px solid var(--warning);">
+        <!-- Card 1: Rekap Catatan Harian (Menu 4) -->
+        <div class="card" style="border-left: 4px solid var(--warning);">
             <div class="card-header flex-between">
                 <div>
                     <h2>📝 Rekap Catatan Harian (Menu 4)</h2>
@@ -1711,7 +1775,8 @@
             </div>
         </div>
 
-        <div class="card no-print" style="border-left: 4px solid var(--primary);">
+        <!-- Card 2: Input Catatan Person Khusus -->
+        <div class="card" style="border-left: 4px solid var(--primary);">
             <div class="card-header">
                 <h2>🚗 Input Catatan Person / Khusus Kendaraan</h2>
                 <p class="card-desc">Tambahkan catatan khusus per kendaraan dengan informasi Tanggal, No Polisi, Jenis Kendaraan, dan Keterangan.</p>
@@ -1748,7 +1813,8 @@
             </div>
         </div>
 
-        <div class="card no-print" style="border-left: 4px solid var(--success);">
+        <!-- Card 3: Rekap Catatan Person Khusus -->
+        <div class="card" style="border-left: 4px solid var(--success);">
             <div class="card-header flex-between">
                 <div>
                     <h2>📋 Rekap Catatan Person Khusus</h2>
@@ -1784,18 +1850,18 @@
 
     <!-- MENU 8: Tools & Audit Log -->
     <div id="menu5" class="menu-content">
-        <div class="card no-print" style="border-left: 4px solid var(--success);">
+        <div class="card" style="border-left: 4px solid var(--success);">
             <div class="card-header">
-                <h2>🚀 Transfer & Muat Data Server Online (Incremental Cloud Sync)</h2>
-                <p class="card-desc">Tarik data dari server cloud secara pintar tanpa duplikat, atau kirim pembaruan transaksi baru (delta) ke Firebase untuk hemat kuota.</p>
+                <h2>🚀 Transfer & Muat Data Server Online (Cloud Sync)</h2>
+                <p class="card-desc">Tarik data dari server cloud secara manual jika memuat otomatis lambat di HP, atau kirim pembaruan data lokal ke Firebase.</p>
             </div>
             <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <button class="btn-primary" style="padding: 12px 20px; font-size: 15px;" onclick="tarikDataCloudManual()">☁️ Tarik Data Cloud (Smart Merge)</button>
-                <button class="btn-success" style="padding: 12px 20px; font-size: 15px;" onclick="transferDataKeServerOnline()">🚀 Kirim Data Baru Saja (Incremental Sync)</button>
+                <button class="btn-primary" style="padding: 12px 20px; font-size: 15px;" onclick="tarikDataCloudManual()">☁️ Tarik Data Cloud Ke HP / PC</button>
+                <button class="btn-success" style="padding: 12px 20px; font-size: 15px;" onclick="transferDataKeServerOnline()">🚀 Transfer Data Manual & Bersihkan Memori Lokal</button>
             </div>
         </div>
 
-        <div class="card no-print" style="border-left: 4px solid #8b5cf6;">
+        <div class="card" style="border-left: 4px solid #8b5cf6;">
             <div class="card-header flex-between">
                 <div>
                     <h2 style="color: #8b5cf6;">🗜️ Mode Kompresi & Optimasi Data</h2>
@@ -1805,7 +1871,7 @@
             </div>
         </div>
 
-        <div class="card no-print" style="border-left: 4px solid var(--danger); background-color: var(--card-bg);">
+        <div class="card" style="border-left: 4px solid var(--danger); background-color: var(--card-bg);">
             <div class="card-header">
                 <h2 style="color: var(--danger);">⚠️ Factory Reset (Hapus Seluruh Data Runtime)</h2>
                 <p class="card-desc">Mengosongkan bersih seluruh data di memori runtime browser dan IndexedDB.</p>
@@ -1813,9 +1879,9 @@
             <button class="btn-danger" onclick="jalankanFactoryReset()">🚨 Jalankan Factory Reset (Kosongkan Memori)</button>
         </div>
 
-        <div class="card no-print" style="border-left: 4px solid var(--warning);">
+        <div class="card" style="border-left: 4px solid var(--warning);">
             <div class="card-header">
-                <h2>Unverifikasi Spesifik (Tools)</h2>
+                <h2 style="color: var(--warning);">Unverifikasi Spesifik (Tools)</h2>
                 <p class="card-desc">Pilih kelas, petugas, dan tanggal tertentu untuk mengembalikan data terverifikasi ke status belum verif secara presisi.</p>
             </div>
             <div style="display: flex; gap: 12px; flex-direction: column;">
@@ -1846,7 +1912,7 @@
             </div>
         </div>
 
-        <div class="card no-print" style="border-left: 4px solid var(--primary);">
+        <div class="card" style="border-left: 4px solid var(--primary);">
             <div class="card-header">
                 <h2>Pengaturan Konten Menu 9 (About)</h2>
                 <p class="card-desc">Ketik dan perbarui informasi mengenai aplikasi yang akan tampil di Menu 9. About secara otomatis.</p>
@@ -1864,7 +1930,7 @@
             </div>
         </div>
 
-        <div class="card no-print" id="menu5Card" style="border-left: 4px solid #0ea5e9;">
+        <div class="card" id="menu5Card" style="border-left: 4px solid #0ea5e9;">
             <div class="card-header">
                 <h2>Manajemen Nama Petugas</h2>
                 <p class="card-desc">Kelola relasi antara kode kasir dengan nama lengkap.</p>
@@ -1897,7 +1963,7 @@
             </div>
         </div>
 
-        <div class="card no-print" style="border-left: 4px solid #64748b;">
+        <div class="card" style="border-left: 4px solid #64748b;">
             <div class="card-header flex-between">
                 <div>
                     <h2>📜 Audit Log Riwayat Sistem (Audit Trail)</h2>
@@ -1927,7 +1993,7 @@
             </div>
         </div>
 
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;" class="no-print">
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
             <div class="card" style="flex: 1; min-width: 300px; border-left: 4px solid var(--danger); background-color: var(--bg-main);">
                 <div class="card-header">
                     <h2 style="color: var(--danger);">Hapus Data Per Tanggal (Menu 2, 4, 5)</h2>
@@ -1964,7 +2030,7 @@
 
     <!-- MENU 9: About -->
     <div id="menuAbout" class="menu-content">
-        <div class="card no-print" id="menuAboutCard">
+        <div class="card" id="menuAboutCard">
             <div class="card-header">
                 <h2 id="aboutDisplayTitle">Tentang Aplikasi WMD Dashboard v.04</h2>
                 <p class="card-desc">Informasi detail mengenai sistem dan panduan penggunaan.</p>
@@ -1996,9 +2062,6 @@
     let lastUploadSessionIds = [];
     let activityLogs = [];
 
-    let syncedTransactionIds = [];
-    let syncedVerifiedIds = [];
-
     let rawEpsilonComparatorData = []; 
     let rawTh2ComparatorData = [];
     let rawEpsilonBursaData = []; 
@@ -2021,7 +2084,7 @@
 
     let aboutInfo = {
         title: "Tentang Aplikasi WMD Dashboard v.04",
-        content: "WMD Dashboard v.04 dirancang khusus untuk mempermudah rekapitulasi laporan transaksi, verifikasi data parkir, serta melakukan perbandingan komparatif (Comparator) antara Epsilon, TH2, dan Showroom secara akurat dan efisien.\n\nDilengkapi Smart Incremental Cloud Sync untuk penghematan kuota internet maksimal.\n\nSilakan perbarui teks informasi ini kapan saja melalui Menu 8. Tools."
+        content: "WMD Dashboard v.04 dirancang khusus untuk mempermudah rekapitulasi laporan transaksi, verifikasi data parkir, serta melakukan perbandingan komparatif (Comparator) antara Epsilon, TH2, dan Showroom secara akurat dan efisien.\n\nSilakan perbarui teks informasi ini kapan saja melalui Menu 8. Tools."
     };
 
     let dbInstance = null;
@@ -2043,33 +2106,26 @@
         });
     }
 
+    // === FITUR SIMPAN OTOMATIS KE FIREBASE (AUTO-SYNC) ===
     let cloudSyncTimer = null;
     function triggerAutoCloudSync() {
         if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
         cloudSyncTimer = setTimeout(() => {
-            let newTrans = globalDataTransaksi.filter(i => !syncedTransactionIds.includes(i.id));
-            let newVerif = verifiedTransactions.filter(id => !syncedVerifiedIds.includes(id));
-
             let payload = {
                 databaseUser,
-                newTransactions: newTrans,
-                newVerifiedTransactions: newVerif,
+                verifiedTransactions,
                 verifiedComparatorTh2,
                 verifiedComparatorSr,
                 catatanTanggalAdmin,
                 personalReportNotes,
-                activityLogs: activityLogs.slice(0, 30),
+                globalDataTransaksi,
+                activityLogs,
                 aboutInfo,
                 lastSynced: new Date().toISOString()
             };
-
             cloudDb.push(payload).then(() => {
-                newTrans.forEach(i => { if (!syncedTransactionIds.includes(i.id)) syncedTransactionIds.push(i.id); });
-                newVerif.forEach(id => { if (!syncedVerifiedIds.includes(id)) syncedVerifiedIds.push(id); });
-                saveToIndexedDB();
-
                 let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-                updateCloudStatusUI('connected', `Auto-Sync (Delta) ${nowTime}`);
+                updateCloudStatusUI('connected', `Auto-Sync ${nowTime}`);
             }).catch((err) => {
                 updateCloudStatusUI('offline', 'Auto-Sync Gagal');
             });
@@ -2090,9 +2146,7 @@
                 personalReportNotes,
                 globalDataTransaksi,
                 activityLogs,
-                aboutInfo,
-                syncedTransactionIds,
-                syncedVerifiedIds
+                aboutInfo
             };
             store.put(payload, "main_data");
             triggerAutoCloudSync();
@@ -2108,14 +2162,7 @@
                 const transaction = dbInstance.transaction(["app_store"], "readonly");
                 const store = transaction.objectStore("app_store");
                 const request = store.get("main_data");
-                request.onsuccess = function(event) {
-                    let res = event.target.result;
-                    if (res) {
-                        if (res.syncedTransactionIds) syncedTransactionIds = res.syncedTransactionIds;
-                        if (res.syncedVerifiedIds) syncedVerifiedIds = res.syncedVerifiedIds;
-                    }
-                    resolve(res);
-                };
+                request.onsuccess = function(event) { resolve(event.target.result); };
                 request.onerror = function() { resolve(null); };
             } catch (e) { resolve(null); }
         });
@@ -2138,6 +2185,7 @@
         }
     }
 
+    // Deteksi koneksi Firebase secara Realtime (Online / Offline)
     firebase.database().ref('.info/connected').on('value', (snap) => {
         if (snap.val() === true) {
             let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -2146,79 +2194,6 @@
             updateCloudStatusUI('offline', 'Mode Offline (Lokal)');
         }
     });
-
-    function smartMergeCloudData(rawData) {
-        if (!rawData) return;
-        
-        let allTransMap = new Map();
-        globalDataTransaksi.forEach(i => allTransMap.set(i.id, i));
-
-        let allVerifiedSet = new Set(verifiedTransactions);
-        let allTh2Map = new Map();
-        verifiedComparatorTh2.forEach(i => allTh2Map.set(i.id, i));
-        let allSrMap = new Map();
-        verifiedComparatorSr.forEach(i => allSrMap.set(i.id, i));
-
-        Object.keys(rawData).forEach(key => {
-            let packet = rawData[key];
-            if (!packet) return;
-
-            if (packet.databaseUser) {
-                databaseUser = { ...databaseUser, ...packet.databaseUser };
-            }
-
-            let transList = packet.newTransactions || packet.globalDataTransaksi || [];
-            transList.forEach(item => {
-                if (item && item.id) {
-                    allTransMap.set(item.id, item);
-                    if (!syncedTransactionIds.includes(item.id)) syncedTransactionIds.push(item.id);
-                }
-            });
-
-            let verifList = packet.newVerifiedTransactions || packet.verifiedTransactions || [];
-            verifList.forEach(id => {
-                allVerifiedSet.add(id);
-                if (!syncedVerifiedIds.includes(id)) syncedVerifiedIds.push(id);
-            });
-
-            let th2List = packet.verifiedComparatorTh2 || [];
-            th2List.forEach(item => {
-                if (item && item.id) allTh2Map.set(item.id, item);
-            });
-
-            let srList = packet.verifiedComparatorSr || [];
-            srList.forEach(item => {
-                if (item && item.id) allSrMap.set(item.id, item);
-            });
-
-            if (packet.catatanTanggalAdmin) {
-                catatanTanggalAdmin = { ...catatanTanggalAdmin, ...packet.catatanTanggalAdmin };
-            }
-
-            if (packet.personalReportNotes && Array.isArray(packet.personalReportNotes)) {
-                let noteMap = new Map();
-                personalReportNotes.forEach(n => noteMap.set(n.id, n));
-                packet.personalReportNotes.forEach(n => noteMap.set(n.id, n));
-                personalReportNotes = Array.from(noteMap.values());
-            }
-
-            if (packet.activityLogs && Array.isArray(packet.activityLogs)) {
-                let logMap = new Map();
-                activityLogs.forEach(l => logMap.set(l.id, l));
-                packet.activityLogs.forEach(l => logMap.set(l.id, l));
-                activityLogs = Array.from(logMap.values()).sort((a,b) => b.id.localeCompare(a.id));
-            }
-
-            if (packet.aboutInfo) {
-                aboutInfo = packet.aboutInfo;
-            }
-        });
-
-        globalDataTransaksi = Array.from(allTransMap.values());
-        verifiedTransactions = Array.from(allVerifiedSet);
-        verifiedComparatorTh2 = Array.from(allTh2Map.values());
-        verifiedComparatorSr = Array.from(allSrMap.values());
-    }
 
     function loadDataFromCloudServer() {
         updateCloudStatusUI('syncing', 'Menghubungkan ke Cloud...');
@@ -2230,7 +2205,7 @@
             showToast("Server online siap (Waktu tunggu tercapai).", "warning");
         }, 5000);
 
-        cloudDb.orderByKey().limitToLast(30).once('value').then((snapshot) => {
+        cloudDb.orderByKey().limitToLast(50).once('value').then((snapshot) => {
             if (timeoutTriggered) return;
             clearTimeout(timer);
 
@@ -2238,10 +2213,22 @@
             let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
             if (rawData) {
-                smartMergeCloudData(rawData);
+                const keys = Object.keys(rawData);
+                const data = rawData[keys[keys.length - 1]];
+
+                if (data) {
+                    if (data.databaseUser) databaseUser = data.databaseUser;
+                    if (data.verifiedTransactions) verifiedTransactions = data.verifiedTransactions;
+                    if (data.verifiedComparatorTh2) verifiedComparatorTh2 = data.verifiedComparatorTh2;
+                    if (data.verifiedComparatorSr) verifiedComparatorSr = data.verifiedComparatorSr;
+                    if (data.catatanTanggalAdmin) catatanTanggalAdmin = data.catatanTanggalAdmin;
+                    if (data.personalReportNotes) personalReportNotes = data.personalReportNotes;
+                    if (data.globalDataTransaksi) globalDataTransaksi = data.globalDataTransaksi;
+                    if (data.activityLogs) activityLogs = data.activityLogs;
+                    if (data.aboutInfo) aboutInfo = data.aboutInfo;
+                }
             }
 
-            saveToIndexedDB();
             renderTabelUser();
             renderLogAktivitas();
             updateMemoryStatus();
@@ -2250,8 +2237,8 @@
                 renderTombolKendaraan();
             }
             hitungBebanStorageBrowser();
-            updateCloudStatusUI('connected', `Disinkronkan (Smart) ${nowTime}`);
-            showToast("Data berhasil dimuat & digabungkan secara pintar dari Server Cloud!", "success");
+            updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
+            showToast("Data berhasil dimuat dari Server Online (Cloud Sync)!", "success");
         }).catch((error) => {
             if (timeoutTriggered) return;
             clearTimeout(timer);
@@ -2261,7 +2248,7 @@
     }
 
     function tarikDataCloudManual() {
-        showLoading("Sedang mengunduh paket data terbaru dari Firebase Cloud...");
+        showLoading("Sedang mengunduh data dari Firebase Cloud... Mohon tunggu.");
         updateCloudStatusUI('syncing', 'Mengunduh Data Cloud...');
 
         let timeoutTriggered = false;
@@ -2270,35 +2257,56 @@
             hideLoading();
             updateCloudStatusUI('offline', 'Koneksi Timeout');
             showToast("Proses penarikan data cloud terlalu lama. Periksa koneksi internet Anda.", "danger");
-        }, 8000);
+        }, 45000);
 
         cloudDb.orderByKey().limitToLast(50).once('value').then((snapshot) => {
             if (timeoutTriggered) return;
             clearTimeout(timer);
-            hideLoading();
 
             const rawData = snapshot.val();
             let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
             if (rawData) {
-                smartMergeCloudData(rawData);
+                const keys = Object.keys(rawData).reverse();
+                let validData = null;
 
-                saveToIndexedDB();
-                renderTabelUser();
-                renderLogAktivitas();
-                updateMemoryStatus();
-                updateToolsUnverUserDropdown();
-                if (globalDataTransaksi.length > 0) {
-                    renderTombolKendaraan();
+                for (let key of keys) {
+                    if (rawData[key] && rawData[key].globalDataTransaksi && rawData[key].globalDataTransaksi.length > 0) {
+                        validData = rawData[key];
+                        break;
+                    }
                 }
-                hitungBebanStorageBrowser();
-                updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
-                showToast(`Berhasil menarik & menggabungkan data secara pintar dari Cloud! Total: ${globalDataTransaksi.length} transaksi.`, "success");
-                catatLogAktivitas("Penarikan incremental data cloud dari Firebase berhasil");
-            } else {
-                updateCloudStatusUI('connected', `Cloud Kosong (${nowTime})`);
-                showToast("Tidak ada data baru di server cloud.", "warning");
+
+                if (validData) {
+                    if (validData.databaseUser) databaseUser = validData.databaseUser;
+                    if (validData.verifiedTransactions) verifiedTransactions = validData.verifiedTransactions;
+                    if (validData.verifiedComparatorTh2) verifiedComparatorTh2 = validData.verifiedComparatorTh2;
+                    if (validData.verifiedComparatorSr) verifiedComparatorSr = validData.verifiedComparatorSr;
+                    if (validData.catatanTanggalAdmin) catatanTanggalAdmin = validData.catatanTanggalAdmin;
+                    if (validData.personalReportNotes) personalReportNotes = validData.personalReportNotes;
+                    if (validData.globalDataTransaksi) globalDataTransaksi = validData.globalDataTransaksi;
+                    if (validData.activityLogs) activityLogs = validData.activityLogs;
+                    if (validData.aboutInfo) aboutInfo = validData.aboutInfo;
+
+                    saveToIndexedDB();
+                    renderTabelUser();
+                    renderLogAktivitas();
+                    updateMemoryStatus();
+                    updateToolsUnverUserDropdown();
+                    if (globalDataTransaksi.length > 0) {
+                        renderTombolKendaraan();
+                    }
+                    hitungBebanStorageBrowser();
+                    updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
+                    hideLoading();
+                    showToast(`Berhasil menarik ${globalDataTransaksi.length} data transaksi dari Cloud!`, "success");
+                    catatLogAktivitas("Penarikan manual data cloud dari Firebase berhasil");
+                    return;
+                }
             }
+
+            hideLoading();
+            showToast("Tidak ditemukan riwayat data transaksi di Cloud Server.", "warning");
         }).catch((error) => {
             if (timeoutTriggered) return;
             clearTimeout(timer);
@@ -2309,35 +2317,28 @@
     }
 
     function transferDataKeServerOnline() {
-        showLoading("Mentransfer data baru (Incremental Sync) ke server online...");
+        showLoading("Sedang mentransfer data ke server online (Cloud Sync)...");
         updateCloudStatusUI('syncing', 'Sedang Mengirim...');
         
-        let newTrans = globalDataTransaksi.filter(i => !syncedTransactionIds.includes(i.id));
-        let newVerif = verifiedTransactions.filter(id => !syncedVerifiedIds.includes(id));
-
         let payload = {
             databaseUser,
-            newTransactions: newTrans,
-            newVerifiedTransactions: newVerif,
+            verifiedTransactions,
             verifiedComparatorTh2,
             verifiedComparatorSr,
             catatanTanggalAdmin,
             personalReportNotes,
-            activityLogs: activityLogs.slice(0, 50),
+            globalDataTransaksi,
+            activityLogs,
             aboutInfo,
             lastSynced: new Date().toISOString()
         };
 
         cloudDb.push(payload).then(() => {
-            newTrans.forEach(i => { if (!syncedTransactionIds.includes(i.id)) syncedTransactionIds.push(i.id); });
-            newVerif.forEach(id => { if (!syncedVerifiedIds.includes(id)) syncedVerifiedIds.push(id); });
-            saveToIndexedDB();
-
             hideLoading();
             let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
             updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
-            showToast(`Berhasil transfer ${newTrans.length} data baru ke server secara efisien (hemat kuota)!`, "success");
-            catatLogAktivitas(`Transfer incremental data cloud: ${newTrans.length} transaksi baru`);
+            showToast("Berhasil transfer data ke server online!", "success");
+            catatLogAktivitas("Transfer manual data ke Server Cloud Firebase");
         }).catch((error) => {
             hideLoading();
             updateCloudStatusUI('offline', 'Gagal Kirim ke Cloud');
@@ -2396,8 +2397,7 @@
     function hitungBebanStorageBrowser() {
         let payloadObj = {
             databaseUser, verifiedTransactions, verifiedComparatorTh2, verifiedComparatorSr,
-            catatanTanggalAdmin, personalReportNotes, globalDataTransaksi, activityLogs, aboutInfo,
-            syncedTransactionIds, syncedVerifiedIds
+            catatanTanggalAdmin, personalReportNotes, globalDataTransaksi, activityLogs, aboutInfo
         };
         let jsonString = JSON.stringify(payloadObj);
         let totalBytes = new Blob([jsonString]).size;
@@ -2474,8 +2474,6 @@
                 globalDataTransaksi = [];
                 lastUploadSessionIds = [];
                 activityLogs = [];
-                syncedTransactionIds = [];
-                syncedVerifiedIds = [];
                 
                 if (dbInstance) {
                     const tx = dbInstance.transaction(["app_store"], "readwrite");
@@ -2720,7 +2718,7 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', async () => {
+    window.addEventListener('DOMContentLoaded', async () => {
         try {
             await initIndexedDB();
             const savedData = await loadFromIndexedDB();
@@ -2778,11 +2776,11 @@
 
     const menuMetaInfo = {
         'menu1': { title: '1. Upload Data', desc: 'Kelola dan impor file master transaksi dengan mudah.' },
-        'menu2': { title: '2. Voucher and Other Reports', desc: 'Rekapitulasi transaksi petugas harian siap verifikasi dan cetak (Otomatis Landscape).' },
-        'menuComparator': { title: '3. Compare TH2 & SR', desc: 'Perbandingan komparatif Epsilon vs TH2 dan Showroom (Otomatis Portrait).' },
-        'menuAdmin': { title: '4. Reports Category Voucher and other', desc: 'Laporan data kelas kendaraan yang sudah diverifikasi (Otomatis Landscape).' },
-        'menuQty': { title: '5. Voucher Monthly Report', desc: 'Rekapitulasi bulanan kuantitas MOBILBKEL, MOBILVCMAN, MOBILVBENG dan Grand Total (Otomatis Landscape).' },
-        'menuCompReport': { title: '6. Reports Compare & Analytics', desc: 'Riwayat terverifikasi & Dashboard Analitik hasil comparator (Otomatis Portrait).' },
+        'menu2': { title: '2. Voucher and Other Reports', desc: 'Rekapitulasi transaksi petugas harian siap verifikasi dan cetak.' },
+        'menuComparator': { title: '3. Compare TH2 & SR', desc: 'Perbandingan komparatif Epsilon vs TH2 dan Showroom.' },
+        'menuAdmin': { title: '4. Reports Category Voucher and other', desc: 'Laporan data kelas kendaraan yang sudah diverifikasi.' },
+        'menuQty': { title: '5. Voucher Monthly Report', desc: 'Rekapitulasi bulanan kuantitas MOBILBKEL, MOBILVCMAN, MOBILVBENG dan Grand Total.' },
+        'menuCompReport': { title: '6. Reports Compare & Analytics', desc: 'Riwayat terverifikasi & Dashboard Analitik hasil comparator.' },
         'menuReportNotes': { title: '7. Report Notes', desc: 'Rekap catatan harian Menu 4 dan catatan khusus per kendaraan/nopol.' },
         'menu5': { title: '8. Tools & Audit Log', desc: 'Pengaturan audit log, kompresi data, manajemen petugas, dan backup.' },
         'menuAbout': { title: '9. About', desc: 'Informasi sistem dan panduan aplikasi.' }
@@ -2817,24 +2815,26 @@
         if (menuId === 'menu5') { renderTabelUser(); renderLogAktivitas(); renderAboutContent(); updateToolsUnverUserDropdown(); hitungBebanStorageBrowser(); }
     }
 
-    // === EKSEKUSI CETAK DENGAN ORIENTASI OTOMATIS BERDASARKAN SPESIFIKASI MENU ===
     function triggerCetakMenu(menuTarget) {
         const bodyTag = document.getElementById('mainBodyTag');
-        bodyTag.classList.remove('print-landscape', 'print-portrait'); 
+        bodyTag.className = ''; 
 
-        // Menu 2, Menu 4, dan Menu 5 -> Letter Landscape (Mendatar)
-        // Menu 3 dan Menu 6 -> Letter Portrait (Tegak)
-        if (menuTarget === 'menu2' || menuTarget === 'menu4' || menuTarget === 'menu5') {
-            bodyTag.classList.add('print-landscape');
-        } else if (menuTarget.startsWith('menu3') || menuTarget === 'menuComparator' || menuTarget === 'menu6') {
-            bodyTag.classList.add('print-portrait');
-        } else {
-            bodyTag.classList.add('print-portrait');
+        let printStyle = document.getElementById('dynamicPrintStyle');
+        if (!printStyle) {
+            printStyle = document.createElement('style');
+            printStyle.id = 'dynamicPrintStyle';
+            document.head.appendChild(printStyle);
         }
 
-        setTimeout(() => {
-            window.print();
-        }, 150);
+        if (menuTarget === 'menu2' || menuTarget === 'menu4') {
+            bodyTag.classList.add('print-menu-2-4');
+            printStyle.innerHTML = '@media print { @page { size: letter landscape; margin: 4mm; } }';
+        } else if (menuTarget.startsWith('menu3') || menuTarget === 'menu6') {
+            bodyTag.classList.add('print-menu-3-6');
+            printStyle.innerHTML = '@media print { @page { size: letter portrait; margin: 4mm; } }';
+        }
+
+        window.print();
     }
 
     function switchComparatorTab(tabKey) {
@@ -3359,7 +3359,7 @@
                     document.getElementById('epsTh2EpsDisplay').innerText = "Selesai";
                     document.getElementById('epsTh2Th2Display').innerText = "Selesai";
                     hideLoading();
-                    showToast("Comparator Epsilon vs TH2 berhasil dipproses.", "success");
+                    showToast("Comparator Epsilon vs TH2 berhasil diproses.", "success");
                     catatLogAktivitas("Memproses Comparator Epsilon vs TH2 (File Baru)");
                     gantiMenu('menuComparator', document.querySelectorAll('.nav-item')[2]);
                     switchComparatorTab('th2');
@@ -3372,7 +3372,7 @@
                     document.getElementById('epsSrEpsDisplay').innerText = "Selesai";
                     document.getElementById('epsSrSrDisplay').innerText = "Selesai";
                     hideLoading();
-                    showToast("Comparator Showroom berhasil dipproses.", "success");
+                    showToast("Comparator Showroom berhasil diproses.", "success");
                     catatLogAktivitas("Memproses Comparator Showroom (File Baru)");
                     gantiMenu('menuComparator', document.querySelectorAll('.nav-item')[2]);
                     switchComparatorTab('sr');
@@ -3386,17 +3386,6 @@
             }
         };
         reader.readAsArrayBuffer(file);
-    }
-
-    function parseTh2User(rawVal) {
-        if (!rawVal || rawVal === "-") return "-";
-        let str = String(rawVal).trim();
-        let match = str.match(/(PP\d+)/i);
-        if (match) {
-            let code = match[1].toUpperCase();
-            return getNamaPetugas(code);
-        }
-        return str;
     }
 
     function prosesDataComparatorTh2(epsRows, th2Rows) {
@@ -3504,16 +3493,14 @@
         document.getElementById('comparatorSrResultCard').style.display = 'block';
         document.getElementById('comparatorTh2ResultCard').style.display = 'none';
 
-        let epsUserMap = {};
-        let epsItemMap = {};
+        let epsMap = {};
         let pp101List = [];
         let uniqueUserCodesSet = new Set();
 
         rawShowroomEpsData.forEach(item => {
             if (item.userKeluar === "PP101") pp101List.push(item);
             else {
-                epsUserMap[item.noPolisi] = item.userKeluar;
-                epsItemMap[item.noPolisi] = item;
+                epsMap[item.noPolisi] = item.userKeluar;
                 if (item.userKeluar && item.userKeluar !== "-") uniqueUserCodesSet.add(item.userKeluar);
             }
         });
@@ -3537,7 +3524,7 @@
         });
 
         let pp101NopolsSet = new Set(pp101List.map(i => i.noPolisi));
-        let masterNopolsSet = new Set(Object.keys(epsUserMap));
+        let masterNopolsSet = new Set(Object.keys(epsMap));
         rawShowroomSrcData.forEach(item => {
             let plat = item.platBaru.trim();
             let pStr = (item.pelanggan || "").toLowerCase(), lStr = (item.lantai || "").toLowerCase();
@@ -3549,26 +3536,15 @@
         let resultRows = [];
         masterNopols.forEach(nopolKey => {
             let match = showroomMapByPlatBaru[nopolKey];
-            let inEps = epsUserMap.hasOwnProperty(nopolKey), inSr = !!match;
-            let epsItem = epsItemMap[nopolKey];
-            let waktuKeluar = epsItem ? epsItem.waktuKeluar : "-";
-            
+            let inEps = epsMap.hasOwnProperty(nopolKey), inSr = !!match;
             resultRows.push({
                 nopolEpsilon: inEps ? nopolKey : "",
                 platBaru: inSr ? match.platBaru : "",
                 lantai: inSr ? match.lantai : "-",
-                user: getNamaPetugas(epsUserMap[nopolKey] || "-"),
+                user: getNamaPetugas(epsMap[nopolKey] || "-"),
                 keteranganAlasan: "",
-                status: (inEps && inSr && nopolKey === match.platBaru) ? "sesuai" : "periksa kembali",
-                waktuKeluar: waktuKeluar
+                status: (inEps && inSr && nopolKey === match.platBaru) ? "sesuai" : "periksa kembali"
             });
-        });
-
-        resultRows.sort((a, b) => {
-            let aPeriksa = (a.status || "").toLowerCase().includes("periksa") ? 1 : 0;
-            let bPeriksa = (b.status || "").toLowerCase().includes("periksa") ? 1 : 0;
-            if (aPeriksa !== bPeriksa) return aPeriksa - bPeriksa;
-            return parseDateTimeForSorting(b.waktuKeluar) - parseDateTimeForSorting(a.waktuKeluar);
         });
 
         activeSrComparatorResult = {
@@ -3585,6 +3561,81 @@
         document.getElementById('printTitleCompReport').innerText = `Laporan Comparator Showroom (SR) - Petugas: ${namaUserSrStr} - Tgl: ${extractedDate}`;
 
         renderTabelShowroomMain();
+
+        const secPengosongan = document.getElementById('sectionShowroomPengosonganContainer');
+        const tbodyKosong = document.getElementById('showroomPengosonganTableBody');
+        if (pengosonganList.length > 0) {
+            secPengosongan.style.display = 'block';
+            tbodyKosong.innerHTML = '';
+            pengosonganList.forEach((item, idx) => {
+                let isAdded = rawShowroomEpsData.some(e => e.noPolisi === item.platBaru || e.noPolisi === item.platLama);
+                tbodyKosong.innerHTML += `
+                    <tr>
+                        <td style="text-align: center;">${idx + 1}</td>
+                        <td><b>${item.platLama}</b></td>
+                        <td><b>${item.platBaru}</b></td>
+                        <td>${item.lantai}</td>
+                        <td style="text-align: center; display: flex; gap: 4px; justify-content: center;">
+                            ${isAdded ? '<span style="font-size: 11px; color: var(--success); font-weight: 600;">✓ Di Pembanding</span>' : 
+                            `<button class="btn-table-success" onclick="tambahShowroomKePembandingManual('${item.platLama}', '${item.platBaru}')">+ Tambah</button>
+                             <button class="btn-table-success" style="background-color: #8b5cf6; color: white;" onclick="tambahShowroomAbriManual('${item.platLama}', '${item.platBaru}')">Abri</button>`}
+                        </td>
+                    </tr>
+                `;
+            });
+        } else { secPengosongan.style.display = 'none'; }
+
+        const secPp101 = document.getElementById('sectionShowroomPp101Container');
+        const tbodyPp101 = document.getElementById('showroomPp101TableBody');
+        if (pp101List.length > 0) {
+            secPp101.style.display = 'block';
+            tbodyPp101.innerHTML = '';
+            pp101List.forEach((item, idx) => {
+                let matchSr = showroomMapByPlatBaru[item.noPolisi] || rawShowroomSrcData.find(s => s.platBaru === item.noPolisi || s.platLama === item.noPolisi);
+                let srPlat = matchSr ? `<b>${matchSr.platBaru}</b>` : '<span style="color:var(--danger); font-weight:600;">x periksa lagi</span>';
+                let srLantai = matchSr ? matchSr.lantai : '-';
+
+                tbodyPp101.innerHTML += `
+                    <tr>
+                        <td style="text-align: center;">${idx + 1}</td>
+                        <td><b>${item.noPolisi}</b></td>
+                        <td>${srPlat}</td>
+                        <td>${srLantai}</td>
+                        <td>${item.waktuKeluar}</td>
+                        <td style="text-align: center;">
+                            <select class="pp101-action-select" data-nopol="${item.noPolisi}" style="padding: 4px 8px; font-size: 11px; border-radius: 4px; border: 1px solid var(--border);">
+                                <option value="">-- Blank (Kosong) --</option>
+                                <option value="Gudang">Gudang</option>
+                            </select>
+                        </td>
+                    </tr>
+                `;
+            });
+        } else { secPp101.style.display = 'none'; }
+
+        const secGudangSr = document.getElementById('sectionShowroomGudangContainer');
+        const tbodyGudangSr = document.getElementById('showroomGudangTableBody');
+        if (showroomGudangList.length > 0) {
+            secGudangSr.style.display = 'block';
+            tbodyGudangSr.innerHTML = '';
+            let bursaSet = new Set(rawShowroomBursaData.map(i => i.noPolisi));
+
+            showroomGudangList.forEach((item, idx) => {
+                let foundInBursa = bursaSet.has(item.platBaru) || bursaSet.has(item.platLama);
+                let badgeStatus = foundInBursa ? '<span style="color: var(--success); font-weight: bold; font-size: 14px;">✓ Sesuai (Bursa)</span>' : '<span style="color: var(--danger); font-weight: 600;">x Tidak Ada di Bursa</span>';
+
+                tbodyGudangSr.innerHTML += `
+                    <tr>
+                        <td style="text-align: center;">${idx + 1}</td>
+                        <td><b>${item.platBaru}</b></td>
+                        <td><b>${item.platLama}</b></td>
+                        <td>${item.lantai}</td>
+                        <td>${item.pelanggan || '-'}</td>
+                        <td style="text-align: center;">${badgeStatus}</td>
+                    </tr>
+                `;
+            });
+        } else { secGudangSr.style.display = 'none'; }
     }
 
     function renderTabelShowroomMain() {
@@ -3611,7 +3662,7 @@
                     <td>${row.lantai || '-'}</td>
                     <td><b>${row.user || '-'}</b></td>
                     <td id="sr_status_${idx}">${statusBadge}</td>
-                    <td>
+                    <td class="col-keterangan-print">
                         <input type="text" value="${ketVal}" data-index="${idx}" oninput="handleSrRowChange(${idx}, 'ket', this.value)" placeholder="Keterangan..." style="padding: 3px 6px; font-size: 11px; width: 130px; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); color: var(--text-main);">
                     </td>
                     <td style="text-align: center;" class="col-aksi-print">
@@ -3655,6 +3706,19 @@
         showToast("Baris dihapus.", "warning");
     }
 
+    function parseTh2User(textUser) {
+        if (!textUser) return "-";
+        let str = String(textUser).trim(), upper = str.toUpperCase();
+        for (let k of Object.keys(databaseUser)) {
+            if (upper.includes(k.toUpperCase())) return `${k} - ${databaseUser[k]}`;
+        }
+        if (upper.includes("TH2 /")) {
+            let parts = str.split('/');
+            if (parts.length >= 3) return parts.slice(2).join('/').trim();
+        }
+        return str;
+    }
+
     function jalankanComparatorTh2() {
         document.getElementById('comparatorTh2ResultCard').style.display = 'block';
         document.getElementById('comparatorSrResultCard').style.display = 'none';
@@ -3695,23 +3759,13 @@
         masterNopols.forEach(nopolKey => {
             let inEps = epsNopolMap.hasOwnProperty(nopolKey), match = th2MapByPlatBaru[nopolKey];
             let platTh2Val = match ? match.platBaru : "";
-            let waktuKeluar = inEps ? epsNopolMap[nopolKey].waktuKeluar : "-";
-            
             resultRows.push({
                 nopolEpsilon: inEps ? nopolKey : "",
                 platTh2: platTh2Val,
                 keteranganAlasan: "",
                 status: (inEps && platTh2Val && nopolKey === platTh2Val) ? "sesuai" : "periksa kembali",
-                keterangan: (inEps && platTh2Val && nopolKey === platTh2Val) ? "sesuai" : "",
-                waktuKeluar: waktuKeluar
+                keterangan: (inEps && platTh2Val && nopolKey === platTh2Val) ? "sesuai" : ""
             });
-        });
-
-        resultRows.sort((a, b) => {
-            let aPeriksa = (a.status || "").toLowerCase().includes("periksa") ? 1 : 0;
-            let bPeriksa = (b.status || "").toLowerCase().includes("periksa") ? 1 : 0;
-            if (aPeriksa !== bPeriksa) return aPeriksa - bPeriksa;
-            return parseDateTimeForSorting(b.waktuKeluar) - parseDateTimeForSorting(a.waktuKeluar);
         });
 
         activeTh2ComparatorResult = {
@@ -3741,7 +3795,7 @@
                         <td><b>${item.platLama}</b></td>
                         <td><span style="color:var(--warning); font-weight:600;">${item.keterangan || 'KOSONG'}</span></td>
                         <td><b>${item.platBaru}</b></td>
-                        <td style="text-align: center; display: flex; gap: 4px; justify-content: center;" class="col-aksi-print">
+                        <td style="text-align: center; display: flex; gap: 4px; justify-content: center;">
                             ${isAdded ? '<span style="font-size: 11px; color: var(--success); font-weight: 600;">✓ Di Pembanding</span>' : 
                             `<button class="btn-table-success" onclick="tambahTh2KePembandingManual('${item.platLama}', '${item.platBaru}')">+ Tambah</button>
                              <button class="btn-table-success" style="background-color: #8b5cf6; color: white;" onclick="tambahTh2AbriManual('${item.platLama}', '${item.platBaru}')">Abri</button>`}
@@ -3774,7 +3828,7 @@
                         <input type="text" value="${th2Val}" data-index="${idx}" oninput="handleTh2RowChange(${idx}, 'th2', this.value)" style="padding: 3px 6px; font-size: 11px; width: 130px; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); color: var(--text-main);">
                     </td>
                     <td id="th2_status_${idx}">${statusBadge}</td>
-                    <td>
+                    <td class="col-keterangan-print">
                         <input type="text" value="${ketVal}" data-index="${idx}" oninput="handleTh2RowChange(${idx}, 'ket', this.value)" placeholder="Keterangan..." style="padding: 3px 6px; font-size: 11px; width: 160px; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); color: var(--text-main);">
                     </td>
                     <td style="text-align: center;" class="col-aksi-print">
@@ -3838,6 +3892,28 @@
         document.getElementById('comparatorTh2ResultCard').style.display = 'block';
         showToast(`Plat ${platBaru} (ABRI) berhasil ditambahkan ke tabel comparator TH2.`, "success");
         catatLogAktivitas(`Manual Add TH2 Pengosongan ABRI: ${platBaru}`);
+    }
+
+    function tambahShowroomKePembandingManual(platLama, platBaru) {
+        if (!activeSrComparatorResult) {
+            activeSrComparatorResult = { id: `sr_manual_${Date.now()}`, date: new Date().toLocaleDateString('id-ID'), rawDate: new Date().toISOString().slice(0,10), rows: [] };
+        }
+        activeSrComparatorResult.rows.push({ nopolEpsilon: platBaru, platBaru: platBaru, lantai: "Showroom", user: "-", keteranganAlasan: "Manual", status: "sesuai", keterangan: "sesuai" });
+        renderTabelShowroomMain();
+        document.getElementById('comparatorSrResultCard').style.display = 'block';
+        showToast(`Plat ${platBaru} berhasil ditambahkan ke tabel comparator Showroom.`, "success");
+        catatLogAktivitas(`Manual Add Showroom Pengosongan: ${platBaru}`);
+    }
+
+    function tambahShowroomAbriManual(platLama, platBaru) {
+        if (!activeSrComparatorResult) {
+            activeSrComparatorResult = { id: `sr_manual_${Date.now()}`, date: new Date().toLocaleDateString('id-ID'), rawDate: new Date().toISOString().slice(0,10), rows: [] };
+        }
+        activeSrComparatorResult.rows.push({ nopolEpsilon: platBaru, platBaru: platBaru, lantai: "Showroom", user: "-", keteranganAlasan: "ABRI", status: "sesuai", keterangan: "sesuai" });
+        renderTabelShowroomMain();
+        document.getElementById('comparatorSrResultCard').style.display = 'block';
+        showToast(`Plat ${platBaru} (ABRI) berhasil ditambahkan ke tabel comparator Showroom.`, "success");
+        catatLogAktivitas(`Manual Add Showroom Pengosongan ABRI: ${platBaru}`);
     }
 
     function verifikasiLaporanAktif() {
@@ -3906,16 +3982,6 @@
         document.getElementById('compReportInputMonth').style.display = (mode === 'month') ? 'inline-block' : 'none';
         renderCompReport();
     }
-
-    const batasDataPerLoad = 50;
-    let limitDataMenu4 = batasDataPerLoad;
-    let limitDataMenu5 = batasDataPerLoad;
-    let limitDataMenu6 = batasDataPerLoad;
-
-    function loadMoreMenu4() { limitDataMenu4 += batasDataPerLoad; renderLaporanAdmin(); }
-    function loadMoreMenu5() { limitDataMenu5 += batasDataPerLoad; renderLaporanQuantity(); }
-    function loadMoreMenu6() { limitDataMenu6 += batasDataPerLoad; if (typeof renderCompReport === 'function') renderCompReport(); }
-    function resetLimitPagination() { limitDataMenu4 = batasDataPerLoad; limitDataMenu5 = batasDataPerLoad; limitDataMenu6 = batasDataPerLoad; }
 
     function renderCompReport() {
         document.getElementById('compReportResultCard').style.display = 'block';
@@ -4066,6 +4132,33 @@
             uBtn.onclick = () => pilihUser(c, uBtn);
             uCont.appendChild(uBtn);
         });
+    }
+
+    // Konfigurasi Pagination (Load More)
+    const batasDataPerLoad = 50;
+    let limitDataMenu4 = batasDataPerLoad;
+    let limitDataMenu5 = batasDataPerLoad;
+    let limitDataMenu6 = batasDataPerLoad;
+
+    function loadMoreMenu4() {
+        limitDataMenu4 += batasDataPerLoad;
+        renderLaporanAdmin();
+    }
+
+    function loadMoreMenu5() {
+        limitDataMenu5 += batasDataPerLoad;
+        renderLaporanQuantity();
+    }
+
+    function loadMoreMenu6() {
+        limitDataMenu6 += batasDataPerLoad;
+        if (typeof renderCompReport === 'function') renderCompReport();
+    }
+
+    function resetLimitPagination() {
+        limitDataMenu4 = batasDataPerLoad;
+        limitDataMenu5 = batasDataPerLoad;
+        limitDataMenu6 = batasDataPerLoad;
     }
 
     function pilihUser(code, btnEl) {
@@ -4219,7 +4312,7 @@
         else if (mode === 'month' && monthVal) data = data.filter(i => i.rawDate.startsWith(monthVal));
         if (query) data = data.filter(i => i.noPolisi.toLowerCase().includes(query));
 
-        data.sort((a, b) => parseDateTimeForSorting(b.waktuKeluar) - parseDateTimeForSorting(a.waktuKeluar));
+        data.sort((a,b) => parseDateTimeForSorting(b.waktuKeluar) - parseDateTimeForSorting(a.waktuKeluar));
 
         let isKhusus = (kelas === "MOBILMORIS" || kelas === "MOBILEVENT");
         let grandTotalJumlah = 0;
@@ -4332,11 +4425,13 @@
         renderLaporanQuantity();
     }
 
+    // === LOGIKA MENU 5: Voucher Monthly Report (MOBILBKEL + MOBILVCMAN + MOBILVBENG) ===
     function renderLaporanQuantity() {
         let mode = document.getElementById('qtyFilterMode').value;
         let startMonth = document.getElementById('qtyStartMonth').value;
         let endMonth = document.getElementById('qtyEndMonth').value;
 
+        // Ambil data terverifikasi khusus MOBILBKEL, MOBILVCMAN, MOBILVBENG
         let targetClasses = ["MOBILBKEL", "MOBILVCMAN", "MOBILVBENG"];
         let data = globalDataTransaksi.filter(i => targetClasses.includes(i.jenisKendaraan) && verifiedTransactions.includes(i.id));
 
@@ -4348,10 +4443,11 @@
             });
         }
 
+        // Kelompokkan per Bulan (format YYYY-MM)
         let monthlyMap = {};
         data.forEach(i => {
             if (!i.rawDate) return;
-            let mKey = i.rawDate.slice(0, 7);
+            let mKey = i.rawDate.slice(0, 7); // YYYY-MM
             if (!monthlyMap[mKey]) {
                 monthlyMap[mKey] = { MOBILBKEL: 0, MOBILVCMAN: 0, MOBILVBENG: 0 };
             }
@@ -4361,7 +4457,7 @@
             }
         });
 
-        let sortedMonths = Object.keys(monthlyMap).sort((a, b) => b.localeCompare(a));
+        let sortedMonths = Object.keys(monthlyMap).sort((a, b) => b.localeCompare(a)); // Urutkan bulan terbaru ke terlama
 
         let totalBkelAll = 0;
         let totalVcmanAll = 0;
@@ -4393,8 +4489,8 @@
             let vcman = monthlyMap[m].MOBILVCMAN;
             let vbeng = monthlyMap[m].MOBILVBENG;
             let rowTotal = bkel + vcman + vbeng;
-            let rowId = `m5-${idx}`;
 
+            // Format label bulan dari YYYY-MM menjadi lebih readable misal: Maret 2026
             let [y, mm] = m.split('-');
             let dateObj = new Date(y, mm - 1, 1);
             let monthName = dateObj.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
@@ -4402,21 +4498,11 @@
             tbody.innerHTML += `
                 <tr>
                     <td style="text-align: center;">${idx + 1}</td>
-                    <td>
-                        <strong>${monthName} (${m})</strong>
-                        <button class="btn-secondary no-print" style="font-size: 11px; padding: 2px 8px; margin-left: 8px;" onclick="toggleDetailHariMenu5('${m}', '${rowId}')">
-                            🔍 Detail Harian
-                        </button>
-                    </td>
+                    <td><b>${monthName} (${m})</b></td>
                     <td class="text-right">${bkel}</td>
                     <td class="text-right">${vcman}</td>
                     <td class="text-right">${vbeng}</td>
                     <td class="text-right"><b>${rowTotal}</b></td>
-                </tr>
-                <tr id="detail-row-${rowId}" style="display: none;">
-                    <td colspan="6" style="padding: 0 10px 10px 10px; background: var(--bg-main);">
-                        <div id="detail-container-${rowId}"></div>
-                    </td>
                 </tr>
             `;
         });
@@ -4429,128 +4515,11 @@
         renderVoucherMonthlyChart(monthlyMap, sortedMonths);
     }
 
-    function renderDetailQuantityPerHari(targetMonth, containerId) {
-        let container = document.getElementById(containerId);
-        if (!container) return;
-
-        let relevantClasses = ["MOBILBKEL", "MOBILVCMAN", "MOBILVBENG"];
-        let dailyData = {};
-
-        verifiedTransactions.forEach(idTrans => {
-            let item = globalDataTransaksi.find(tr => tr.id === idTrans);
-            if (!item) return;
-
-            let itemClass = String(item.jenisKendaraan || "").toUpperCase();
-            if (!relevantClasses.includes(itemClass)) return;
-
-            let rawDate = item.rawDate || "";
-            if (!rawDate && item.tanggal) {
-                let p = item.tanggal.split('/');
-                if (p.length === 3) rawDate = `${p[2]}-${p[1]}-${p[0]}`;
-            }
-            if (!rawDate) return;
-
-            let yearMonth = rawDate.slice(0, 7);
-            let dayDate = rawDate;
-
-            if (yearMonth === targetMonth) {
-                if (!dailyData[dayDate]) {
-                    dailyData[dayDate] = { MOBILBKEL: 0, MOBILVCMAN: 0, MOBILVBENG: 0, total: 0 };
-                }
-                let qty = hitungJumlahDinamis(item.jenisKendaraan, item.lamaParkir);
-                dailyData[dayDate][itemClass] = (dailyData[dayDate][itemClass] || 0) + qty;
-                dailyData[dayDate].total += qty;
-            }
-        });
-
-        let sortedDays = Object.keys(dailyData).sort();
-
-        if (sortedDays.length === 0) {
-            container.innerHTML = `
-                <div style="padding: 12px; text-align: center; color: var(--text-muted); font-style: italic;">
-                    Tidak ada detail data harian terverifikasi untuk periode ${targetMonth}.
-                </div>`;
-            return;
-        }
-
-        let html = `
-            <div style="margin-top: 10px; padding: 12px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm);">
-                <h4 style="margin: 0 0 10px 0; font-size: 13px; color: var(--primary);">
-                    📅 Detail Kuantitas Harian Periode: <strong>${targetMonth}</strong>
-                </h4>
-                <div class="table-responsive" style="max-height: 280px; overflow-y: auto;">
-                    <table>
-                        <thead>
-                            <tr style="background: var(--bg-main);">
-                                <th style="width: 40px; text-align: center;">No</th>
-                                <th>Tanggal Harian</th>
-                                <th class="text-right">MOBILBKEL</th>
-                                <th class="text-right">MOBILVCMAN</th>
-                                <th class="text-right">MOBILVBENG</th>
-                                <th class="text-right">Total Harian</th>
-                            </tr>
-                        </thead>
-                        <tbody>`;
-
-        let grandBkel = 0, grandVcman = 0, grandVbeng = 0, grandTotal = 0;
-
-        sortedDays.forEach((day, index) => {
-            let row = dailyData[day];
-            grandBkel += row.MOBILBKEL;
-            grandVcman += row.MOBILVCMAN;
-            grandVbeng += row.MOBILVBENG;
-            grandTotal += row.total;
-
-            let parts = day.split('-');
-            let formattedDayStr = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : day;
-
-            html += `
-                <tr>
-                    <td style="text-align: center;">${index + 1}</td>
-                    <td><strong>${formattedDayStr}</strong> (${day})</td>
-                    <td class="text-right">${row.MOBILBKEL || 0}</td>
-                    <td class="text-right">${row.MOBILVCMAN || 0}</td>
-                    <td class="text-right">${row.MOBILVBENG || 0}</td>
-                    <td class="text-right" style="font-weight: 600; color: var(--primary);">${row.total}</td>
-                </tr>`;
-        });
-
-        html += `
-                        </tbody>
-                        <tfoot>
-                            <tr style="font-weight: bold; background: var(--bg-main);">
-                                <td colspan="2" style="text-align: right; padding-right: 12px;">TOTAL BULANAN:</td>
-                                <td class="text-right">${grandBkel}</td>
-                                <td class="text-right">${grandVcman}</td>
-                                <td class="text-right">${grandVbeng}</td>
-                                <td class="text-right" style="color: var(--success);">${grandTotal}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            `;
-
-        container.innerHTML = html;
-    }
-
-    function toggleDetailHariMenu5(monthStr, rowId) {
-        let detailRow = document.getElementById(`detail-row-${rowId}`);
-        let container = document.getElementById(`detail-container-${rowId}`);
-
-        if (!detailRow || !container) return;
-
-        if (detailRow.style.display === "none" || detailRow.style.display === "") {
-            detailRow.style.display = "table-row";
-            renderDetailQuantityPerHari(monthStr, `detail-container-${rowId}`);
-        } else {
-            detailRow.style.display = "none";
-        }
-    }
-
     function renderVoucherMonthlyChart(monthlyMap, sortedMonths) {
         const ctx = document.getElementById('voucherTrendChart');
         if (!ctx) return;
 
+        // Urutkan secara kronologis (ascending) untuk grafik dari kiri ke kanan
         let chartMonths = [...sortedMonths].reverse();
 
         let dataBkel = chartMonths.map(m => monthlyMap[m].MOBILBKEL);
@@ -4631,6 +4600,7 @@
         showToast("Export Excel Voucher Monthly Report berhasil.", "success");
     }
 
+    // === LOGIKA MENU 7: Report Notes ===
     function renderReportNotesMenu() {
         renderCatatanHarianTable();
         renderCatatanPerson();
@@ -4649,7 +4619,7 @@
 
         dates.forEach((d, idx) => {
             let noteObj = catatanTanggalAdmin[d];
-            tbody.innerHTML += `
+            tbody.innerHTML = `
                 <tr>
                     <td style="text-align: center;">${idx + 1}</td>
                     <td><b>${d}</b></td>
@@ -4780,6 +4750,11 @@
         XLSX.writeFile(wb, `Rekap_Catatan_Person_${new Date().toISOString().slice(0,10)}.xlsx`);
         showToast("Export Excel catatan person berhasil.", "success");
     }
+
+    // Inisialisasi awal saat dokumen dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log("WMD Dashboard v.04 berhasil dimuat.");
+    });
 </script>
 </body>
 </html>
