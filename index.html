@@ -2271,11 +2271,12 @@
             hideLoading();
             updateCloudStatusUI('offline', 'Koneksi Timeout');
             showToast("Proses penarikan data cloud terlalu lama. Periksa koneksi internet Anda.", "danger");
-        }, 45000);
+        }, 8000);
 
         cloudDb.orderByKey().limitToLast(50).once('value').then((snapshot) => {
             if (timeoutTriggered) return;
             clearTimeout(timer);
+            hideLoading();
 
             const rawData = snapshot.val();
             let nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -2293,14 +2294,12 @@
                 }
                 hitungBebanStorageBrowser();
                 updateCloudStatusUI('connected', `Disinkronkan ${nowTime}`);
-                hideLoading();
                 showToast(`Berhasil menarik & menggabungkan data secara pintar dari Cloud! Total: ${globalDataTransaksi.length} transaksi.`, "success");
                 catatLogAktivitas("Penarikan incremental data cloud dari Firebase berhasil");
-                return;
+            } else {
+                updateCloudStatusUI('connected', `Cloud Kosong (${nowTime})`);
+                showToast("Tidak ada data baru di server cloud.", "warning");
             }
-
-            hideLoading();
-            showToast("Tidak ditemukan riwayat data transaksi di Cloud Server.", "warning");
         }).catch((error) => {
             if (timeoutTriggered) return;
             clearTimeout(timer);
