@@ -9,7 +9,7 @@
     <!-- SheetJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <!-- Chart.js -->
-    <sc@mediaript src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Firebase SDK Compat -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -798,132 +798,165 @@
         }
 
         /* ==========================================================================
-           PENGATURAN CETAK (PRINT) ABSOLUT 1 HALAMAN (FONT LEBIH BESAR & TEGAS)
+           PENGATURAN CETAK (PRINT) MULTI-HALAMAN NATURAL & TTD MENGIKUTI AKHIR DATA
            ========================================================================== */
         @media print {
-            @page {
-                margin: 4mm;
+            /* 1. Sembunyikan elemen non-cetak secara total */
+            aside, nav, .sidebar, button, .btn, .global-search-box, 
+            .header-tools-group, .page-header-bar, #menu2Card, #menu1Card, 
+            #menuComparatorCard, .filter-admin-box, .filter-qty-box, 
+            .filter-comp-report-box, .comparator-tab-container, .info-cetak-note, 
+            #toastContainer, .loading-overlay, .custom-modal-overlay, 
+            .search-container, .no-print {
+                display: none !important;
             }
+
+            /* 2. Set margin kertas standar */
+            @page {
+                margin: 10mm !important;
+            }
+
+            /* 3. Izinkan halaman mengalir secara normal (Multi-halaman aktif) */
             html, body {
                 width: 100% !important;
                 height: auto !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: #fff !important;
-                font-size: 10px !important;
+                background: #ffffff !important;
+                color: #000000 !important;
+                overflow: visible !important;
             }
-            #toastContainer, .sidebar, .card-header, .filter-admin-box, .filter-qty-box, .filter-comp-report-box, button, .info-cetak-note, .search-container, .page-header-bar, #menu1Card, #menu5Card, #menuAboutCard, #menu2Card, #menuComparatorCard, .card > .flex-between > h2, #sectionGudangContainer, #sectionShowroomGudangContainer, #sectionPengosonganContainer, #sectionShowroomPengosonganContainer, #sectionShowroomPp101Container, #sectionGantiNamaContainer, .comparator-tab-container, .custom-modal-overlay, .loading-overlay, .btn-tambah-catatan-admin, .analytics-grid {
-                display: none !important;
-            }
+
             .main-wrapper {
                 padding: 0 !important;
                 margin: 0 !important;
+                width: 100% !important;
                 height: auto !important;
                 overflow: visible !important;
+            }
+
+            .menu-content {
+                display: none !important;
+            }
+
+            .menu-content.active {
+                display: block !important;
                 width: 100% !important;
             }
-            .menu-content:not(.active) { display: none !important; }
-            .menu-content.active { display: block !important; }
-            .card {
+
+            .menu-content.active .card {
+                display: block !important;
                 border: none !important;
                 box-shadow: none !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                width: 100% !important;
-                background: #fff !important;
-                color: #000 !important;
-            }
-            
-            .table-responsive {
-                border: none !important;
-                max-height: none !important;
-                overflow: visible !important;
-                width: 100% !important;
-                margin-bottom: 2px !important;
-            }
-            table {
-                border-collapse: collapse !important;
-                margin-top: 1px !important;
-                width: 100% !important;
-                background: #fff !important;
-                table-layout: auto !important;
-            }
-            tr {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            th, td {
-                border: 0.5px solid #000 !important;
-                color: #000 !important;
-                padding: 2px 4px !important;
-                font-size: 10px !important;  
-                white-space: nowrap !important;
-                line-height: 1.2 !important;
-                background: #fff !important;
-            }
-            th {
-                background-color: #e2e8f0 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                font-weight: 700 !important;
-                position: static !important;
-            }
-            tfoot tr td {
-                border: 0.5px solid #000 !important;
-                font-weight: bold !important;
-                background-color: #f1f5f9 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .report-header-info {
-                border: 0.5px solid #000 !important;
-                background: #fff !important;
-                padding: 3px 6px !important;
-                font-size: 10px !important;
-                margin-bottom: 3px !important;
-                color: #000 !important;
-            }
-            .catatan-box {
-                border: 0.5px solid #000 !important;
-                background: #fff !important;
-                color: #000 !important;
-                display: flex !important;
+                background: #ffffff !important;
             }
 
-            .col-aksi-print { display: none !important; }
-            td.col-keterangan-print input { display: none !important; }
-            td.col-keterangan-print { color: transparent !important; }
+            /* 4. Hapus skala paksa (scale) */
+            #printArea, #printComparatorTh2Area, #printComparatorSrArea, #printAdminArea, #printQtyArea, #printCompReportArea {
+                transform: none !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
 
+            /* 5. Pengaturan Judul & Header */
             .print-only-title {
                 display: block !important;
-                font-size: 12px !important;
-                font-weight: 700 !important;
-                margin-bottom: 2px !important;
-                color: #0f172a !important;
-                text-transform: uppercase;
+                font-size: 12pt !important;
+                font-weight: bold !important;
+                color: #000 !important;
             }
 
             .print-logo-img {
-                width: 100px !important;
-                height: 100px !important;
-                object-fit: contain !important;
-                display: block !important;
+                width: 45px !important;
+                height: 45px !important;
             }
 
+            .report-header-info {
+                padding: 6px 10mm !important;
+                font-size: 9pt !important;
+                margin-bottom: 8px !important;
+                background: none !important;
+                border: 1px solid #666 !important;
+            }
+
+            /* 6. Pengaturan Tabel & Baris */
+            .table-responsive {
+                max-height: none !important;
+                overflow: visible !important;
+                border: none !important;
+                margin-bottom: 10px !important;
+            }
+
+            table {
+                width: 100% !important;
+                font-size: 9.5pt !important;
+                border-collapse: collapse !important;
+            }
+
+            tr {
+                page-break-inside: avoid !important;
+            }
+
+            th {
+                display: table-header-group !important;
+                background-color: #e5e5e5 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            th, td {
+                color: #000000 !important;
+                padding: 4px 6px !important;
+                border: 1px solid #333 !important;
+                line-height: 1.2 !important;
+            }
+
+            /* 7. AREA TANDA TANGAN MENGIKUTI AKHIR DATA SECARA NATURAL */
             .print-signature-section {
                 display: flex !important;
-                justify-content: space-between;
-                margin-top: 20px;
-                padding: 0 30px;
-                page-break-inside: avoid;
+                justify-content: space-between !important;
+                margin-top: 20px !important;
+                font-size: 9pt !important;
+                position: relative !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
-            .sig-box {
-                text-align: center;
-                font-size: 10px;
-                font-weight: 600;
-                color: #000;
+
+            .sig-space {
+                height: 35px !important;
             }
-            .sig-space { height: 40px; }
+
+            .col-aksi-print {
+                display: none !important;
+            }
+        }
+
+        /* Orientasi Kertas Per Menu */
+        @media print {
+            body.print-landscape {
+                size: letter landscape;
+            }
+            @page landscape-page {
+                size: letter landscape;
+                margin: 10mm;
+            }
+            body.print-landscape {
+                page: landscape-page;
+            }
+
+            body.print-portrait {
+                size: letter portrait;
+            }
+            @page portrait-page {
+                size: letter portrait;
+                margin: 10mm;
+            }
+            body.print-portrait {
+                page: portrait-page;
+            }
         }
     </style>
 </head>
